@@ -13,7 +13,7 @@
               <div class="flex items-center mt-5 justify-evenly">
                   {{-- <img src="{{ asset('images/logo/functional_foods_logo_only.png') }}" class="h-auto w-14" /> --}}
                   <div class="pl-2" >
-                      <p class="text-xl">UIC iClearance System</p>
+                      <p class="text-xl">TraMaSys v.1</p>
                   </div>
               </div>
           </div>
@@ -86,11 +86,11 @@
   
               @endif --}}
   
-              <x-mary-menu-separator />
+              {{-- <x-mary-menu-separator />
               <x-mary-menu-item title="Request Access Permission" icon="o-home" link="/request-access" class="py-4" />
   
               <x-mary-menu-separator />
-              <x-mary-menu-item title="FAQ" icon="o-home" link="/faq" class="py-4" />
+              <x-mary-menu-item title="FAQ" icon="o-home" link="/faq" class="py-4" /> --}}
   
               {{-- @if(auth()->user()->getRoleAttribute()->role_id == 2)
                    <x-mary-menu-item title="Food Substantiation" icon="o-home" link="/contributor-substantiation" class="py-4" />

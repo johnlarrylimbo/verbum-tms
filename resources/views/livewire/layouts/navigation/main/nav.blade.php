@@ -7,7 +7,7 @@
           </label>
 
           <!--- Brand --->
-          <div>Transaction Management System</div>
+          <div>TraMaSys v.1</div>
 
       </x-slot:brand>
 
