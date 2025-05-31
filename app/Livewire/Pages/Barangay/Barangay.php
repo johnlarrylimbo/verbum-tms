@@ -24,17 +24,13 @@ class Barangay extends Component
 	use WithPagination;
 	use Toast;
 
+  #protected variables
 	protected $barangay_service;
 
-	public bool $addAccessPermissionRequestModal = false;
-	public bool $editAccessPermissionRequestModal = false;
-	public bool $deleteAccessPermissionRequestModal = false;
+  #public variables
+  public $search;
 
-	public $access_permission_request_id;
-
-	public $clearance_area_id;
-
-  public $edit_clearance_area_id;	
+  #modals
 
 	public function boot(
 		BarangayService $barangay_service,
@@ -43,10 +39,22 @@ class Barangay extends Component
 		$this->barangay_service = $barangay_service;
 	}
 
+  #[Computed]
+	// public function loadRecords
+	public function barangay_lst(){
+    if(!$this->search){
+      $barangay_lst = $this->barangay_service->loadBarangayLst()->paginate(15);
+		  return $barangay_lst;
+    }else{
+      $barangay_lst = $this->barangay_service->loadBarangayLstByKeyword($this->search)->paginate(15);
+		  return $barangay_lst;
+    }
+	}
+
 
 	public function mount(){
 		// Initialize form fields
-    $this->clearance_area_id = 0;
+    // $this->clearance_area_id = 0;
 	}
 
 

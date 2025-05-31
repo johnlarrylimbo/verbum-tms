@@ -5,33 +5,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'TraMaSys v.1') }}</title>
+        <title>{{ config('app.name', 'EcclesiaFlow v.1') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+				<!-- Custom CSS -->
+        <link rel="stylesheet" href="{{asset('/assets/css/custom.css')}}">
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        {{-- <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body class="min-h-screen font-sans antialiased bg-base-200">
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+			{{-- NAVBAR mobile only --}}
+			<x-mary-nav sticky class="lg:hidden">
+        <x-slot:brand>
+            <div class="ml-5 pt-5">
+							<p class="text-xl"><img 
+                    class="w-24 md:w-36 lg:w-40 h-auto" 
+                    src="{{ asset('images/eclessia_flow_logo.png') }}" 
+                    alt="Ecclesia Flow" 
+                /></p>
+						</div>
+        </x-slot:brand>
+        <x-slot:actions>
+            <label for="main-drawer" class="lg:hidden mr-3" style="list-style: none;">
+								<x-mary-menu-item  icon="o-queue-list" class="py-4" />
+            </label>
+        </x-slot:actions>
+    	</x-mary-nav>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div> --}}
+        <x-mary-toast />
 
         <x-mary-main class="w-full mx-auto max-w-screen-2xl">
 
@@ -44,7 +50,6 @@
             </x-slot:content>
 
         </x-mary-main>
-
 
     </body>
 </html>
