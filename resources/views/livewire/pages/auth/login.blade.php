@@ -29,102 +29,72 @@ new #[Layout('layouts.guest')] class extends Component
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="grid min-h-screen lg:grid-cols-2">
-        <div class="flex flex-col items-center justify-center bg-pff-primary mobile-tablet:hidden">
-            <div>
-                {{-- <a href="/" wire:navigate> --}}
-                    <img class="login-logo"
-                        src="{{ asset('images/logo/uic-logo.png') }}"
-                        alt="Functional Foods Logo"
-                    >
-                {{-- </a> --}}
+    <div class="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+        <div class="w-full max-w-md">
+
+            <!-- Logo Centered at Top -->
+            <div class="flex justify-center mb-6">
+                <img 
+                    class="w-24 md:w-36 lg:w-40 h-auto" 
+                    src="{{ asset('images/eclessia_flow_logo.png') }}" 
+                    alt="Ecclesia Flow" 
+                />
             </div>
-        </div>
-        <div class="flex items-center justify-center bg-white mobile-tablet:flex-col">
-            {{-- <div class="flex flex-col items-center justify-center mobile-tablet:visible lg:hidden">
-                <a href="/" wire:navigate>
-                    <img class="w-auto h-40"
-                        src="{{ asset('images/logo/functional_foods_logo_v1.png') }}"
-                        alt="Functional Foods Logo"
-                    >
-                </a>
-            </div> --}}
-            <div class="w-full max-w-md">
-                <!-- Session Status -->
-                <x-auth-session-status class="mb-4" :status="session('status')" />
 
+            <!-- Welcome Text -->
+            <div class="mb-6 text-center">
+                {{-- <h1 class="text-3xl font-bold text-gray-900">Welcome to EcclesiaFlow!</h1> --}}
+                <h1 class="text-3xl font-bold text-gray-900" style="margin-bottom: 15px !important;">[ Beta Version 2025 ]</h1>
+                <p class="text-gray-600">To help protect your personal information, please log in to your account.</p>
+            </div>
 
-                <div class="flex flex-col w-full border-opacity-50">
-                    <div class="mb-4 text-center">
-                        <h1 class="text-4xl font-bold text-gray-900">Welcome back!</h1>
-                        <p class="text-gray-600">Log in to your account</p>
-                    </div>
-                    {{-- <livewire:components.socialite-links /> --}}
+            <!-- Login Form -->
+            <x-mary-form wire:submit="login_process">
 
-                    {{-- <div class="divider">OR</div> --}}
+                <!-- Username -->
+                <x-mary-input label="Username"
+                    wire:model="form.username"
+                    id="username"
+                    name="username"
+                    type="text"
+                    required
+                    autofocus
+                    autocomplete="username"
+                />
 
-                    <x-mary-form wire:submit="login_process">
-                        <!-- Email Address -->
-                        {{-- <div>
-                            <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input wire:model="form.email" id="email" class="block w-full mt-1" type="email" name="email" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
-                        </div> --}}
-                        <x-mary-input label="username"
-                            wire:model="form.username"
-                            id="username"
-                            name="username"
-                            type="username"
-                            required autofocus
-                            autocomplete="username"
-                        />
+                <!-- Password -->
+                <x-mary-input label="Password"
+                    wire:model="form.password"
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    autocomplete="current-password"
+                />
 
-                        <!-- Password -->
-                        {{-- <div class="mt-4">
-                            <x-input-label for="password" :value="__('Password')" />
-                            <x-text-input wire:model="form.password" id="password" class="block w-full mt-1"
-                                            type="password"
-                                            name="password"
-                                            required autocomplete="current-password" />
-                            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
-                        </div> --}}
-                        <x-mary-input
-                            label="Password"
-                            wire:model="form.password"
-                            id="password"
-                            name="password"
-                            type="password"
-                            required autofocus
-                            autocomplete="current-password"
-                        />
-
-                        <!-- Remember Me -->
-                        <div class="block mt-4">
-                            <div class="inline-flex items-center text-sm text-gray-600">
-                                <x-mary-checkbox id="remember" name="remember" label="Remember me" wire:model="form.remember" class="text-indigo-600 border-gray-300 rounded shadow-sm focus:ring-indigo-500"/>
-                            </div>
-                        </div>
-
-                        <x-slot:actions>
-                            <div class="flex items-center justify-evenly">
-                                @if (Route::has('password.request'))
-                                    <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
-                                        {{ __('Forgot your password?') }}
-                                    </a>
-                                @endif
-                                <div class="ms-3">
-                                    <x-mary-button label="LOG IN" type="submit" spinner="login" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-md hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"/>
-                                </div>
-                            </div>
-                        </x-slot:actions>
-                        {{-- <div class="flex items-center justify-center">
-                            <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}" wire:navigate>
-                                {{ __("Want to contribute? Register now!") }}
-                            </a>
-                        </div> --}}
-                    </x-mary-form>
+                <!-- Remember Me -->
+                <div class="mt-4">
+                    <x-mary-checkbox
+                        id="remember"
+                        name="remember"
+                        label="Remember me"
+                        wire:model="form.remember"
+                        class="text-indigo-600 border-gray-300 rounded shadow-sm focus:ring-indigo-500"
+                    />
                 </div>
-            </div>
+
+                <!-- Submit Button -->
+                <x-slot:actions>
+                    <div class="mt-6 text-center">
+                        <x-mary-button label="LOG IN"
+                            type="submit"
+                            spinner="login"
+                            class="w-full py-3 text-sm font-semibold tracking-widest text-white uppercase bg-gray-800 rounded-md hover:bg-gray-700 focus:bg-gray-700"
+                        />
+                    </div>
+                </x-slot:actions>
+
+            </x-mary-form>
         </div>
     </div>
 </div>
