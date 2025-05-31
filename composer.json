@@ -11,10 +11,10 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.5",
+        "livewire/livewire": "^3.6",
         "livewire/volt": "^1.6",
-        "robsontenorio/mary": "^1.41",
         "magslabs/laravel-storedproc": "^1.0",
+        "robsontenorio/mary": "^1.41",
         "setasign/fpdf": "^1.8"
     },
     "require-dev": {

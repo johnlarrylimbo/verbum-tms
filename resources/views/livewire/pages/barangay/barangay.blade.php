@@ -8,67 +8,119 @@
       </x-slot:actions>
   </x-mary-header>
 
+  @if ($showSuccessMessage)
+    <div 
+    x-data="{ show: true }" 
+    x-show="show" 
+    x-init="setTimeout(() => { show = false; @this.set('showSuccessMessage', false) }, 3000)"
+    x-transition
+    class="fixed top-4 right-4 z-50">
+      <x-mary-alert icon="o-exclamation-triangle" class="alert-success text-white">
+          Record updated successfully!
+      </x-mary-alert>
+    </div>
+  @endif
+
   <x-mary-card>
 
-  <div class="my-4">
-    {{ $this->barangay_lst->links() }}
-  </div>
-  <br />
-  <!-- Wrap table in responsive container -->
-  <div style="overflow-x: auto; width: 100%;">
-    <table class="table mb-4 table-striped w-full" style="table-layout: fixed; min-width: 600px;">
-      <thead>
-        <tr class="fs-14 pink h-2rem">
-          <th class="text-center bg-primary text-white" width="8%">#</th>
-          <th class="text-center bg-primary text-white" width="20%">Description</th>
-          <th class="text-center bg-primary text-white" width="20%">City / Municipality</th>
-          <th class="text-center bg-primary text-white" width="20%">Province</th>
-          <th class="text-center bg-primary text-white">Status</th>
-          <th class="text-center bg-primary text-white">Manage</th>
-        </tr>
-      </thead>
-      <tbody>
-        @if(count($this->barangay_lst) == 0)
-          <tr class="fs-13 border-btm content-tr">
-            <td class="align-center" colspan="6">No barangay record(s) found.</td>
+    <div class="my-4">
+      {{ $this->barangay_lst->links() }}
+    </div>
+    <br />
+  
+    <!-- Wrap table in responsive container -->
+    <div style="overflow-x: auto; width: 100%;">
+      <table class="table mb-4 table-striped w-full" style="table-layout: fixed; min-width: 600px;">
+        <thead>
+          <tr class="fs-14 pink h-2rem">
+            <th class="text-center bg-primary text-white" width="8%">#</th>
+            <th class="text-center bg-primary text-white" width="20%">Description</th>
+            <th class="text-center bg-primary text-white" width="20%">City / Municipality</th>
+            <th class="text-center bg-primary text-white" width="20%">Province</th>
+            <th class="text-center bg-primary text-white">Status</th>
+            <th class="text-center bg-primary text-white">Manage</th>
           </tr>
-        @else
-          @foreach ($this->barangay_lst as $result)
+        </thead>
+        <tbody>
+          @if(count($this->barangay_lst) == 0)
             <tr class="fs-13 border-btm content-tr">
-              <td class="align-center vertical-align-top">{{ $result->row_num }}</td>
-              <td class="align-left vertical-align-top" style="word-break: break-word;">{{ $result->label }}</td>
-              <td class="align-left vertical-align-top" style="word-break: break-word;">{{ $result->city_unicipality_label }}</td>
-              <td class="align-left vertical-align-top" style="word-break: break-word;">{{ $result->province_label }}</td>
-              <td class="text-center vertical-align-top">
-                @if($result->statuscode == 1)
-                  <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-green-600 text-white" />
-                @else
-                  <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-red-600 text-white" />
-                @endif
-              </td>
-              <td class="text-center vertical-align-top">
-                <x-mary-button icon="o-pencil-square" 
-                                wire:click="openEditClearanceAreaModal({{ $result->barangay_id }})" 
-                                spinner 
-                                class="bg-green-600 text-white btn-sm align-center" />&nbsp;
-                <x-mary-button icon="o-trash"
-                                wire:click="openDeleteClearanceAreaModal({{ $result->barangay_id }})"
-                                class="bg-red-600 text-white btn-sm align-center"
-                                spinner
-                                />
-              </td>
+              <td class="align-center" colspan="6">No barangay record(s) found.</td>
             </tr>
-          @endforeach
-        @endif
-      </tbody>
-    </table>
-  </div>
+          @else
+            @foreach ($this->barangay_lst as $result)
+              <tr class="fs-13 border-btm content-tr">
+                <td class="align-center vertical-align-top">{{ $result->row_num }}</td>
+                <td class="align-left vertical-align-top" style="word-break: break-word;">{{ $result->label }}</td>
+                <td class="align-left vertical-align-top" style="word-break: break-word;">{{ $result->city_unicipality_label }}</td>
+                <td class="align-left vertical-align-top" style="word-break: break-word;">{{ $result->province_label }}</td>
+                <td class="text-center vertical-align-top">
+                  @if($result->statuscode == 1)
+                    <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-green-600 text-white" />
+                  @else
+                    <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-red-600 text-white" />
+                  @endif
+                </td>
+                <td class="text-center vertical-align-top">
+                  <x-mary-button icon="o-pencil-square" 
+                                  wire:click="openEditBarangayModal({{ $result->barangay_id }})" 
+                                  spinner 
+                                  class="bg-green-600 text-white btn-sm align-center" />&nbsp;
+                  <x-mary-button icon="o-trash"
+                                  wire:click="openDeactivateBarangayModal({{ $result->barangay_id }})"
+                                  class="bg-red-600 text-white btn-sm align-center"
+                                  spinner
+                                  />
+                </td>
+              </tr>
+            @endforeach
+          @endif
+        </tbody>
+      </table>
+    </div>
 
-  <div class="my-4">
-    {{ $this->barangay_lst->links() }}
-  </div>
+    <div class="my-4">
+      {{ $this->barangay_lst->links() }}
+    </div>
 
-</x-mary-card>
+  </x-mary-card>
+
+
+
+  <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur">
+    <x-mary-form wire:submit.prevent="save_barangay_record_changes" no-separator>
+
+      <x-mary-input type="hidden" wire:model="barangay_id" id="barangay_id" />
+      
+      <x-mary-select
+						label="Province"
+						:options="$this->load_province_options"
+						option-value="id"
+						option-label="label"
+						placeholder="Select a province"
+						placeholder-value=""
+						hint="Select one, please."
+						wire:model="edit_province_id" />
+
+      <x-mary-select
+						label="City / Municipality"
+						:options="$this->load_city_municipality_options"
+						option-value="id"
+						option-label="label"
+						placeholder="Select a city or municipality"
+						placeholder-value=""
+						hint="Select one, please."
+						wire:model="edit_city_municipality_id" />
+
+      <x-mary-input label="Description" wire:model="edit_label" id="edit_label" />
+
+      <x-slot:actions>
+        <x-mary-button label="Cancel" @click="$wire.editBarangayModal = false"/>
+        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_barangay_record_changes" />
+      </x-slot:actions>
+    </x-mary-form>
+  </x-mary-modal>
+
+  
 
 
 </div>

@@ -54,7 +54,7 @@
 					<x-mary-menu-separator />
 
 					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth" open>
-						<x-mary-menu-item title="Barangay" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Barangay" icon="s-wrench-screwdriver" link="/barangay" />
 						{{-- <x-mary-menu-item title="Basic Ecclesial Comm" icon="s-list-bullet" link="/barangay" /> --}}
 						{{-- <x-mary-menu-item title="Cashier Transaction Type" icon="s-list-bullet" link="/barangay" /> --}}
 						{{-- <x-mary-menu-item title="Citizenship & Nationality" icon="s-list-bullet" link="/barangay" /> --}}
