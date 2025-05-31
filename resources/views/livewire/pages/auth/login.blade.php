@@ -34,8 +34,13 @@ new #[Layout('layouts.guest')] class extends Component
 
             <!-- Logo Centered at Top -->
             <div class="flex justify-center mb-6">
-                <img 
+                {{-- <img 
                     class="w-24 md:w-36 lg:w-40 h-auto" 
+                    src="{{ asset('images/eclessia_flow_logo.png') }}" 
+                    alt="Ecclesia Flow" 
+                /> --}}
+                <img 
+                    class="w-29 md:w-39 lg:w-45 h-auto" 
                     src="{{ asset('images/eclessia_flow_logo.png') }}" 
                     alt="Ecclesia Flow" 
                 />
