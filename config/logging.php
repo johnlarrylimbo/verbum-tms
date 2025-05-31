@@ -129,14 +129,14 @@ return [
 
         'audit_trail' => [
             'driver' => 'single',
-						'tap' => [SimpleFormatter::class],
+						// 'tap' => [SimpleFormatter::class],
 						'path' => storage_path('logs/audit_trail.log'),
 						'level' => 'debug'
         ],
 
         'transaction_audit_trail' => [
             'driver' => 'single',
-						'tap' => [SimpleFormatter::class],
+						// 'tap' => [SimpleFormatter::class],
 						'path' => storage_path('logs/transaction_audit_trail.log'),
 						'level' => 'debug'
         ],

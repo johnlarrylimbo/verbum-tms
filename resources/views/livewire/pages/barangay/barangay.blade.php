@@ -200,7 +200,7 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action" separator>
+  <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 
