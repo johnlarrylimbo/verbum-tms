@@ -58,4 +58,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/app_routes/barangay_routes.php';
 
+require __DIR__.'/app_routes/priest_routes.php';
+
+require __DIR__.'/app_routes/congregation_routes.php';
+
 require __DIR__.'/auth.php';

@@ -1,15 +1,15 @@
 <div>
-  <x-mary-header title="SystemLib :: Barangay">
+  <x-mary-header title="SystemLib :: Priest Directory">
       <x-slot:middle class="!justify-end">
-          <x-mary-input icon="o-magnifying-glass" placeholder="Search Barangay..."  wire:model.live="search"/>
+          <x-mary-input icon="o-magnifying-glass" placeholder="Search Priest..."  wire:model.live="search"/>
       </x-slot:middle>
       <x-slot:actions>
-          <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addBarangayModal = true" />
+          <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addPriestModal = true" />
       </x-slot:actions>
   </x-mary-header>
 
 
-  @if ($showSuccessMessage)
+  {{-- @if ($showSuccessMessage)
     <div 
     x-data="{ show: true }" 
     x-show="show" 
@@ -20,9 +20,9 @@
           Record updated successfully!
       </x-mary-alert>
     </div>
-  @endif
+  @endif --}}
 
-  @if ($showAddSuccessMessage)
+  {{-- @if ($showAddSuccessMessage)
     <div 
     x-data="{ show: true }" 
     x-show="show" 
@@ -33,37 +33,37 @@
           Record added successfully!
       </x-mary-alert>
     </div>
-  @endif
+  @endif --}}
 
-  @if ($showAddErrorMessage)
+  {{-- @if ($showAddErrorMessage)
     <div 
     x-data="{ show: true }" 
     x-show="show" 
     x-init="setTimeout(() => { show = false; @this.set('showAddErrorMessage', false) }, 3000)"
     x-transition
     class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="c-x-circle" class="alert-danger text-white">
+      <x-mary-alert icon="s-check-circle" class="alert-danger text-white">
         Failed to add new record. Record already exists in our database.
       </x-mary-alert>
     </div>
-  @endif
+  @endif --}}
 
-  @if ($showErrorMessage)
+  {{-- @if ($showErrorMessage)
     <div 
     x-data="{ show: true }" 
     x-show="show" 
     x-init="setTimeout(() => { show = false; @this.set('showErrorMessage', false) }, 3000)"
     x-transition
     class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="c-x-circle" class="alert-danger text-white">
+      <x-mary-alert icon="s-check-circle" class="alert-danger text-white">
         Failed to update record. Record does not exists.
       </x-mary-alert>
     </div>
-  @endif
+  @endif --}}
 
   <x-mary-card>
 
-    <div class="my-4">
+    {{-- <div class="my-4">
       {{ $this->barangay_lst->links() }}
     </div>
     <br />
@@ -128,12 +128,12 @@
 
     <div class="my-4">
       {{ $this->barangay_lst->links() }}
-    </div>
+    </div> --}}
 
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addBarangayModal" class="backdrop-blur">
+  {{-- <x-mary-modal wire:model="addBarangayModal" class="backdrop-blur">
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-select
@@ -164,9 +164,9 @@
       </x-slot:actions>
 
     </x-mary-form>
-  </x-mary-modal>
+  </x-mary-modal> --}}
 
-  <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur">
+  {{-- <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur">
     <x-mary-form wire:submit.prevent="save_barangay_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="barangay_id" id="barangay_id" />
@@ -198,9 +198,9 @@
         <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_barangay_record_changes" />
       </x-slot:actions>
     </x-mary-form>
-  </x-mary-modal>
+  </x-mary-modal> --}}
 
-  <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+  {{-- <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 
@@ -209,7 +209,7 @@
         <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_barangay_status({{ $barangay_id }}, {{ $statuscode }})"  />
     </x-slot:actions>
 
-  </x-mary-modal>
+  </x-mary-modal> --}}
 
 
 </div>
