@@ -8,6 +8,7 @@
       </x-slot:actions>
   </x-mary-header>
 
+
   @if ($showSuccessMessage)
     <div 
     x-data="{ show: true }" 
@@ -15,8 +16,21 @@
     x-init="setTimeout(() => { show = false; @this.set('showSuccessMessage', false) }, 3000)"
     x-transition
     class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="o-exclamation-triangle" class="alert-success text-white">
+      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
           Record updated successfully!
+      </x-mary-alert>
+    </div>
+  @endif
+
+  @if ($showErrorMessage)
+    <div 
+    x-data="{ show: true }" 
+    x-show="show" 
+    x-init="setTimeout(() => { show = false; @this.set('showErrorMessage', false) }, 3000)"
+    x-transition
+    class="fixed top-4 right-4 z-50">
+      <x-mary-alert icon="s-check-circle" class="alert-danger text-white">
+        Failed to update record. Record does not exists.
       </x-mary-alert>
     </div>
   @endif
@@ -44,7 +58,7 @@
         <tbody>
           @if(count($this->barangay_lst) == 0)
             <tr class="fs-13 border-btm content-tr">
-              <td class="align-center" colspan="6">No barangay record(s) found.</td>
+              <td class="text-center" colspan="6">No barangay record(s) found.</td>
             </tr>
           @else
             @foreach ($this->barangay_lst as $result)
@@ -65,11 +79,19 @@
                                   wire:click="openEditBarangayModal({{ $result->barangay_id }})" 
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
-                  <x-mary-button icon="o-trash"
-                                  wire:click="openDeactivateBarangayModal({{ $result->barangay_id }})"
-                                  class="bg-red-600 text-white btn-sm align-center"
-                                  spinner
-                                  />
+                  @if($result->statuscode == 1)
+                    <x-mary-button icon="o-eye-slash"
+                                    wire:click="openUpdateBarangayStatusModal({{ $result->barangay_id }},{{ $result->statuscode }})"
+                                    class="bg-enabled text-white btn-sm align-center"
+                                    spinner
+                                    />
+                  @else
+                    <x-mary-button icon="o-eye"
+                                    wire:click="openUpdateBarangayStatusModal({{ $result->barangay_id }},{{ $result->statuscode }})"
+                                    class="bg-disabled text-white btn-sm align-center"
+                                    spinner
+                                    />
+                  @endif
                 </td>
               </tr>
             @endforeach
@@ -120,7 +142,16 @@
     </x-mary-form>
   </x-mary-modal>
 
-  
+  <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action" separator>
+
+    <p>Are you sure want to perform this action?</p>
+
+    <x-slot:actions>
+        <x-mary-button label="Cancel" wire:click="updateBarangayStatusModal = false" />
+        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_barangay_status({{ $barangay_id }}, {{ $statuscode }})"  />
+    </x-slot:actions>
+
+  </x-mary-modal>
 
 
 </div>

@@ -33,6 +33,7 @@ class Barangay extends Component
   #public variables
   public $search;
   public $barangay_id;
+  public $statuscode;
 
   public $province_id;
   public $city_municipality_id;
@@ -45,7 +46,9 @@ class Barangay extends Component
   #modals
   public bool $addBarangayModal = false;
   public bool $editBarangayModal = false;
+  public bool $updateBarangayStatusModal = false;
   public $showSuccessMessage = false;
+  public $showErrorMessage = false;
 
 	public function boot(
 		BarangayService $barangay_service,
@@ -121,7 +124,8 @@ class Barangay extends Component
     $exists = $this->barangay_service->updateBarangayById($this->barangay_id, $this->edit_province_id, $this->edit_city_municipality_id, $this->edit_label);
 
 		if ($exists[0]->result_id == 0) {
-			$this->error('Failed to update record. Record does not exists.');
+			// $this->error('Failed to update record. Record does not exists.');
+      $this->showErrorMessage = true;
 		}
 		else{
       // $this->success('Record updated successfully!');
@@ -138,6 +142,30 @@ class Barangay extends Component
 		$this->editBarangayModal = false;
 
 		$this->barangay_lst();
+	}
+
+  public function openUpdateBarangayStatusModal(int $barangay_id, int $statuscode){
+		$this->updateBarangayStatusModal = true;
+		$this->barangay_id = $barangay_id;
+    $this->statuscode = $statuscode;
+	}
+
+  public function update_barangay_status($barangay_id, $statuscode){
+    // $param = [  $clearance_area_id, 0 ];
+    // $sp_query = "EXEC pr_clearance_area_by_id_del :clearance_area_id, :result_id;";
+    // $result = DB::connection('iclearance_connection')->select($sp_query, $param);
+
+    $result = $this->barangay_service->updateBarangayStatusById($barangay_id, $statuscode, auth()->user()->id);
+		
+		// // Toast
+    if ($result[0]->result_id > 0) {
+      $this->showSuccessMessage = true;
+    }else{
+      $this->showErrorMessage = true;
+    }
+
+		// $this->reset('clearance_area_id');
+		$this->updateBarangayStatusModal = false;	
 	}
 
 

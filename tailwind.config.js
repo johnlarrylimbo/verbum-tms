@@ -20,6 +20,8 @@ export default {
                 danger: '#dc2626',   // red-600
                 success: '#16a34a',  // green-600
                 warning: '#f59e0b',  // yellow-400
+                disabled: '#606060',  // yellow-400
+                enabled: '#bc0b43',  // yellow-400
             },
         },
     },
