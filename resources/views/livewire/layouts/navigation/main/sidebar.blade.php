@@ -17,51 +17,65 @@
 			</div>
 
 			{{-- MENU --}}
-			<x-mary-menu activate-by-route>
+			<x-mary-menu activate-by-route>					
 
-					{{-- User --}}
 					@if($user = auth()->user())
-							<x-mary-menu-separator />
+                <x-mary-menu-separator />
 
-							<x-mary-list-item :item="$user" value="first_name" sub-value="email" no-separator no-hover class="-mx-2 !-my-2 rounded">
-									<x-slot:actions>
-											<x-mary-button icon="o-arrow-uturn-left" class="btn-circle btn-ghost btn-md" tooltip-left="logout" no-wire-navigate link="/logout" />
-									</x-slot:actions>
-							</x-mary-list-item>
+								@php
+										$sentence = auth()->user()->name;
+										preg_match_all('/[A-Z]/', $sentence, $matches);
+										$firstTwo = implode('', array_slice($matches[0], 0, 2));
+								@endphp
 
+                {{-- Avatar with Logout Icon --}}
+                <div class="flex items-center gap-3 px-2 py-1 rounded hover:bg-base-200 transition">
+                    <x-mary-avatar placeholder="{{ $firstTwo }}"
+                        subtitle="{{ auth()->user()->name }}"
+                        class="!w-10"
+                    />
 
-							<x-mary-menu-separator />
-					@endif
+                    <x-mary-button
+                        icon="o-arrow-uturn-left"
+                        class="btn-circle btn-ghost btn-md ml-auto"
+                        tooltip-left="Logout"
+                        no-wire-navigate
+                        link="/logout"
+                    />
+                </div>
 
-					<x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" class="py-4" />
+                <x-mary-menu-separator />
+            @endif
+
+					<x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
 					<x-mary-menu-separator />
 
 					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth" open>
-						<x-mary-menu-item title="Barangay" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Basic Ecclesial Comm" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Cashier Transaction Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Citizenship & Nationality" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Client Category" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Client Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Congregation" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Contract Category" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Contract Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Country" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Diocese" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Employee Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Island Group" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Local Gov. Unit Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Months" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Parishes" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Priest" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Province" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Regional Center" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Region" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Religion" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="Role" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="User Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="System Directory" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
-						<x-mary-menu-item title="System Directory Type" icon="s-list-bullet" link="/barangay" class="mt-3.5"/>
+						<x-mary-menu-item title="Barangay" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Basic Ecclesial Comm" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Cashier Transaction Type" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Citizenship & Nationality" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Client Category" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Client Type" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Congregation" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Contract Category" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Contract Type" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Country" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Diocese" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Employee Type" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Island Group" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Local Gov. Unit Type" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Months" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Parishes" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Priest" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Province" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Regional Center" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Region" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Religion" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="Role" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="User Type" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="System Directory" icon="s-list-bullet" link="/barangay" />
+						<x-mary-menu-item title="System Directory Type" icon="s-list-bullet" link="/barangay" />
 				</x-mary-menu-sub>
 				<x-mary-menu-separator />
 

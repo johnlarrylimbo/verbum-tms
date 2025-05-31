@@ -14,11 +14,13 @@ class RoleTableSeeder extends Seeder
     public function run(): void
     {
         $role_admin_user = new Role;
-        $role_admin_user->label = 'admin';
+        $role_admin_user->abbreviation = 'admin';
+        $role_admin_user->label = 'Admin';
         $role_admin_user->save();
 
         $role_regular_user = new Role;
-        $role_regular_user->label = 'user';
+        $role_regular_user->abbreviation = 'user';
+        $role_regular_user->label = 'User';
         $role_regular_user->save();
     }
 }

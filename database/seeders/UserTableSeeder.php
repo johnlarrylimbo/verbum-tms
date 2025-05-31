@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
         $admin->name = 'App Administrator';
         $admin->username = 'admin';
         $admin->email = 'admin@uic.edu.ph';
+        $admin->or_user_initial = 'AAdmin';
         $admin->password = hash::make('letmein');
         $admin->save();
         $admin->roles()->attach(Role::where('label', 'admin')->first());
@@ -27,6 +28,7 @@ class UserTableSeeder extends Seeder
         $admin->name = 'App User';
         $admin->username = 'user';
         $admin->email = 'user@uic.edu.ph';
+        $admin->or_user_initial = 'AUser';
         $admin->password = hash::make('letmein');
         $admin->save();
         $admin->roles()->attach(Role::where('label', 'user')->first());
