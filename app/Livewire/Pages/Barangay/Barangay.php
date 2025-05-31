@@ -47,6 +47,8 @@ class Barangay extends Component
   public bool $addBarangayModal = false;
   public bool $editBarangayModal = false;
   public bool $updateBarangayStatusModal = false;
+  public $showAddSuccessMessage = false;
+  public $showAddErrorMessage = false;
   public $showSuccessMessage = false;
   public $showErrorMessage = false;
 
@@ -94,6 +96,38 @@ class Barangay extends Component
 	// public function load city or municipality options
 	public function load_city_municipality_options(){
 		return $this->select_option_service->loadCityMunicipalityOptions();
+	}
+
+  // public function save barangay record changes
+  public function save(){
+		// Validation and saving logic
+
+		$this->validate([
+      'province_id' => 'required|not_in:0',
+      'city_municipality_id' => 'required|not_in:0',
+      'label' => 'required|string|max:255'
+		]);
+
+    $exists = $this->barangay_service->addBarangayById($this->province_id, $this->city_municipality_id, $this->label, auth()->user()->id);
+
+		if ($exists[0]->result_id == 1) {
+			// $this->error('Failed to update record. Record does not exists.');
+      $this->showAddErrorMessage = true;
+		}
+		else{
+      // $this->success('Record updated successfully!');
+      $this->showAddSuccessMessage = true;
+		}
+
+		// Optionally reset form fields after save
+		$this->reset(['province_id', 'province_id']);
+    $this->reset(['city_municipality_id', 'city_municipality_id']);
+    $this->reset(['label', 'label']);
+
+		// Close the modal
+		$this->addBarangayModal = false;
+
+		$this->barangay_lst();
 	}
 
   // public function get barangay by id

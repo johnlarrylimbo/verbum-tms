@@ -4,7 +4,7 @@
           <x-mary-input icon="o-magnifying-glass" placeholder="Search Barangay..."  wire:model.live="search"/>
       </x-slot:middle>
       <x-slot:actions>
-          <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" />
+          <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addBarangayModal = true" />
       </x-slot:actions>
   </x-mary-header>
 
@@ -18,6 +18,32 @@
     class="fixed top-4 right-4 z-50">
       <x-mary-alert icon="s-check-circle" class="alert-success text-white">
           Record updated successfully!
+      </x-mary-alert>
+    </div>
+  @endif
+
+  @if ($showAddSuccessMessage)
+    <div 
+    x-data="{ show: true }" 
+    x-show="show" 
+    x-init="setTimeout(() => { show = false; @this.set('showAddSuccessMessage', false) }, 3000)"
+    x-transition
+    class="fixed top-4 right-4 z-50">
+      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
+          Record added successfully!
+      </x-mary-alert>
+    </div>
+  @endif
+
+  @if ($showAddErrorMessage)
+    <div 
+    x-data="{ show: true }" 
+    x-show="show" 
+    x-init="setTimeout(() => { show = false; @this.set('showAddErrorMessage', false) }, 3000)"
+    x-transition
+    class="fixed top-4 right-4 z-50">
+      <x-mary-alert icon="s-check-circle" class="alert-danger text-white">
+        Failed to add new record. Record already exists in our database.
       </x-mary-alert>
     </div>
   @endif
@@ -107,6 +133,38 @@
   </x-mary-card>
 
 
+  <x-mary-modal wire:model="addBarangayModal" class="backdrop-blur">
+    <x-mary-form wire:submit.prevent="save" no-separator>
+
+      <x-mary-select
+						label="Province"
+						:options="$this->load_province_options"
+						option-value="id"
+						option-label="label"
+						placeholder="Select a province"
+						placeholder-value=""
+						hint="Select one, please."
+						wire:model="province_id" />
+
+      <x-mary-select
+						label="City / Municipality"
+						:options="$this->load_city_municipality_options"
+						option-value="id"
+						option-label="label"
+						placeholder="Select a city or municipality"
+						placeholder-value=""
+						hint="Select one, please."
+						wire:model="city_municipality_id" />
+
+      <x-mary-input label="Description" wire:model="label" id="label" />
+   
+      <x-slot:actions>
+          <x-mary-button label="Cancel" @click="$wire.addBarangayModal = false"/>
+          <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save" />
+      </x-slot:actions>
+
+    </x-mary-form>
+  </x-mary-modal>
 
   <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur">
     <x-mary-form wire:submit.prevent="save_barangay_record_changes" no-separator>

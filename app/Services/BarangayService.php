@@ -111,5 +111,31 @@ class BarangayService extends Service
 				throw new Exception('Error updating barangay status by id', 500, $exception);
 		}
 	}
+
+	public function addBarangayById(int $param_province_id, int $param_city_municipality_id, string $param_label, int $param_user_id)
+	{
+		try {
+			$province_id = $param_province_id ?? 0;
+			$city_municipality_id = $param_city_municipality_id ?? 0;
+			$label = $param_label ?? '';
+			$user_id = $param_user_id ?? 0;
+
+			$result = $this->sp
+								->stored_procedure('pr_datims_barangay_ins')
+								->stored_procedure_params([':p_province_id, :p_city_municipality_id, :p_label, :p_result_id'])
+								->stored_procedure_values([$province_id, $city_municipality_id, $label, 0])
+								->execute();
+
+			Log::channel('transaction_audit_trail')->info('Added new barangay:', [
+										'province_id' => $province_id,
+										'city_municipality_id' => $city_municipality_id,
+										'label' => $label,
+										'updated_by' => $user_id]);
+
+			return $result->stored_procedure_result();
+		} catch (Exception $exception) {
+				throw new Exception('Error updating barangay by id', 500, $exception);
+		}
+	}
     
 }
