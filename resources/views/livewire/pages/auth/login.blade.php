@@ -48,7 +48,7 @@ new #[Layout('layouts.guest')] class extends Component
 
             <!-- Welcome Text -->
             <div class="mb-6 text-center">
-                <h1 class="text-3xl font-bold text-gray-900" style="margin-bottom: 15px !important;">[ Beta Version 2025 ]</h1>
+                <h5 class="font-bold text-gray-900" style="margin-bottom: 15px !important;">[ Beta Version 2025 ]</h5>
                 <p class="text-gray-600">To help protect your personal information, please log in to your account.</p>
             </div>
 

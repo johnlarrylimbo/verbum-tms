@@ -66,49 +66,56 @@ class CongregationService extends Service
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error updating barangay by id', 500, $exception);
+				throw new Exception('Error adding congregation', 500, $exception);
 		}
 	}
 
-	public function getBarangayById(int $param_barangay_id)
+	public function getCongregationById(int $param_congregation_id)
 	{
 		try {
-			$barangay_id = $param_barangay_id ?? 0;
+			$congregation_id = $param_congregation_id ?? 0;
 			$result = $this->sp
-								->stored_procedure('pr_datims_barangay_by_id_sel')
-								->stored_procedure_params([':barangay_id'])
-								->stored_procedure_values([$barangay_id])
+								->stored_procedure('pr_datims_congregation_by_id_sel')
+								->stored_procedure_params([':p_congregation_id'])
+								->stored_procedure_values([$congregation_id])
 								->execute();
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error getting barangay by id', 500, $exception);
+				throw new Exception('Error getting congregation by id', 500, $exception);
 		}
 	}
 
-	public function updateBarangayById(int $param_barangay_id, int $param_province_id, int $param_city_municipality_id, string $param_label)
+	public function updateCongregationById(int $param_congregation_id, string $param_abbreviation, string $param_description, int $param_user_id)
 	{
 		try {
-			$barangay_id = $param_barangay_id ?? 0;
-			$province_id = $param_province_id ?? 0;
-			$city_municipality_id = $param_city_municipality_id ?? 0;
-			$label = $param_label ?? '';
+			$congregation_id = $param_congregation_id ?? 0;
+			$abbreviation = $param_abbreviation ?? '';
+			$description = $param_description ?? '';
+			$user_id = $param_user_id ?? 0;
+			
 			$result = $this->sp
-								->stored_procedure('pr_datims_barangay_by_id_upd')
-								->stored_procedure_params([':barangay_id, :province_id, :city_municipality_id, :label, :result_id'])
-								->stored_procedure_values([$barangay_id, $province_id, $city_municipality_id, $label, 0])
+								->stored_procedure('pr_datims_congregation_by_id_upd')
+								->stored_procedure_params([':p_congregation_id, :p_abbreviation, :p_description, :result_id'])
+								->stored_procedure_values([ $congregation_id, $abbreviation, $description, 0 ])
 								->execute();
+
+			Log::channel('transaction_audit_trail')->info('Updated congragation:', [
+										'congregation_id' => $congregation_id,
+										'abbreviation' => $abbreviation,
+										'description' => $description,
+										'updated_by' => $user_id]);
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error updating barangay by id', 500, $exception);
+				throw new Exception('Error updating congregation by id', 500, $exception);
 		}
 	}
 
-	public function updateBarangayStatusById(int $param_barangay_id, int $param_statuscode, int $param_user_id)
+	public function updateCongregationStatusById(int $param_congregation_id, int $param_statuscode, int $param_user_id)
 	{
 		try {
-			$barangay_id = $param_barangay_id ?? 0;
+			$congregation_id = $param_congregation_id ?? 0;
 			$statuscode = $param_statuscode ?? 0;
 			$user_id = $param_user_id ?? 0;
 
@@ -119,20 +126,20 @@ class CongregationService extends Service
 			}
 
 			$result = $this->sp
-								->stored_procedure('pr_datims_barangay_status_by_id_upd')
-								->stored_procedure_params([':barangay_id, :statuscode, :result_id'])
-								->stored_procedure_values([$barangay_id, $statuscode, 0])
+								->stored_procedure('pr_datims_congregation_status_by_id_upd')
+								->stored_procedure_params([':p_congregation_id, :p_statuscode, :result_id'])
+								->stored_procedure_values([$congregation_id, $statuscode, 0])
 								->execute();
 
-			Log::channel('transaction_audit_trail')->info('Updated barangay status:', [
-										'barangay_id' => $barangay_id, 
+			Log::channel('transaction_audit_trail')->info('Updated congregation status:', [
+										'congregation_id' => $congregation_id, 
 										'from_status' => $statuscode,
 										'to_status' => $updated_to,
 										'updated_by' => $user_id]);
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error updating barangay status by id', 500, $exception);
+				throw new Exception('Error updating congregation status by id', 500, $exception);
 		}
 	}
     

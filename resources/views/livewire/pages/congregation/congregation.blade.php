@@ -100,18 +100,18 @@
                 </td>
                 <td class="text-center vertical-align-top">
                   <x-mary-button icon="o-pencil-square" 
-                                  wire:click="openEditBarangayModal({{ $result->congregation_id }})" 
+                                  wire:click="openEditCongregationModal({{ $result->congregation_id }})" 
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
                   @if($result->statuscode == 1)
                     <x-mary-button icon="o-eye-slash"
-                                    wire:click="openUpdateBarangayStatusModal({{ $result->congregation_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateCongregationStatusModal({{ $result->congregation_id }},{{ $result->statuscode }})"
                                     class="bg-enabled text-white btn-sm align-center"
                                     spinner
                                     />
                   @else
                     <x-mary-button icon="o-eye"
-                                    wire:click="openUpdateBarangayStatusModal({{ $result->congregation_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateCongregationStatusModal({{ $result->congregation_id }},{{ $result->statuscode }})"
                                     class="bg-disabled text-white btn-sm align-center"
                                     spinner
                                     />
@@ -146,50 +146,32 @@
     </x-mary-form>
   </x-mary-modal>
 
-  {{-- <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur">
-    <x-mary-form wire:submit.prevent="save_barangay_record_changes" no-separator>
+  <x-mary-modal wire:model="editCongregationModal" class="backdrop-blur">
+    <x-mary-form wire:submit.prevent="save_congregation_record_changes" no-separator>
 
-      <x-mary-input type="hidden" wire:model="barangay_id" id="barangay_id" />
-      
-      <x-mary-select
-						label="Province"
-						:options="$this->load_province_options"
-						option-value="id"
-						option-label="label"
-						placeholder="Select a province"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="edit_province_id" />
+      <x-mary-input type="hidden" wire:model="congregation_id" id="congregation_id" />
 
-      <x-mary-select
-						label="City / Municipality"
-						:options="$this->load_city_municipality_options"
-						option-value="id"
-						option-label="label"
-						placeholder="Select a city or municipality"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="edit_city_municipality_id" />
+      <x-mary-input label="Abbreviation" wire:model="edit_abbreviation" id="edit_abbreviation" />
 
-      <x-mary-input label="Description" wire:model="edit_label" id="edit_label" />
+      <x-mary-input label="Description" wire:model="edit_description" id="edit_description" />
 
       <x-slot:actions>
-        <x-mary-button label="Cancel" @click="$wire.editBarangayModal = false"/>
-        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_barangay_record_changes" />
+        <x-mary-button label="Cancel" @click="$wire.editCongregationModal = false"/>
+        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_congregation_record_changes" />
       </x-slot:actions>
     </x-mary-form>
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
-  {{-- <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+  <x-mary-modal wire:model="updateCongregationStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 
     <x-slot:actions>
-        <x-mary-button label="Cancel" wire:click="updateBarangayStatusModal = false" />
-        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_barangay_status({{ $barangay_id }}, {{ $statuscode }})"  />
+        <x-mary-button label="Cancel" wire:click="updateCongregationStatusModal = false" />
+        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_congregation_status({{ $congregation_id }}, {{ $statuscode }})"  />
     </x-slot:actions>
 
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
 
 </div>

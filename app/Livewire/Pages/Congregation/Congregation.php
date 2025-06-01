@@ -43,6 +43,7 @@ class Congregation extends Component
   public bool $addCongregationModal = false;
   public bool $editCongregationModal = false;
   public bool $updateCongregationStatusModal = false;
+
   public $showAddSuccessMessage = false;
   public $showAddErrorMessage = false;
   public $showSuccessMessage = false;
@@ -79,7 +80,7 @@ class Congregation extends Component
     }
 	}
 
-  // public function save barangay record changes
+  // public function save congregation record changes
   public function save(){
 		// Validation and saving logic
 
@@ -109,77 +110,68 @@ class Congregation extends Component
 		$this->congregation_lst();
 	}
 
-  // // public function get barangay by id
-	// public function openEditBarangayModal(int $barangay_id){
-  //   $this->resetValidation();  // clears validation errors
-	// 	$this->editBarangayModal = true;
-	// 	$this->barangay_id = $barangay_id;
+  // public function get congregation by id
+	public function openEditCongregationModal(int $congregation_id){
+    $this->resetValidation();  // clears validation errors
+		$this->editCongregationModal = true;
+		$this->congregation_id = $congregation_id;
 
-  //   $result = $this->barangay_service->getBarangayById($this->barangay_id);
+    $result = $this->congregation_service->getCongregationById($this->congregation_id);
 
-	// 	foreach($result as $result){
-	// 		$this->edit_province_id = $result->province_id;
-  //     $this->edit_city_municipality_id = $result->city_municipality_id;
-  //     $this->edit_label = $result->label;
-	// 	}
-	// }
+		foreach($result as $result){
+      $this->edit_abbreviation = $result->abbreviation;
+      $this->edit_description = $result->congregation_label;
+		}
+	}
 
-  // // public function save barangay record changes
-  // public function save_barangay_record_changes(){
-	// 	// Validation and saving logic
+  // public function save congregation record changes
+  public function save_congregation_record_changes(){
+		// Validation and saving logic
 
-	// 	$this->validate([
-  //     'edit_province_id' => 'required|not_in:0',
-  //     'edit_city_municipality_id' => 'required|not_in:0',
-  //     'edit_label' => 'required|string|max:255'
-	// 	]);
+		$this->validate([
+      'edit_abbreviation' => 'required|string|max:45',
+      'edit_description' => 'required|string|max:2048'
+		]);
 
-  //   $exists = $this->barangay_service->updateBarangayById($this->barangay_id, $this->edit_province_id, $this->edit_city_municipality_id, $this->edit_label);
+    $exists = $this->congregation_service->updateCongregationById($this->congregation_id, $this->edit_abbreviation, $this->edit_description, auth()->user()->id);
 
-	// 	if ($exists[0]->result_id == 0) {
-	// 		// $this->error('Failed to update record. Record does not exists.');
-  //     $this->showErrorMessage = true;
-	// 	}
-	// 	else{
-  //     // $this->success('Record updated successfully!');
-  //     $this->showSuccessMessage = true;
-	// 	}
+		if ($exists[0]->result_id == 0) {
+      $this->showErrorMessage = true;
+		}
+		else{
+      $this->showSuccessMessage = true;
+		}
 
-	// 	// Optionally reset form fields after save
-	// 	$this->reset(['barangay_id', 'barangay_id']);
-  //   $this->reset(['edit_province_id', 'edit_province_id']);
-  //   $this->reset(['edit_city_municipality_id', 'edit_city_municipality_id']);
-  //   $this->reset(['edit_label', 'edit_label']);
+		// Optionally reset form fields after save
+		$this->reset(['congregation_id', 'congregation_id']);
+    $this->reset(['edit_abbreviation', 'edit_abbreviation']);
+    $this->reset(['edit_description', 'edit_description']);
 
-	// 	// Close the modal
-	// 	$this->editBarangayModal = false;
+		// Close the modal
+		$this->editCongregationModal = false;
 
-	// 	$this->barangay_lst();
-	// }
+		$this->congregation_lst();
+	}
 
-  // public function openUpdateBarangayStatusModal(int $barangay_id, int $statuscode){
-	// 	$this->updateBarangayStatusModal = true;
-	// 	$this->barangay_id = $barangay_id;
-  //   $this->statuscode = $statuscode;
-	// }
+  public function openUpdateCongregationStatusModal(int $congregation_id, int $statuscode){
+		$this->updateCongregationStatusModal = true;
+		$this->congregation_id = $congregation_id;
+    $this->statuscode = $statuscode;
+	}
 
-  // public function update_barangay_status($barangay_id, $statuscode){
-  //   // $param = [  $clearance_area_id, 0 ];
-  //   // $sp_query = "EXEC pr_clearance_area_by_id_del :clearance_area_id, :result_id;";
-  //   // $result = DB::connection('iclearance_connection')->select($sp_query, $param);
+  public function update_congregation_status($congregation_id, $statuscode){
 
-  //   $result = $this->barangay_service->updateBarangayStatusById($barangay_id, $statuscode, auth()->user()->id);
+    $result = $this->congregation_service->updateCongregationStatusById($congregation_id, $statuscode, auth()->user()->id);
 		
-	// 	// // Toast
-  //   if ($result[0]->result_id > 0) {
-  //     $this->showSuccessMessage = true;
-  //   }else{
-  //     $this->showErrorMessage = true;
-  //   }
+		// // Toast
+    if ($result[0]->result_id > 0) {
+      $this->showSuccessMessage = true;
+    }else{
+      $this->showErrorMessage = true;
+    }
 
-	// 	// $this->reset('clearance_area_id');
-	// 	$this->updateBarangayStatusModal = false;	
-	// }
+		$this->updateCongregationStatusModal = false;	
+	}
 
 
 	public function render(){
