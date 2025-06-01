@@ -62,4 +62,6 @@ require __DIR__.'/app_routes/priest_routes.php';
 
 require __DIR__.'/app_routes/congregation_routes.php';
 
+require __DIR__.'/app_routes/diocese_routes.php';
+
 require __DIR__.'/auth.php';

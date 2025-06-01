@@ -41,5 +41,31 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting city or municipality select options', 500, $exception);
         }
     }
+
+    public function loadPriestOptions()
+    {
+        try {
+            $result = $this->sp
+                ->stored_procedure('pr_datims_priest_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting priest select options', 500, $exception);
+        }
+    }
+
+    public function loadCongregationOptions()
+    {
+        try {
+            $result = $this->sp
+                ->stored_procedure('pr_datims_congregation_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting congregation select options', 500, $exception);
+        }
+    }
     
 }
