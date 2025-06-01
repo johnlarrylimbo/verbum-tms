@@ -17,32 +17,32 @@ class ParishService extends Service
 	}
 	//instantiate brand model class
 
-	public function loadVicariateLst()
+	public function loadParishLst()
 	{
 			try {
 					$result = $this->sp
-							->stored_procedure('pr_datims_vicariate_lst')
+							->stored_procedure('pr_datims_parish_lst')
 							->execute();
 
 					return $result->stored_procedure_result();
 			} catch (Exception $exception) {
-					throw new Exception('Error getting vicariate list', 500, $exception);
+					throw new Exception('Error getting parish list', 500, $exception);
 			}
 	}
 
-	public function loadVicariateLstByKeyword(string $search_query)
+	public function loadParishLstByKeyword(string $search_query)
 	{
 		try {
 			$search = $search_query ?? '';       
 				$result = $this->sp
-									->stored_procedure('pr_datims_vicariate_lst_by_keyword')
+									->stored_procedure('pr_datims_parish_lst_by_keyword')
 									->stored_procedure_params([':p_keyword'])
 									->stored_procedure_values([$search])
 									->execute();
 
 				return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error getting vicariate list by keyword', 500, $exception);
+				throw new Exception('Error getting parish list by keyword', 500, $exception);
 		}
 	}
 

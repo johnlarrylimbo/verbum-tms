@@ -63,34 +63,42 @@
 
   <x-mary-card>
 
-    {{-- <div class="my-4">
-      {{ $this->vicariate_lst->links() }}
-    </div> --}}
+    <div class="my-4">
+      {{ $this->parish_lst->links() }}
+    </div>
     <br />
   
     <!-- Wrap table in responsive container -->
-    {{-- <div style="overflow-x: auto; width: 100%;">
+    <div style="overflow-x: auto; width: 100%;">
       <table class="table mb-4 table-striped w-full" style="table-layout: fixed; min-width: 600px;">
         <thead>
           <tr class="fs-14 pink h-2rem">
             <th class="text-center bg-primary text-white" width="5%">#</th>
-            <th class="text-center bg-primary text-white" width="30%">Vicariate Name</th>
-            <th class="text-center bg-primary text-white" width="30%">Diocese</th>
+            <th class="text-center bg-primary text-white" width="40%">Parish Name</th>
+            <th class="text-center bg-primary text-white" width="30%">Address</th>
             <th class="text-center bg-primary text-white">Status</th>
             <th class="text-center bg-primary text-white">Manage</th>
           </tr>
         </thead>
         <tbody>
-          @if(count($this->vicariate_lst) == 0)
+          @if(count($this->parish_lst) == 0)
             <tr class="fs-13 border-btm content-tr">
-              <td class="text-center" colspan="5">No vicariate record(s) found.</td>
+              <td class="text-center" colspan="5">No parish record(s) found.</td>
             </tr>
           @else
-            @foreach ($this->vicariate_lst as $result)
+            @foreach ($this->parish_lst as $result)
               <tr class="fs-13 border-btm content-tr">
-                <td class="align-top text-center">{{ $result->row_num }}</td>
-                <td class="text-left vertical-align-top" style="word-break: break-word;">{{ $result->label }} </td>
-                <td class="text-center vertical-align-top" style="word-break: break-word;">{{ $result->diocese_name }}</td>
+                <td class="text-center vertical-align-top">{{ $result->row_num }}</td>
+                <td class="text-left vertical-align-top" style="word-break: break-word;">
+                  <strong>{{ $result->parish_name }} </strong><br />
+                  Parish Code : {{ $result->parish_code }}<br />
+                  Parish Priest : {{ $result->parish_priest_name }}<br /><br />
+                  Diocese : {{ $result->diocese_name }}<br />
+                  Vicariate : {{ $result->vicariate_label }}<br />
+                  Established On : {{ $result->established_year }}<br />
+                  Contact No. : {{ $result->contact_number }}
+                </td>
+                <td class="text-left vertical-align-top" style="word-break: break-word;">{{ $result->address }}</td>
                 <td class="text-center vertical-align-top">
                   @if($result->statuscode == 1)
                     <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-green-600 text-white" />
@@ -100,18 +108,18 @@
                 </td>
                 <td class="text-center vertical-align-top">
                   <x-mary-button icon="o-pencil-square" 
-                                  wire:click="openEditVicariateModal({{ $result->vicariate_id }})" 
+                                  wire:click="openEditVicariateModal({{ $result->parish_id }})" 
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
                   @if($result->statuscode == 1)
                     <x-mary-button icon="o-eye-slash"
-                                    wire:click="openUpdateVicariateStatusModal({{ $result->vicariate_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateVicariateStatusModal({{ $result->parish_id }},{{ $result->statuscode }})"
                                     class="bg-enabled text-white btn-sm align-center"
                                     spinner
                                     />
                   @else
                     <x-mary-button icon="o-eye"
-                                    wire:click="openUpdateVicariateStatusModal({{ $result->vicariate_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateVicariateStatusModal({{ $result->parish_id }},{{ $result->statuscode }})"
                                     class="bg-disabled text-white btn-sm align-center"
                                     spinner
                                     />
@@ -122,11 +130,11 @@
           @endif
         </tbody>
       </table>
-    </div> --}}
+    </div>
 
-    {{-- <div class="my-4">
-      {{ $this->vicariate_lst->links() }}
-    </div> --}}
+    <div class="my-4">
+      {{ $this->parish_lst->links() }}
+    </div>
 
   </x-mary-card>
 

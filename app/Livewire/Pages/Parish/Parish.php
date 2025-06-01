@@ -87,17 +87,17 @@ class Parish extends Component
     $this->resetPage();
 	}
 
-  // #[Computed]
-	// // public function load vicariate records
-	// public function vicariate_lst(){
-  //   if(!$this->search){
-  //     $vicariate_lst = $this->diocese_vicariate_service->loadVicariateLst()->paginate(15);
-	// 	  return $vicariate_lst;
-  //   }else{
-  //     $vicariate_lst = $this->diocese_vicariate_service->loadVicariateLstByKeyword($this->search)->paginate(15);
-	// 	  return $vicariate_lst;
-  //   }
-	// }
+  #[Computed]
+	// public function load parish records
+	public function parish_lst(){
+    if(!$this->search){
+      $parish_lst = $this->parish_service->loadParishLst()->paginate(15);
+		  return $parish_lst;
+    }else{
+      $parish_lst = $this->parish_service->loadParishLstByKeyword($this->search)->paginate(15);
+		  return $parish_lst;
+    }
+	}
 
   // #[Computed]
 	// // public function load diocese options
