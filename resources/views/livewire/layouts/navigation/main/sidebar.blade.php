@@ -58,6 +58,7 @@
 						<x-mary-menu-item title="Congregation" icon="s-wrench-screwdriver" link="/congregation" />
 						<x-mary-menu-item title="Diocese" icon="s-wrench-screwdriver" link="/diocese" />
 						<x-mary-menu-item title="Diocese Vicariate" icon="s-wrench-screwdriver" link="/vicariate" />
+						<x-mary-menu-item title="Parish" icon="s-wrench-screwdriver" link="/parish" />
 						<x-mary-menu-item title="Priest Directory" icon="s-wrench-screwdriver" link="/priest" />
 						
 						{{-- <x-mary-menu-item title="Basic Ecclesial Comm" icon="s-list-bullet" link="/barangay" /> --}}

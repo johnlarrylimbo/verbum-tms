@@ -41,14 +41,14 @@ new #[Layout('layouts.guest')] class extends Component
                 /> --}}
                 <img 
                     class="w-29 md:w-39 lg:w-45 h-auto" 
-                    src="{{ asset('images/eclessia_flow_logo.png') }}" 
+                    src="{{ asset('images/eclessia_flow_logo3.png') }}" 
                     alt="Ecclesia Flow" 
                 />
             </div>
 
             <!-- Welcome Text -->
             <div class="mb-6 text-center">
-                <h5 class="font-bold text-gray-900" style="margin-bottom: 15px !important;">[ Beta Version 2025 ]</h5>
+                <h5 class="font-bold text-gray-900" style="margin-bottom: 15px !important;">EcclesiaFlow [ Beta Version 2025 ]</h5>
                 <p class="text-gray-600">To help protect your personal information, please log in to your account.</p>
             </div>
 
@@ -85,10 +85,8 @@ new #[Layout('layouts.guest')] class extends Component
                         wire:model="form.remember"
                         class="text-indigo-600 border-gray-300 rounded shadow-sm focus:ring-indigo-500"
                     />
-                </div>
-
-                <!-- Submit Button -->
-                <x-slot:actions>
+                     <!-- Submit Button -->
+                {{-- <x-slot:actions> --}}
                     <div class="mt-6 text-center">
                         <x-mary-button label="LOG IN"
                             type="submit"
@@ -96,7 +94,10 @@ new #[Layout('layouts.guest')] class extends Component
                             class="w-full py-3 text-sm font-semibold tracking-widest text-white uppercase bg-gray-800 rounded-md hover:bg-gray-700 focus:bg-gray-700"
                         />
                     </div>
-                </x-slot:actions>
+                {{-- </x-slot:actions> --}}
+                </div>
+
+               
 
             </x-mary-form>
         </div>
