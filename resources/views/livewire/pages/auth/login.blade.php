@@ -41,14 +41,14 @@ new #[Layout('layouts.guest')] class extends Component
                 /> --}}
                 <img 
                     class="w-29 md:w-39 lg:w-45 h-auto" 
-                    src="{{ asset('images/eclessia_flow_logo3.png') }}" 
+                    src="{{ asset('images/eclessia_flow_logo4.png') }}" 
                     alt="Ecclesia Flow" 
                 />
             </div>
 
             <!-- Welcome Text -->
             <div class="mb-6 text-center">
-                <h5 class="font-bold text-gray-900" style="margin-bottom: 15px !important;">EcclesiaFlow [ Beta Version 2025 ]</h5>
+                {{-- <h5 class="font-bold text-gray-900" style="margin-bottom: 15px !important;">EcclesiaFlow [ Beta Version 2025 ]</h5> --}}
                 <p class="text-gray-600">To help protect your personal information, please log in to your account.</p>
             </div>
 
