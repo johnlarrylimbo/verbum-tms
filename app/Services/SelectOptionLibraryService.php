@@ -80,5 +80,36 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting diocese select options', 500, $exception);
         }
     }
+
+    public function loadVicariateByDioceseIdOptions(int $param_diocese_id)
+    {
+        try {
+            $diocese_id = $param_diocese_id ?? 0;
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_vicariate_by_diocese_id_select_options')
+                ->stored_procedure_params([' :p_diocese_id '])
+				->stored_procedure_values([ $diocese_id ])
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting vicariate by diocese id select options', 500, $exception);
+        }
+    }
+
+    public function loadParishesOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_parishes_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting parishes select options', 500, $exception);
+        }
+    }
     
 }

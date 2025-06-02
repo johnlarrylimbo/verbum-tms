@@ -12,7 +12,7 @@
 							<div class="pl-2" >
 									<p class="text-xl"><img 
                     class="w-24 md:w-36 lg:w-40 h-auto" 
-                    src="{{ asset('images/eclessia_flow_logo.png') }}" 
+                    src="{{ asset('images/eclessia_flow_logo4.png') }}" 
                     alt="Ecclesia Flow" 
                 /></p>
 							</div>

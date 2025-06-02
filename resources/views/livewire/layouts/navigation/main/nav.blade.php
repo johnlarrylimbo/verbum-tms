@@ -7,7 +7,7 @@
           </label>
 
           <!--- Brand --->
-          <div>TraMaSys v.1</div>
+          <div>EcclesiaFlow v.1</div>
 
       </x-slot:brand>
 

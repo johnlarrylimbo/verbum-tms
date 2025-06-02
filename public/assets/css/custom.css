@@ -5,3 +5,7 @@
 .vertical-align-top{
   vertical-align: top !important;
 }
+
+.font-extrabold{
+  font-weight: 600 !important;
+}

@@ -108,18 +108,18 @@
                 </td>
                 <td class="text-center vertical-align-top">
                   <x-mary-button icon="o-pencil-square" 
-                                  wire:click="openEditVicariateModal({{ $result->parish_id }})" 
+                                  wire:click="openEditParishModal({{ $result->parish_id }})" 
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
                   @if($result->statuscode == 1)
                     <x-mary-button icon="o-eye-slash"
-                                    wire:click="openUpdateVicariateStatusModal({{ $result->parish_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateParishStatusModal({{ $result->parish_id }},{{ $result->statuscode }})"
                                     class="bg-enabled text-white btn-sm align-center"
                                     spinner
                                     />
                   @else
                     <x-mary-button icon="o-eye"
-                                    wire:click="openUpdateVicariateStatusModal({{ $result->parish_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateParishStatusModal({{ $result->parish_id }},{{ $result->statuscode }})"
                                     class="bg-disabled text-white btn-sm align-center"
                                     spinner
                                     />
@@ -139,35 +139,69 @@
   </x-mary-card>
 
 
-  {{-- <x-mary-modal wire:model="addVicariateModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addParishModal" class="backdrop-blur">
     <x-mary-form wire:submit.prevent="save" no-separator>
 
-      <x-mary-input label="Vicariate Name" wire:model="label" id="label" />
+      <x-mary-select
+            label="Diocese"
+            :options="$this->load_diocese_options"
+            option-value="id"
+            option-label="diocese_label"
+            placeholder="Select a diocese"
+            placeholder-value=""
+            hint="Select one, please."
+            wire:model="diocese_id"
+            wire:change="dioceseChanged" />
 
       <x-mary-select
-						label="Diocese"
-						:options="$this->load_diocese_options"
-						option-value="id"
-						option-label="diocese_label"
-						placeholder="Select a diocese"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="diocese_id" />
+          label="Vicariate"
+          :options="$vicariate_options"
+          option-value="id"
+          option-label="label"
+          placeholder="Select a vicariate"
+          placeholder-value=""
+					hint="Select one, please."
+          wire:model="vicariate_id"
+      />
+
+      <x-mary-input label="Parish Name" wire:model="name" id="name" />
+
+      <x-mary-input label="Address" wire:model="address" id="address" />
+
+      <x-mary-input label="Contact No." wire:model="contact_number" id="contact_number" />
+
+      <div class="flex items-center gap-2">
+        <x-mary-select
+              label="Parish Priest"
+              :options="$this->load_priest_options"
+              option-value="id"
+              option-label="priest_name"
+              placeholder="Select a parish priest"
+              placeholder-value=""
+              hint="Select one, please."
+              wire:model="parish_priest_id" />
+
+        <button 
+                    type="button"
+                    class="btn btn-sm btn-primary" 
+                    wire:click="$set('addPriestModal', true)"
+                    >+ Add</button>
+      </div>
+
+       <x-mary-input label="Established Year" wire:model="established_year" id="established_year" />
    
       <x-slot:actions>
-          <x-mary-button label="Cancel" @click="$wire.addVicariateModal = false"/>
+          <x-mary-button label="Cancel" @click="$wire.addParishModal = false"/>
           <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save" />
       </x-slot:actions>
 
     </x-mary-form>
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
-  {{-- <x-mary-modal wire:model="editVicariateModal" class="backdrop-blur">
-    <x-mary-form wire:submit.prevent="save_vicariate_record_changes" no-separator>
+  <x-mary-modal wire:model="editParishModal" class="backdrop-blur">
+    <x-mary-form wire:submit.prevent="save_parish_record_changes" no-separator>
 
-      <x-mary-input type="hidden" wire:model="vicariate_id" id="vicariate_id" />
-
-      <x-mary-input label="Vicariate Name" wire:model="edit_label" id="edit_label" />
+      <x-mary-input type="hidden" wire:model="parish_id" id="parish_id" />
 
       <x-mary-select
 						label="Diocese"
@@ -177,25 +211,91 @@
 						placeholder="Select a diocese"
 						placeholder-value=""
 						hint="Select one, please."
-						wire:model="edit_diocese_id" />
+						wire:model="edit_diocese_id"
+            wire:change="edit_dioceseChanged" />
+
+      <x-mary-select
+          label="Vicariate"
+          :options="$vicariate_options"
+          option-value="id"
+          option-label="label"
+          placeholder="Select a vicariate"
+          placeholder-value=""
+					hint="Select one, please."
+          wire:model="edit_vicariate_id"
+      />
+
+      <x-mary-input label="Parish Name" wire:model="edit_name" id="edit_name" />
+
+      <x-mary-input label="Address" wire:model="edit_address" id="edit_address" />
+
+      <x-mary-input label="Contact No." wire:model="edit_contact_number" id="edit_contact_number" />
+
+      <div class="flex items-center gap-2">
+        <x-mary-select
+						label="Parish Priest"
+						:options="$this->load_priest_options"
+						option-value="id"
+						option-label="priest_name"
+						placeholder="Select a parish priest"
+						placeholder-value=""
+						hint="Select one, please."
+						wire:model="edit_parish_priest_id" />
+
+            <button 
+                    type="button"
+                    class="btn btn-sm btn-primary" 
+                    wire:click="$set('addPriestModal', true)"
+                    >+ Add</button>
+      </div>
+
+       <x-mary-input label="Established Year" wire:model="edit_established_year" id="edit_established_year" />
 
       <x-slot:actions>
-        <x-mary-button label="Cancel" @click="$wire.editVicariateModal = false"/>
-        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_vicariate_record_changes" />
+        <x-mary-button label="Cancel" @click="$wire.editParishModal = false"/>
+        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_parish_record_changes" />
       </x-slot:actions>
     </x-mary-form>
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
-  {{-- <x-mary-modal wire:model="updateVicariateStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+  <x-mary-modal wire:model="addPriestModal" class="backdrop-blur">
+    <x-mary-form wire:submit.prevent="save_new_priest" no-separator>
+
+      <x-mary-input label="First Name" wire:model="firstname" id="firstname" />
+
+      <x-mary-input label="Middle Name" wire:model="middlename" id="middlename" />
+
+      <x-mary-input label="Last Name" wire:model="lastname" id="lastname" />
+
+      <x-mary-select
+						label="Priest Congregation"
+						:options="$this->load_congregation_options"
+						option-value="id"
+						option-label="congregation_label"
+						placeholder="Select a congregation"
+						placeholder-value=""
+						hint="Select one, please."
+						wire:model="congregation_id" />
+   
+      <x-slot:actions>
+          <x-mary-button label="Cancel" @click="$wire.addPriestModal = false"/>
+          <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_new_priest" />
+      </x-slot:actions>
+
+    </x-mary-form>
+  </x-mary-modal>
+  
+
+  <x-mary-modal wire:model="updateParishStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 
     <x-slot:actions>
-        <x-mary-button label="Cancel" wire:click="updateVicariateStatusModal = false" />
-        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_vicariate_status({{ $vicariate_id }}, {{ $statuscode }})"  />
+        <x-mary-button label="Cancel" wire:click="updateParishStatusModal = false" />
+        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_parish_status({{ $parish_id }}, {{ $statuscode }})"  />
     </x-slot:actions>
 
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
 
 </div>
