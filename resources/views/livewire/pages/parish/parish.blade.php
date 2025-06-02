@@ -98,7 +98,10 @@
                   Established On : {{ $result->established_year }}<br />
                   Contact No. : {{ $result->contact_number }}
                 </td>
-                <td class="text-left vertical-align-top" style="word-break: break-word;">{{ $result->address }}</td>
+                <td class="text-left vertical-align-top" style="word-break: break-word;">
+                  Primary Location : {{ $result->primary_location }}<br />
+                  {{ $result->address }}
+                </td>
                 <td class="text-center vertical-align-top">
                   @if($result->statuscode == 1)
                     <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-green-600 text-white" />
@@ -166,7 +169,9 @@
 
       <x-mary-input label="Parish Name" wire:model="name" id="name" />
 
-      <x-mary-input label="Address" wire:model="address" id="address" />
+      <x-mary-input label="Primary Location (e.g. Mintal)" wire:model="primary_location" id="primary_location" />
+
+      <x-mary-input label="Address (Complete)" wire:model="address" id="address" />
 
       <x-mary-input label="Contact No." wire:model="contact_number" id="contact_number" />
 
@@ -227,7 +232,9 @@
 
       <x-mary-input label="Parish Name" wire:model="edit_name" id="edit_name" />
 
-      <x-mary-input label="Address" wire:model="edit_address" id="edit_address" />
+      <x-mary-input label="Primary Location (e.g. Mintal)" wire:model="edit_primary_location" id="edit_primary_location" />
+
+      <x-mary-input label="Address (Complete)" wire:model="edit_address" id="edit_address" />
 
       <x-mary-input label="Contact No." wire:model="edit_contact_number" id="edit_contact_number" />
 

@@ -39,6 +39,7 @@ class Parish extends Component
   public $diocese_id;
   public $vicariate_id;
   public $name;
+  public $primary_location;
   public $address;
   public $contact_number;
   public $parish_priest_id;
@@ -52,6 +53,7 @@ class Parish extends Component
   public $edit_diocese_id;
   public $edit_vicariate_id;
   public $edit_name;
+  public $edit_primary_location;
   public $edit_address;
   public $edit_contact_number;
   public $edit_parish_priest_id;
@@ -86,6 +88,7 @@ class Parish extends Component
     $this->diocese_id = 0;
     $this->vicariate_id = 0;
     $this->name = '';
+    $this->primary_location = '';
     $this->address = '';
     $this->contact_number = '';
     $this->parish_priest_id = 0;
@@ -155,13 +158,14 @@ class Parish extends Component
       'diocese_id' => 'required|not_in:0',
       'vicariate_id' => 'required|not_in:0',
       'name' => 'required|string|max:2048',
+      'primary_location' => 'required|string|max:256',
       'address' => 'required|string|max:2048',
       'contact_number' => 'required|string|max:64',
       'parish_priest_id' => 'required|not_in:0',
       'established_year' => 'required|string|max:64'
 		]);
 
-    $exists = $this->parish_service->addParish($this->diocese_id, $this->vicariate_id, $this->name, $this->address, $this->contact_number, $this->parish_priest_id, $this->established_year, auth()->user()->id);
+    $exists = $this->parish_service->addParish($this->diocese_id, $this->vicariate_id, $this->name, $this->primary_location, $this->address, $this->contact_number, $this->parish_priest_id, $this->established_year, auth()->user()->id);
 
 		if ($exists[0]->result_id == 0) {
       $this->showAddErrorMessage = true;
@@ -174,6 +178,7 @@ class Parish extends Component
     $this->reset(['diocese_id', 'diocese_id']);
 		$this->reset(['vicariate_id', 'vicariate_id']);
     $this->reset(['name', 'name']);
+    $this->reset(['primary_location', 'primary_location']);
     $this->reset(['address', 'address']);
     $this->reset(['contact_number', 'contact_number']);
     $this->reset(['parish_priest_id', 'parish_priest_id']);
@@ -197,6 +202,7 @@ class Parish extends Component
       $this->edit_diocese_id = $result->diocese_id;
       $this->edit_vicariate_id = $result->vicariate_id;
       $this->edit_name = $result->name;
+      $this->edit_primary_location = $result->primary_location;
       $this->edit_address = $result->address;
       $this->edit_contact_number = $result->contact_number;
       $this->edit_parish_priest_id = $result->parish_priest_id;
@@ -234,13 +240,14 @@ class Parish extends Component
       'edit_diocese_id' => 'required|not_in:0',
       'edit_vicariate_id' => 'required|not_in:0',
       'edit_name' => 'required|string|max:2048',
+      'edit_primary_location' => 'required|string|max:256',
       'edit_address' => 'required|string|max:2048',
       'edit_contact_number' => 'required|string|max:64',
       'edit_parish_priest_id' => 'required|not_in:0',
       'edit_established_year' => 'required|string|max:64'
 		]);
 
-    $exists = $this->parish_service->updateParishById($this->parish_id, $this->edit_diocese_id, $this->edit_vicariate_id, $this->edit_name, $this->edit_address, $this->edit_contact_number, $this->edit_parish_priest_id, $this->edit_established_year, auth()->user()->id);
+    $exists = $this->parish_service->updateParishById($this->parish_id, $this->edit_diocese_id, $this->edit_vicariate_id, $this->edit_name, $this->edit_primary_location, $this->edit_address, $this->edit_contact_number, $this->edit_parish_priest_id, $this->edit_established_year, auth()->user()->id);
 
 		if ($exists[0]->result_id == 0) {
       $this->showErrorMessage = true;
@@ -251,13 +258,14 @@ class Parish extends Component
 
 		// Optionally reset form fields after save
     $this->reset(['parish_id', 'parish_id']);
-    $this->reset(['edit_diocese_id', 'diocese_id']);
-		$this->reset(['edit_vicariate_id', 'vicariate_id']);
-    $this->reset(['edit_name', 'name']);
-    $this->reset(['edit_address', 'address']);
-    $this->reset(['edit_contact_number', 'contact_number']);
-    $this->reset(['edit_parish_priest_id', 'parish_priest_id']);
-    $this->reset(['edit_established_year', 'established_year']);
+    $this->reset(['edit_diocese_id', 'edit_diocese_id']);
+		$this->reset(['edit_vicariate_id', 'edit_vicariate_id']);
+    $this->reset(['edit_name', 'edit_name']);
+    $this->reset(['edit_primary_location', 'edit_primary_location']);
+    $this->reset(['edit_address', 'edit_address']);
+    $this->reset(['edit_contact_number', 'edit_contact_number']);
+    $this->reset(['edit_parish_priest_id', 'edit_parish_priest_id']);
+    $this->reset(['edit_established_year', 'edit_established_year']);
 
 		// Close the modal
 		$this->editParishModal = false;

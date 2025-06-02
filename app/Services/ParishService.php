@@ -46,12 +46,13 @@ class ParishService extends Service
 		}
 	}
 
-  public function addParish(int $param_diocese_id, int $param_vicariate_id, string $param_name, string $param_address, string $param_contact_number, int $param_parish_priest_id, string $param_established_year, int $param_user_id)
+  public function addParish(int $param_diocese_id, int $param_vicariate_id, string $param_name, string $param_primary_location, string $param_address, string $param_contact_number, int $param_parish_priest_id, string $param_established_year, int $param_user_id)
 	{
 		try {
       $diocese_id = $param_diocese_id ?? 0;
 			$vicariate_id = $param_vicariate_id ?? 0;
 			$name  = $param_name ?? '';
+			$primary_location  = $param_primary_location ?? '';
 			$address  = $param_address ?? '';
 			$contact_number  = $param_contact_number ?? '';
 			$parish_priest_id = $param_parish_priest_id ?? 0;
@@ -60,14 +61,15 @@ class ParishService extends Service
 
 			$result = $this->sp
 								->stored_procedure('pr_datims_parish_ins')
-								->stored_procedure_params([':p_diocese_id, :p_vicariate_id, :p_name, :p_address, :p_contact_number, :p_parish_priest_id, :p_established_year, :result_id'])
-								->stored_procedure_values([ $diocese_id, $vicariate_id, $name, $address, $contact_number, $parish_priest_id, $established_year, 0 ])
+								->stored_procedure_params([':p_diocese_id, :p_vicariate_id, :p_name, :p_primary_location, :p_address, :p_contact_number, :p_parish_priest_id, :p_established_year, :result_id'])
+								->stored_procedure_values([ $diocese_id, $vicariate_id, $name, $primary_location, $address, $contact_number, $parish_priest_id, $established_year, 0 ])
 								->execute();
 
 			Log::channel('transaction_audit_trail')->info('Added new parish:', [
                     'diocese_id' => $diocese_id,
 										'vicariate_id' => $vicariate_id,
 										'name' => $name,
+										'primary_location' => $primary_location,
 										'address' => $address,
 										'contact_number' => $contact_number,
 										'parish_priest_id' => $parish_priest_id,
@@ -96,13 +98,14 @@ class ParishService extends Service
 		}
 	}
 
-	public function updateParishById(int $param_parish_id, int $param_diocese_id, int $param_vicariate_id, string $param_name, string $param_address, string $param_contact_number, int $param_parish_priest_id, string $param_established_year, int $param_user_id)
+	public function updateParishById(int $param_parish_id, int $param_diocese_id, int $param_vicariate_id, string $param_name, string $param_primary_location, string $param_address, string $param_contact_number, int $param_parish_priest_id, string $param_established_year, int $param_user_id)
 	{
 		try {
 			$parish_id = $param_parish_id ?? 0;
 			$diocese_id = $param_diocese_id ?? 0;
 			$vicariate_id = $param_vicariate_id ?? 0;
 			$name = $param_name ?? '';
+			$primary_location = $param_primary_location ?? '';
 			$address = $param_address ?? '';
 			$contact_number = $param_contact_number ?? '';
       $parish_priest_id = $param_parish_priest_id ?? 0;
@@ -111,8 +114,8 @@ class ParishService extends Service
 			
 			$result = $this->sp
 								->stored_procedure('pr_datims_parish_by_id_upd')
-								->stored_procedure_params([':p_parish_id, :p_diocese_id, :p_vicariate_id, :p_name, :p_address, :p_contact_number, :p_parish_priest_id, :p_established_year, :result_id'])
-								->stored_procedure_values([ $parish_id, $diocese_id, $vicariate_id, $name, $address, $contact_number, $parish_priest_id, $established_year, 0 ])
+								->stored_procedure_params([':p_parish_id, :p_diocese_id, :p_vicariate_id, :p_name, :p_primary_location, :p_address, :p_contact_number, :p_parish_priest_id, :p_established_year, :result_id'])
+								->stored_procedure_values([ $parish_id, $diocese_id, $vicariate_id, $name, $primary_location, $address, $contact_number, $parish_priest_id, $established_year, 0 ])
 								->execute();
 
 			Log::channel('transaction_audit_trail')->info('Updated parish:', [
@@ -120,6 +123,7 @@ class ParishService extends Service
                     'diocese_id' => $diocese_id,
 										'vicariate_id' => $vicariate_id,
 										'name' => $name,
+										'primary_location' => $primary_location,
 										'address' => $address,
 										'contact_number' => $contact_number,
 										'parish_priest_id' => $parish_priest_id,
