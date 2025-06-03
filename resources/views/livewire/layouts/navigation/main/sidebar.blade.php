@@ -59,7 +59,7 @@
 						<x-mary-menu-item title="Client Category" icon="s-wrench-screwdriver" link="/client-category" />
 						<x-mary-menu-item title="Client Type" icon="s-wrench-screwdriver" link="/client-type" />
 						<x-mary-menu-item title="Contract Category" icon="s-wrench-screwdriver" link="/contract-category" />
-						<x-mary-menu-item title="Contract Category Type" icon="s-wrench-screwdriver" link="/contract-category-type" />
+						<x-mary-menu-item title="Contract Category Type" icon="s-wrench-screwdriver" link="/category-type" />
 						<x-mary-menu-item title="Contract Type" icon="s-wrench-screwdriver" link="/contract-type" />
 						<x-mary-menu-item title="Congregation" icon="s-wrench-screwdriver" link="/congregation" />
 						<x-mary-menu-item title="Diocese" icon="s-wrench-screwdriver" link="/diocese" />
