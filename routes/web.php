@@ -42,9 +42,9 @@ Route::middleware('guest')->group(function () {
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', WireDashboard::class)
     ->middleware(['auth', 'verified'])
