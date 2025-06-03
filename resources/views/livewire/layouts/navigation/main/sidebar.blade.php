@@ -56,6 +56,7 @@
 					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth" open>
 						<x-mary-menu-item title="Barangay" icon="s-wrench-screwdriver" link="/barangay" />
 						<x-mary-menu-item title="Basic Ecclesial Community" icon="s-wrench-screwdriver" link="/bec" />
+						<x-mary-menu-item title="Client Category" icon="s-wrench-screwdriver" link="/client-category" />
 						<x-mary-menu-item title="Congregation" icon="s-wrench-screwdriver" link="/congregation" />
 						<x-mary-menu-item title="Diocese" icon="s-wrench-screwdriver" link="/diocese" />
 						<x-mary-menu-item title="Diocese Vicariate" icon="s-wrench-screwdriver" link="/vicariate" />
