@@ -70,4 +70,6 @@ require __DIR__.'/app_routes/parish_routes.php';
 
 require __DIR__.'/app_routes/bec_routes.php';
 
+require __DIR__.'/app_routes/payment_type_routes.php';
+
 require __DIR__.'/auth.php';
