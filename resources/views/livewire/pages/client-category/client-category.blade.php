@@ -82,7 +82,7 @@
         <tbody>
           @if(count($this->client_category_lst) == 0)
             <tr class="fs-13 border-btm content-tr">
-              <td class="text-center" colspan="5">No client category record(s) found.</td>
+              <td class="text-center" colspan="4">No client category record(s) found.</td>
             </tr>
           @else
             @foreach ($this->client_category_lst as $result)
@@ -129,7 +129,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addClientCategoryModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addClientCategoryModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Client Category</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-input label="Client Category Description" wire:model="label" id="label" />
@@ -142,7 +148,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editClientCategoryModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editClientCategoryModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Client Category</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_client_category_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="client_category_id" id="client_category_id" />

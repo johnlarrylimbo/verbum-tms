@@ -130,7 +130,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addPriestModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addPriestModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Priest</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-input label="First Name" wire:model="firstname" id="firstname" />
@@ -157,7 +163,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editPriestModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editPriestModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Priest</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_priest_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="priest_id" id="priest_id" />

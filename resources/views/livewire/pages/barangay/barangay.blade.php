@@ -133,7 +133,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addBarangayModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addBarangayModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Barangay</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-select
@@ -166,7 +172,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editBarangayModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Barangay</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_barangay_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="barangay_id" id="barangay_id" />
@@ -200,7 +212,7 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+  <x-mary-modal wire:model="updateBarangayStatusModal" class="backdrop-blur custom-modal top-modal" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 

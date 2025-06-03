@@ -131,7 +131,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addCongregationModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addCongregationModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Congregation</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-input label="Abbreviation" wire:model="abbreviation" id="abbreviation" />
@@ -146,7 +152,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editCongregationModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editCongregationModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Congregation</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_congregation_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="congregation_id" id="congregation_id" />

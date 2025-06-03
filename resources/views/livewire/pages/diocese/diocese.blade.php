@@ -139,7 +139,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addDioceseModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addDioceseModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Diocese</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-input label="Diocese Name" wire:model="name" id="name" />
@@ -188,7 +194,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editDioceseModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editDioceseModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Diocese</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_diocese_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="diocese_id" id="diocese_id" />

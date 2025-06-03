@@ -9,3 +9,31 @@
 .font-extrabold{
   font-weight: 600 !important;
 }
+
+/* This assumes .custom-modal targets the main container */
+.custom-modal > div {
+    max-height: none !important; /* override any max-h-[value] */
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.custom-modal-header-div{
+  margin-top: -24px;
+  padding-bottom: 15px;
+  margin-bottom: 17px; 
+  padding-left: 0px !important;
+
+}
+
+/* Push the modal to the top of the viewport */
+.top-modal > div {
+    align-items: flex-start !important; /* vertical alignment */
+    justify-content: center;           /* horizontal center */
+    padding-top: 2rem;                 /* spacing from the top */
+}
+
+/* Optional: remove fixed height limits */
+.top-modal > div > div {
+    max-height: none !important;
+    height: auto !important;
+}

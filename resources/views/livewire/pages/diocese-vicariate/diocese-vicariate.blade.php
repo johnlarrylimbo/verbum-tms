@@ -131,7 +131,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addVicariateModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addVicariateModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Diocese Vicariate</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-input label="Vicariate Name" wire:model="label" id="label" />
@@ -154,7 +160,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editVicariateModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editVicariateModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Diocese Vicariate</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_vicariate_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="vicariate_id" id="vicariate_id" />

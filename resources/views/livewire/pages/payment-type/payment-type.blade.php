@@ -82,7 +82,7 @@
         <tbody>
           @if(count($this->payment_type_lst) == 0)
             <tr class="fs-13 border-btm content-tr">
-              <td class="text-center" colspan="5">No payment type record(s) found.</td>
+              <td class="text-center" colspan="4">No payment type record(s) found.</td>
             </tr>
           @else
             @foreach ($this->payment_type_lst as $result)

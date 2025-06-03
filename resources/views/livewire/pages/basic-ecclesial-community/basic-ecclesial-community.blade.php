@@ -135,7 +135,13 @@
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addBasicEcclesialCommunityModal" class="backdrop-blur">
+  <x-mary-modal wire:model="addBasicEcclesialCommunityModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Add Basic Ecclesial Community</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save" no-separator>
 
       <x-mary-select
@@ -160,7 +166,13 @@
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editBasicEcclesialCommunityModal" class="backdrop-blur">
+  <x-mary-modal wire:model="editBasicEcclesialCommunityModal" class="backdrop-blur custom-modal top-modal">
+    <!-- Manual Header -->
+    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
+        <h2 class="text-lg font-semibold text-gray-800">Edit Basic Ecclesial Community</h2>
+    </div>
+
+    <!-- Modal Form -->
     <x-mary-form wire:submit.prevent="save_bec_record_changes" no-separator>
 
       <x-mary-input type="hidden" wire:model="bec_id" id="bec_id" />
