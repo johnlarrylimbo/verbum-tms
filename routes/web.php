@@ -74,4 +74,6 @@ require __DIR__.'/app_routes/payment_type_routes.php';
 
 require __DIR__.'/app_routes/client_category_routes.php';
 
+require __DIR__.'/app_routes/client_type_routes.php';
+
 require __DIR__.'/auth.php';
