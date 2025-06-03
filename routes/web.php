@@ -80,4 +80,6 @@ require __DIR__.'/app_routes/contract_category_routes.php';
 
 require __DIR__.'/app_routes/contract_type_routes.php';
 
+require __DIR__.'/app_routes/contract_category_type_routes.php';
+
 require __DIR__.'/auth.php';

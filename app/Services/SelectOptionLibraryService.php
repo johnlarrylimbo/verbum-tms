@@ -111,5 +111,33 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting parishes select options', 500, $exception);
         }
     }
+
+    public function loadContractCategoryOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_contract_category_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting contract category select options', 500, $exception);
+        }
+    }
+
+    public function loadContractTypeOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_contract_type_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting contract type select options', 500, $exception);
+        }
+    }
     
 }
