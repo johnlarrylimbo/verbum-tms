@@ -60,9 +60,9 @@ CREATE TABLE `basic_ecclecial_communities` (
   `address` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +71,7 @@ CREATE TABLE `basic_ecclecial_communities` (
 
 LOCK TABLES `basic_ecclecial_communities` WRITE;
 /*!40000 ALTER TABLE `basic_ecclecial_communities` DISABLE KEYS */;
+INSERT INTO `basic_ecclecial_communities` VALUES (1,4,'3b724f1','San Lorenzo Ruiz GKK','Zone 3, Mintal, Davao City','2025-06-02 03:35:03','2025-06-03 00:50:56',1),(2,4,'83b3226','San Roque GKK','Zone 12, Brgy. Angalan, Davao City','2025-06-02 03:52:19','2025-06-02 04:07:22',1);
 /*!40000 ALTER TABLE `basic_ecclecial_communities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,9 +87,9 @@ CREATE TABLE `cashier_transaction_types` (
   `label` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +98,7 @@ CREATE TABLE `cashier_transaction_types` (
 
 LOCK TABLES `cashier_transaction_types` WRITE;
 /*!40000 ALTER TABLE `cashier_transaction_types` DISABLE KEYS */;
-INSERT INTO `cashier_transaction_types` VALUES (1,'Cash','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Check','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Online Payment','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `cashier_transaction_types` VALUES (1,'Cash','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Check','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Online Payment','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Sample only','2025-06-03 01:22:50','2025-06-03 01:41:36',0);
 /*!40000 ALTER TABLE `cashier_transaction_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,9 +177,9 @@ CREATE TABLE `client_categories` (
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +188,7 @@ CREATE TABLE `client_categories` (
 
 LOCK TABLES `client_categories` WRITE;
 /*!40000 ALTER TABLE `client_categories` DISABLE KEYS */;
-INSERT INTO `client_categories` VALUES (1,'Advertiser','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Donor','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Pledgor','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Sponsor','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `client_categories` VALUES (1,'Advertiser','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Donor','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Pledgor','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Sponsor','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(5,'Sample onlys','2025-06-03 02:32:37','2025-06-03 04:22:26',1);
 /*!40000 ALTER TABLE `client_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,9 +204,9 @@ CREATE TABLE `client_types` (
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +215,7 @@ CREATE TABLE `client_types` (
 
 LOCK TABLES `client_types` WRITE;
 /*!40000 ALTER TABLE `client_types` DISABLE KEYS */;
-INSERT INTO `client_types` VALUES (1,'Company','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'GKK','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'School','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Parish','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `client_types` VALUES (1,'Company','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'GKK','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'School','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Parish','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(5,'Sample onlyy','2025-06-03 09:32:59','2025-06-03 09:42:10',1);
 /*!40000 ALTER TABLE `client_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,9 +324,9 @@ CREATE TABLE `contract_categories` (
   `label` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +335,7 @@ CREATE TABLE `contract_categories` (
 
 LOCK TABLES `contract_categories` WRITE;
 /*!40000 ALTER TABLE `contract_categories` DISABLE KEYS */;
-INSERT INTO `contract_categories` VALUES (1,'ADV','Advertisement','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'DON','Donation','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'PLE','Pledge','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'SPO','Sponsorship','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `contract_categories` VALUES (1,'ADV','Advertisement','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'DON','Donation','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'PLE','Pledge','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'SPO','Sponsorship','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(5,'SO','Sample onlyy','2025-06-03 10:45:21','2025-06-03 11:05:22',1),(6,'ssss','ssss','2025-06-03 12:36:52',NULL,1);
 /*!40000 ALTER TABLE `contract_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,9 +353,9 @@ CREATE TABLE `contract_category_type_details` (
   `label` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,6 +364,7 @@ CREATE TABLE `contract_category_type_details` (
 
 LOCK TABLES `contract_category_type_details` WRITE;
 /*!40000 ALTER TABLE `contract_category_type_details` DISABLE KEYS */;
+INSERT INTO `contract_category_type_details` VALUES (1,4,1,'Ambit GN','2025-06-03 11:54:02',NULL,1),(2,6,5,'Sample onlyy','2025-06-03 12:44:12','2025-06-03 12:59:45',0);
 /*!40000 ALTER TABLE `contract_category_type_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,9 +419,9 @@ CREATE TABLE `contract_types` (
   `label` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -428,7 +430,7 @@ CREATE TABLE `contract_types` (
 
 LOCK TABLES `contract_types` WRITE;
 /*!40000 ALTER TABLE `contract_types` DISABLE KEYS */;
-INSERT INTO `contract_types` VALUES (1,'DXGN','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Davao Catholic Herald','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Social Media','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `contract_types` VALUES (1,'DXGN','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Davao Catholic Herald','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Social Media','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Sample onlyy','2025-06-03 11:21:03','2025-06-03 11:30:32',0),(5,'ffff','2025-06-03 12:36:58',NULL,1);
 /*!40000 ALTER TABLE `contract_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,7 +477,7 @@ CREATE TABLE `diocese_vicariates` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `statuscode` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -484,7 +486,7 @@ CREATE TABLE `diocese_vicariates` (
 
 LOCK TABLES `diocese_vicariates` WRITE;
 /*!40000 ALTER TABLE `diocese_vicariates` DISABLE KEYS */;
-INSERT INTO `diocese_vicariates` VALUES (1,1,'Vicariate of Immaculate Conception','2025-06-01 12:53:24','2025-06-01 13:06:21',1),(2,1,'Vicariate of St. James','2025-06-01 13:07:01',NULL,1),(3,1,'Vicariate of St. Anne','2025-06-01 13:07:15',NULL,1),(4,1,'Vicariate of San Pedro','2025-06-01 13:07:27',NULL,1),(5,1,'Vicariate of San Pablo','2025-06-01 13:07:40',NULL,1),(6,1,'Vicariate of Santo Rosario','2025-06-01 13:07:52',NULL,1),(7,1,'Vicariate of Sacred Heart of Jesus','2025-06-01 13:08:06',NULL,1),(8,2,'Vicariate of Mary Mediatrix of All Graces','2025-06-01 13:08:42',NULL,1),(9,2,'Vicariate of San Isidro Labrador','2025-06-01 13:08:57',NULL,1),(10,2,'Vicariate of Immaculate Conception','2025-06-01 13:09:11',NULL,1),(11,2,'Vicariate of St. Michael','2025-06-01 13:09:27',NULL,1),(12,2,'Vicariate of St. Theresa of Avila','2025-06-01 13:09:43',NULL,1),(13,2,'Vicariate of Sto. Rosario','2025-06-01 13:10:05',NULL,1),(14,2,'Vicariate of Our Lady of Assumption','2025-06-01 13:10:17',NULL,1),(15,3,'Vicariate of Holy Family','2025-06-01 13:10:40',NULL,1),(16,3,'Vicariate of San Vicente Ferrer','2025-06-01 13:10:53',NULL,1),(17,3,'Vicariate of El Salvador del Mundo','2025-06-01 13:11:05',NULL,1),(18,3,'Vicariate of St. James the Apostle','2025-06-01 13:11:18',NULL,1),(19,4,'Vicariate of Christ the King','2025-06-01 13:11:42',NULL,1),(20,4,'Vicariate of Our Lady of Fatima','2025-06-01 13:11:54',NULL,1),(21,4,'Vicariate of Our Lady of Mount Carmel','2025-06-01 13:12:06',NULL,1),(22,4,'Vicariate of Sta. Teresita sa Batang Jesus','2025-06-01 13:12:19',NULL,1),(23,4,'Vicariate of St. James the Apostle','2025-06-01 13:12:30',NULL,1),(24,4,'Vicariate of Holy Family','2025-06-01 13:12:43',NULL,1),(25,4,'Vicariate of San Ignacio','2025-06-01 13:12:56',NULL,1),(26,4,'Vicariate of San Isidro','2025-06-01 13:13:09',NULL,1),(27,4,'Vicariate of San Jose','2025-06-01 13:13:19',NULL,1),(28,4,'Vicariate of Santo Niño','2025-06-01 13:13:31',NULL,1),(29,4,'Vicariate of San Miguel','2025-06-01 13:13:44',NULL,1);
+INSERT INTO `diocese_vicariates` VALUES (1,1,'Vicariate of Immaculate Conception','2025-06-01 12:53:24','2025-06-01 13:06:21',1),(2,1,'Vicariate of St. James','2025-06-01 13:07:01',NULL,1),(3,1,'Vicariate of St. Anne','2025-06-01 13:07:15',NULL,1),(4,1,'Vicariate of San Pedro','2025-06-01 13:07:27',NULL,1),(5,1,'Vicariate of San Pablo','2025-06-01 13:07:40',NULL,1),(6,1,'Vicariate of Santo Rosario','2025-06-01 13:07:52',NULL,1),(7,1,'Vicariate of Sacred Heart of Jesus','2025-06-01 13:08:06',NULL,1),(8,2,'Vicariate of Mary Mediatrix of All Graces','2025-06-01 13:08:42',NULL,1),(9,2,'Vicariate of San Isidro Labrador','2025-06-01 13:08:57',NULL,1),(10,2,'Vicariate of Immaculate Conception','2025-06-01 13:09:11',NULL,1),(11,2,'Vicariate of St. Michael','2025-06-01 13:09:27',NULL,1),(12,2,'Vicariate of St. Theresa of Avila','2025-06-01 13:09:43',NULL,1),(13,2,'Vicariate of Sto. Rosario','2025-06-01 13:10:05',NULL,1),(14,2,'Vicariate of Our Lady of Assumption','2025-06-01 13:10:17',NULL,1),(15,3,'Vicariate of Holy Family','2025-06-01 13:10:40',NULL,1),(16,3,'Vicariate of San Vicente Ferrer','2025-06-01 13:10:53',NULL,1),(17,3,'Vicariate of El Salvador del Mundo','2025-06-01 13:11:05',NULL,1),(18,3,'Vicariate of St. James the Apostle','2025-06-01 13:11:18',NULL,1),(19,4,'Vicariate of Christ the King','2025-06-01 13:11:42',NULL,1),(20,4,'Vicariate of Our Lady of Fatima','2025-06-01 13:11:54',NULL,1),(21,4,'Vicariate of Our Lady of Mount Carmel','2025-06-01 13:12:06',NULL,1),(22,4,'Vicariate of Sta. Teresita sa Batang Jesus','2025-06-01 13:12:19',NULL,1),(23,4,'Vicariate of St. James the Apostle','2025-06-01 13:12:30',NULL,1),(24,4,'Vicariate of Holy Family','2025-06-01 13:12:43',NULL,1),(25,4,'Vicariate of San Ignacio','2025-06-01 13:12:56',NULL,1),(26,4,'Vicariate of San Isidro','2025-06-01 13:13:09',NULL,1),(27,4,'Vicariate of San Jose','2025-06-01 13:13:19',NULL,1),(28,4,'Vicariate of Santo Niño','2025-06-01 13:13:31',NULL,1),(29,4,'Vicariate of San Miguel','2025-06-01 13:13:44',NULL,1),(30,5,'Vicariate 1 (MASMAKIBUKID)','2025-06-02 00:52:15',NULL,1);
 /*!40000 ALTER TABLE `diocese_vicariates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -534,9 +536,9 @@ CREATE TABLE `employee_types` (
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -545,7 +547,7 @@ CREATE TABLE `employee_types` (
 
 LOCK TABLES `employee_types` WRITE;
 /*!40000 ALTER TABLE `employee_types` DISABLE KEYS */;
-INSERT INTO `employee_types` VALUES (1,'Teaching','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Non-Teaching','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `employee_types` VALUES (1,'Teaching','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Non-Teaching','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Sales Representative','2025-06-03 13:23:38','2025-06-04 10:44:19',1);
 /*!40000 ALTER TABLE `employee_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -701,15 +703,16 @@ CREATE TABLE `parishes` (
   `vicariate_id` int DEFAULT NULL,
   `parish_code` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `primary_location` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_number` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parish_priest_id` int DEFAULT NULL,
   `established_year` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -718,7 +721,7 @@ CREATE TABLE `parishes` (
 
 LOCK TABLES `parishes` WRITE;
 /*!40000 ALTER TABLE `parishes` DISABLE KEYS */;
-INSERT INTO `parishes` VALUES (1,NULL,NULL,NULL,'Ascension of the Lord Parish','GSIS Heights Matina, Davao City',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,NULL,NULL,NULL,'Holy Family Parish','Brgy. Baliok Talomo District, Davao City',NULL,NULL,'2004','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,NULL,NULL,NULL,'Immaculate Conception Parish','Peñaplanta, Island Garden City of Samal',NULL,NULL,'1951','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,NULL,NULL,NULL,'Immaculate Conception Parish','Mintal, Davao City',NULL,NULL,'1959','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(5,NULL,NULL,NULL,'Mary Help of Christians Parish','Brgy. Dacudao Calinan, Davao City',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(6,NULL,NULL,NULL,'Most Sacred Heart of Jesus Parish','Calinan, Davao City',NULL,NULL,'1948','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(7,NULL,NULL,NULL,'Our Lady of Fatima Parish','Fatima St., Davao City',NULL,NULL,'1952','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(8,NULL,NULL,NULL,'Our Lady of Lourdes Parish','Bangkal, Davao City',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(9,NULL,NULL,NULL,'Our Lady of the Assumption Parish','247 Florentino Torres St., Davao City',NULL,NULL,'1972','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(10,NULL,NULL,NULL,'Our Lady of the Miraculous Medal Parish','Indangan, Davao City',NULL,NULL,'2009','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(11,NULL,NULL,NULL,'Our Mother of Perpetual Help Parish','J.P. Laurel Ave., Davao City',NULL,NULL,'1972','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(12,NULL,NULL,NULL,'Sacred Heart of Jesus Parish','Obrero, Davao City',NULL,NULL,'1967','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(13,NULL,NULL,NULL,'San Alfonso Ma. De Liguori Parish','Mandug, Davao City',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(14,NULL,NULL,NULL,'San Antonio de Padua Parish','Agdao, Davao City',NULL,NULL,'1964','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(15,NULL,NULL,NULL,'San Francisco de Asis Parish','Brgy. Tagakpan Tugbok Dist., Davao City',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(16,NULL,NULL,NULL,'San Isidro Labrador Parish','Catalunan Grande, Davao City',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(17,NULL,NULL,NULL,'San Isidro Labrador Parish','Lomondao, Davao City',NULL,NULL,'1993','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(18,NULL,NULL,NULL,'San Lorenzo Ruiz Parish','Talomo, Davao City',NULL,NULL,'1985','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(19,NULL,NULL,NULL,'San Miguel Parish','Km. 14 Panacan, Davao City',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(20,NULL,NULL,NULL,'San Miguel Parish','Marahan Marilog District, Davao City',NULL,NULL,'2005','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(21,NULL,NULL,NULL,'San Pablo Parish','Juna Subd. Matina, Davao City',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(22,NULL,NULL,NULL,'San Pedro Calungsod Quasi-Parish','Baguio District Calinan, Davao City',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(23,NULL,NULL,NULL,'San Pedro Cathedral','San Pedro St., Davao City',NULL,NULL,'1848','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(24,NULL,NULL,NULL,'San Pedro Poveda Parish','Km. 11 Catalunan Pequeño, Davao City',NULL,NULL,'2021','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(25,NULL,NULL,NULL,'San Roque Parish','Malabog Paquibato Dist., Davao City',NULL,NULL,'1984','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(26,NULL,NULL,NULL,'Santa Cruz Parish','Talicud, Island Garden City of Samal',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(27,NULL,NULL,NULL,'St. Francis of Assisi Parish','La Verna Hills Subd. Buhangin, Davao City',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(28,NULL,NULL,NULL,'St. Francis of Assisi Parish','Maa, Davao City',NULL,NULL,'1995','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(29,NULL,NULL,NULL,'St. Francis Xavier Parish','Tibungco, Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(30,NULL,NULL,NULL,'St. James the Apostle Parish','Bunawan, Davao City',NULL,NULL,'1962','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(31,NULL,NULL,NULL,'St. John Paul II Parish','Los Amigos Tugbok District, Davao City',NULL,NULL,'2012','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(32,NULL,NULL,NULL,'St. John the Baptist Parish','Lasang, Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(33,NULL,NULL,NULL,'St. Joseph the Worker Parish','Km. 9 Barrio Pampanga Sasa, Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(34,NULL,NULL,NULL,'St. Jude Shrine Parish','G. Malvar St., Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(35,NULL,NULL,NULL,'St. Mary of the Perpetual Rosary Parish','Cabantian Road Buhangin, Davao City',NULL,NULL,'1987','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(36,NULL,NULL,NULL,'Sta. Anna Shrine Parish','Sta. Ana Ave., Davao City',NULL,NULL,'1949','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(37,NULL,NULL,NULL,'Sto. Niño Parish (Kaputian)','Kaputian, Island Garden City of Samal',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(38,NULL,NULL,NULL,'Sto. Rosario Parish','Toril, Davao City',NULL,NULL,'1948','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(39,NULL,NULL,NULL,'Virgen delos Remedios Parish','Crossing Bayabas Toril, Davao City',NULL,NULL,'2011','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(40,NULL,NULL,NULL,'Virgen Dolorosa Parish','Babak, Island Garden City of Samal',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(41,NULL,NULL,NULL,'Mary Mediatrix of All Grace Cathedral Parish','Rizal Avenue, Digos City',NULL,NULL,'1951','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(42,NULL,NULL,NULL,'St. Joseph the Worker Parish','Poblacion Sta. Cruz, Davao Del Sur',NULL,NULL,'1941','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(43,NULL,NULL,NULL,'John Paul II Sub Parish of Sta. Cruz','Inawayan Sta Cruz, Davao Del Sur',NULL,NULL,'2002','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(44,NULL,NULL,NULL,'Our Lady of Mt. Apo Parish','Kapatagan, Digos City Davao Del Sur',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(45,NULL,NULL,NULL,'Divine Mercy Apostolic Center','Sinawilan, Digos City Davao Del Sur',NULL,NULL,'2013','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(46,NULL,NULL,NULL,'Our Lady of Fatima Parish','Matti, Digos City Davao Del Sur',NULL,NULL,'2019','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(47,NULL,NULL,NULL,'San Isidro Labrador Parish','Poblacion Hagonoy, Davao Del Sur',NULL,NULL,'1962','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(48,NULL,NULL,NULL,'San Isidro Labrador Parish','Corner Rizal Avenue - Aurora St., Digos City Davao Del Sur',NULL,NULL,'1981','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(49,NULL,NULL,NULL,'Our Mother of Perpetual Help Parish','Guihing, Davao Del Sur',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(50,NULL,NULL,NULL,'Immaculate Conception Parish','Poblacion Bansalan, Davao Del Sur',NULL,NULL,'1956','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(51,NULL,NULL,NULL,'St. Michael Parish','Poblacion Matanao, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(52,NULL,NULL,NULL,'Sto. Niño Parish (Magsaysay)','Poblacion Magsaysay, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(53,NULL,NULL,NULL,'St. Vincent Ferrer Parish','Barrio of Bangkal Matan-ao, Davao Del Sur',NULL,NULL,'1995','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(54,NULL,NULL,NULL,'St. Michael Parish','Poblacion Padada, Davao Del Sur',NULL,NULL,'1952','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(55,NULL,NULL,NULL,'Immaculate Conception Parish','Poblacion Kiblawan, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(56,NULL,NULL,NULL,'Malopolo District (Sub Parish of Kiblawan)','Kiblawan, Davao Del Sur',NULL,NULL,'2014','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(57,NULL,NULL,NULL,'San Roque Parish','Poblacion Sulop, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(58,NULL,NULL,NULL,'Banate Mission Station','Banate, Saranggani Province',NULL,NULL,'2002','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(59,NULL,NULL,NULL,'Sta. Teresa de Avila Parish','Poblacion Malalag, Davao Del Sur',NULL,NULL,'1959','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(60,NULL,NULL,NULL,'Kilegbeg Mission Station','Sta. Maria, Davao Del Sur',NULL,NULL,'1975','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(61,NULL,NULL,NULL,'San Vicente Ferrer Parish','Basiawan Sta. Maria, Davao Del Sur',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(62,NULL,NULL,NULL,'Our Lady of the Assumption Parish','Poblacion Sta. Maria, Davao Del Sur',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(63,NULL,NULL,NULL,'Sto. Rosario Parish','Poblacion Malita, Davao Del Sur',NULL,NULL,'1947','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(64,NULL,NULL,NULL,'Little Baguio Mission Station','Malita, Davao Del Sur',NULL,NULL,'1977','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(65,NULL,NULL,NULL,'Malita Tagakaolo Mission Station','Malita, Davao Del Sur',NULL,NULL,'1988','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(66,NULL,NULL,NULL,'Our Lady of Assumption Parish','Poblacion Jose Abad Santos, Davao Del Sur',NULL,NULL,'1959','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(67,NULL,NULL,NULL,'San Lorenzo Ruiz de Manila Parish','Poblacion Don Marcelino, Davao Del Sur',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(68,NULL,NULL,NULL,'Sta. Teresita del Niño Jesus Parish','Balut Sarangani Island, Davao Del Sur',NULL,NULL,'1997','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(69,NULL,NULL,NULL,'Nuing Mission Station (Manobo Mission)','Kasunogan Molmol Jose Abad Santos, Davao Del Sur',NULL,NULL,'2002','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(70,NULL,NULL,NULL,'San Nicholas de Tolentino Cathedral','Mati, Davao Oriental',NULL,NULL,'1937','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(71,NULL,NULL,NULL,'Sto. Rosario Parish','Calapagan Lupon, Davao Oriental',NULL,NULL,'1993','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(72,NULL,NULL,NULL,'Nuestra Sra. De Guia Parish','Dawan Mati, Davao Oriental',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(73,NULL,NULL,NULL,'Sacred Heart of Jesus Parish','Dahican Mati, Davao Oriental',NULL,NULL,'1997','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(74,NULL,NULL,NULL,'Divine Mercy Shrine Parish','Madang Mati, Davao Oriental',NULL,NULL,'2006','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(75,NULL,NULL,NULL,'San Vicente Ferrer Parish','Lupon, Davao Oriental',NULL,NULL,'1955','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(76,NULL,NULL,NULL,'St. Francis Xavier Parish','Governor Generoso, Davao Oriental',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(77,NULL,NULL,NULL,'San Isidro Labrador Parish','Banaybanay, Davao Oriental',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(78,NULL,NULL,NULL,'San Ignacio de Loyola Parish','Luzon Gov. Generoso, Davao Oriental',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(79,NULL,NULL,NULL,'San Isidro Labrador Parish','San Isidro, Davao Oriental',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(80,NULL,NULL,NULL,'El Salvador del Mundo Parish','Caraga, Davao Oriental',NULL,NULL,'1884','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(81,NULL,NULL,NULL,'St. Francis Xavier Parish','Manay, Davao Oriental',NULL,NULL,'1897','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(82,NULL,NULL,NULL,'San Ignacio de Loyola Parish','San Ignacio Manay, Davao Oriental',NULL,NULL,'1995','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(83,NULL,NULL,NULL,'San Pedro Claver Parish','Tarragona, Davao Oriental',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(84,NULL,NULL,NULL,'San Antonio de Padua Quasi-Parish','San Antonio Baugo Caraga, Davao Oriental',NULL,NULL,'2020','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(85,NULL,NULL,NULL,'St. James the Apostle Parish','Cateel, Davao Oriental',NULL,NULL,'1894','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(86,NULL,NULL,NULL,'San Nicholas de Tolentino Parish','Boston, Davao Oriental',NULL,NULL,'1986','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(87,NULL,NULL,NULL,'Immaculate Conception Parish','Baganga, Davao Oriental',NULL,NULL,'1885','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(88,NULL,NULL,NULL,'Sto. Niño Parish (Baganga)','Kinablangan Baganga, Davao Oriental',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(89,NULL,NULL,NULL,'Sacred Heart of Jesus Parish','Lambajon, Davao Oriental',NULL,NULL,'2010','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(90,NULL,NULL,NULL,'Christ the King Parish','Gonzalez Ave., Tagum City Davao del Norte',NULL,NULL,'2001 as Parish; 2005 as Cathedral','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(91,NULL,NULL,NULL,'Christ the Eucharistic King Parish','Rizal St., Tagum City Davao del Norte',NULL,NULL,'1947','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(92,NULL,NULL,NULL,'Birhen sa Kasilak Parish','Hijo Madaum, Tagum City Davao del Norte',NULL,NULL,'1973; 2011 as Parish','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(93,NULL,NULL,NULL,'Sacred Heart of Jesus (Quasi-Parish)','Apokon, Tagum City Davao del Norte',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(94,NULL,NULL,NULL,'Sagrado Corazon de Jesus','Prk. 4 Bermudez Apokon, Tagum City Davao del Norte',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(95,NULL,NULL,NULL,'Our Lady of Fatima Parish','Third Ave. Teachers\' Village, Tagum City Davao del Norte',NULL,NULL,'1991','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(96,NULL,NULL,NULL,'Immaculate Conception of Mary (Quasi-Parish)','Seminary Drive, Tagum City Davao del Norte',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(97,NULL,NULL,NULL,'San Isidro Labrador Parish','New Corella, Davao del Norte',NULL,NULL,'1966','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(98,NULL,NULL,NULL,'Our Lady of the Assumption (Quasi-Parish)','Merville Subd., Tagum City Davao del Norte',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(99,NULL,NULL,NULL,'St. Michael the Archangel (Quasi Parish)','Prk. 2-A La Filipina, Tagum City Davao del Norte',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(100,NULL,NULL,NULL,'Our Lady of Mount Carmel Parish','Carmen, Davao del Norte',NULL,NULL,'1987','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(101,NULL,NULL,NULL,'Sta. Faustina (Quasi-Parish)','Prk. 8 Alejal Carmen, Davao del Norte',NULL,NULL,'2017','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(102,NULL,NULL,NULL,'Santo Niño Chapel','Davao Penal Colony, Panabo City Davao del Norte',NULL,NULL,'1940','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(103,NULL,NULL,NULL,'Saint Anthony of Padua Chapel','Tagum Development Corp., Bo. Antonio O. Floirendo, Panabo City Davao del Norte',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(104,NULL,NULL,NULL,'San Isidro Labrador Parish','Manay, Panabo City Davao del Norte',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(105,NULL,NULL,NULL,'Saint Therese of the Child Jesus Parish','Nabunturan, Comval',NULL,NULL,'1951','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(106,NULL,NULL,NULL,'Saint Vincent Ferrer (Quasi-Parish)','Manat Nabunturan, Comval',NULL,NULL,'1999','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(107,NULL,NULL,NULL,'Saint Vincent Ferrer Parish','Maragusan, Comval',NULL,NULL,'1968','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(108,NULL,NULL,NULL,'Birhen sa Sto. Rosario (Quasi-Parish)','Brgy. Mapawa Maragusan, Comval',NULL,NULL,'2017','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(109,NULL,NULL,NULL,'San Isidro Labrador Parish','Camanlangan New Bataan, Comval',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(110,NULL,NULL,NULL,'Sr. Santo Niño (Quasi-Parish)','Prk. 1 Antequera Nabunturan, Comval',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(111,NULL,NULL,NULL,'Saint James the Apostle Parish','Compostela Comval',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(112,NULL,NULL,NULL,'Saint Anthony of Padua Parish','New Bataan, Comval',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(113,NULL,NULL,NULL,'Our Lady of Perpetual Help (Quasi-Parish)','Bantacan New Bataan, Comval',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(114,NULL,NULL,NULL,'San Francisco Javier (Quasi-Parish)','Brgy. Gabi Compostela, Comval',NULL,NULL,'2008','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(115,NULL,NULL,NULL,'Santo Niño Parish (Mabini-ComVal)','Mabini, Comval',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(116,NULL,NULL,NULL,'Our Lady of Perpetual Help Parish','Maco, Comval',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(117,NULL,NULL,NULL,'Saint Joseph the Husband of Mary Parish','King-King Pantukan, Comval',NULL,NULL,'1939','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(118,NULL,NULL,NULL,'Saint Ignatius of Loyola Parish','Monkayo, Comval',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(119,NULL,NULL,NULL,'Nuestra Señora del Pilar (Quasi-Parish)','Babag Monkayo, Comval',NULL,NULL,'2004','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(120,NULL,NULL,NULL,'Saint Michael the Archangel Mission Station','Mine Site Mt. Diwalwal Monkayo, Comval',NULL,NULL,'1991','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(121,NULL,NULL,NULL,'Saint Vincent Ferrer (Quasi-Parish)','Brgy. Pasian Monkayo, Comval',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(122,NULL,NULL,NULL,'San Isidro Labrador Parish','Maniki Kapalong, Davao del Norte',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(123,NULL,NULL,NULL,'Our Lady of the Assumption Parish','Cambanogoy Asuncion, Davao del Norte',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(124,NULL,NULL,NULL,'Holy Family Parish','Laak, Comval',NULL,NULL,'1979','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(125,NULL,NULL,NULL,'San Isidro Labrador Parish','Sawata Asuncion, Davao del Norte',NULL,NULL,'1985','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(126,NULL,NULL,NULL,'Santo Niño (Quasi-Parish)','Sto. Niño Talaingod, Davao del Norte',NULL,NULL,'2006','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(127,NULL,NULL,NULL,'San Isidro Labrador (Quasi-Parish)','Laak, Comval Province',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(128,NULL,NULL,NULL,'Saint Joseph the Worker Parish','Montevista, Comval',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(129,NULL,NULL,NULL,'San Roque Parish','Mawab, Comval',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(130,NULL,NULL,NULL,'Immaculate Conception Parish','Elizalde Maco, Comval',NULL,NULL,'2006','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(131,NULL,NULL,NULL,'Santo Niño Parish','Panabo City, Davao del Norte',NULL,NULL,'1955','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(132,NULL,NULL,NULL,'Saint Augustine Parish','San Agustin Ave. Km. 31, Panabo City',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(133,NULL,NULL,NULL,'San Jose Parish','Gamao, Panabo City Davao del Norte',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(134,NULL,NULL,NULL,'San Pedro Parish','San Vicente, Panabo City Davao del Norte',NULL,NULL,'2009','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(135,NULL,NULL,NULL,'Saint Michael the Archangel Parish','Tibal-og Sto. Tomas, Davao del Norte',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(136,NULL,NULL,NULL,'Nuestra Señora de la Candelaria Parish','Kimamon Sto. Tomas, Davao del Norte',NULL,NULL,'1997','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(137,NULL,NULL,NULL,'Saint Joseph the Husband of Mary Parish','B. E. Dujali, Davao del Norte',NULL,NULL,'2003','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(138,NULL,NULL,NULL,'Nuestra Señora dela Salvacion (Quasi-Parish)','La Libertad Sto. Tomas, Davao del Norte',NULL,NULL,'2014','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `parishes` VALUES (1,1,5,'b509b74','Ascension of the Lord Parish','Matina','GSIS Heights Matina Davao City','-',29,'2001','2024-11-10 05:31:29','2025-06-02 04:12:37',1),(2,1,6,'822f078','Holy Family Parish',NULL,'Brgy. Baliok Talomo District, Davao City','-',34,'2004','2024-11-10 05:31:29','2025-06-02 02:43:27',1),(3,NULL,NULL,NULL,'Immaculate Conception Parish',NULL,'Peñaplanta, Island Garden City of Samal',NULL,NULL,'1951','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,1,6,'44f4f6a','Immaculate Conception Parish','Mintal','Mintal, Davao City','-',33,'1959','2024-11-10 05:31:29','2025-06-02 03:50:45',1),(5,NULL,NULL,NULL,'Mary Help of Christians Parish',NULL,'Brgy. Dacudao Calinan, Davao City',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(6,NULL,NULL,NULL,'Most Sacred Heart of Jesus Parish',NULL,'Calinan, Davao City',NULL,NULL,'1948','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(7,NULL,NULL,NULL,'Our Lady of Fatima Parish',NULL,'Fatima St., Davao City',NULL,NULL,'1952','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(8,1,5,'f1b5468','Our Lady of Lourdes Parish',NULL,'Bangkal, Davao City','-',30,'2007','2024-11-10 05:31:29','2025-06-02 01:59:27',1),(9,NULL,NULL,NULL,'Our Lady of the Assumption Parish',NULL,'247 Florentino Torres St., Davao City',NULL,NULL,'1972','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(10,NULL,NULL,NULL,'Our Lady of the Miraculous Medal Parish',NULL,'Indangan, Davao City',NULL,NULL,'2009','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(11,NULL,NULL,NULL,'Our Mother of Perpetual Help Parish',NULL,'J.P. Laurel Ave., Davao City',NULL,NULL,'1972','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(12,NULL,NULL,NULL,'Sacred Heart of Jesus Parish',NULL,'Obrero, Davao City',NULL,NULL,'1967','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(13,NULL,NULL,NULL,'San Alfonso Ma. De Liguori Parish',NULL,'Mandug, Davao City',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(14,NULL,NULL,NULL,'San Antonio de Padua Parish',NULL,'Agdao, Davao City',NULL,NULL,'1964','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(15,NULL,NULL,NULL,'San Francisco de Asis Parish',NULL,'Brgy. Tagakpan Tugbok Dist., Davao City',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(16,1,5,'f3cc35c','San Isidro Labrador Parish',NULL,'Catalunan Grande, Davao City','-',31,'2000','2024-11-10 05:31:29','2025-06-02 02:02:41',1),(17,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Lomondao, Davao City',NULL,NULL,'1993','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(18,NULL,NULL,NULL,'San Lorenzo Ruiz Parish',NULL,'Talomo, Davao City',NULL,NULL,'1985','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(19,NULL,NULL,NULL,'San Miguel Parish',NULL,'Km. 14 Panacan, Davao City',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(20,NULL,NULL,NULL,'San Miguel Parish',NULL,'Marahan Marilog District, Davao City',NULL,NULL,'2005','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(21,NULL,NULL,NULL,'San Pablo Parish',NULL,'Juna Subd. Matina, Davao City',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(22,NULL,NULL,NULL,'San Pedro Calungsod Quasi-Parish',NULL,'Baguio District Calinan, Davao City',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(23,NULL,NULL,NULL,'San Pedro Cathedral',NULL,'San Pedro St., Davao City',NULL,NULL,'1848','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(24,NULL,NULL,NULL,'San Pedro Poveda Parish',NULL,'Km. 11 Catalunan Pequeño, Davao City',NULL,NULL,'2021','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(25,NULL,NULL,NULL,'San Roque Parish',NULL,'Malabog Paquibato Dist., Davao City',NULL,NULL,'1984','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(26,NULL,NULL,NULL,'Santa Cruz Parish',NULL,'Talicud, Island Garden City of Samal',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(27,NULL,NULL,NULL,'St. Francis of Assisi Parish',NULL,'La Verna Hills Subd. Buhangin, Davao City',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(28,1,5,'89bc4b0','St. Francis of Assisi Parish',NULL,'Maa, Davao City','-',32,'1995','2024-11-10 05:31:29','2025-06-02 02:28:05',1),(29,NULL,NULL,NULL,'St. Francis Xavier Parish',NULL,'Tibungco, Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(30,NULL,NULL,NULL,'St. James the Apostle Parish',NULL,'Bunawan, Davao City',NULL,NULL,'1962','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(31,NULL,NULL,NULL,'St. John Paul II Parish',NULL,'Los Amigos Tugbok District, Davao City',NULL,NULL,'2012','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(32,NULL,NULL,NULL,'St. John the Baptist Parish',NULL,'Lasang, Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(33,NULL,NULL,NULL,'St. Joseph the Worker Parish',NULL,'Km. 9 Barrio Pampanga Sasa, Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(34,NULL,NULL,NULL,'St. Jude Shrine Parish',NULL,'G. Malvar St., Davao City',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(35,NULL,NULL,NULL,'St. Mary of the Perpetual Rosary Parish',NULL,'Cabantian Road Buhangin, Davao City',NULL,NULL,'1987','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(36,NULL,NULL,NULL,'Sta. Anna Shrine Parish',NULL,'Sta. Ana Ave., Davao City',NULL,NULL,'1949','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(37,NULL,NULL,NULL,'Sto. Niño Parish (Kaputian)',NULL,'Kaputian, Island Garden City of Samal',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(38,NULL,NULL,NULL,'Sto. Rosario Parish',NULL,'Toril, Davao City',NULL,NULL,'1948','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(39,NULL,NULL,NULL,'Virgen delos Remedios Parish',NULL,'Crossing Bayabas Toril, Davao City',NULL,NULL,'2011','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(40,NULL,NULL,NULL,'Virgen Dolorosa Parish',NULL,'Babak, Island Garden City of Samal',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(41,NULL,NULL,NULL,'Mary Mediatrix of All Grace Cathedral Parish',NULL,'Rizal Avenue, Digos City',NULL,NULL,'1951','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(42,NULL,NULL,NULL,'St. Joseph the Worker Parish',NULL,'Poblacion Sta. Cruz, Davao Del Sur',NULL,NULL,'1941','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(43,NULL,NULL,NULL,'John Paul II Sub Parish of Sta. Cruz',NULL,'Inawayan Sta Cruz, Davao Del Sur',NULL,NULL,'2002','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(44,NULL,NULL,NULL,'Our Lady of Mt. Apo Parish',NULL,'Kapatagan, Digos City Davao Del Sur',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(45,NULL,NULL,NULL,'Divine Mercy Apostolic Center',NULL,'Sinawilan, Digos City Davao Del Sur',NULL,NULL,'2013','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(46,NULL,NULL,NULL,'Our Lady of Fatima Parish',NULL,'Matti, Digos City Davao Del Sur',NULL,NULL,'2019','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(47,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Poblacion Hagonoy, Davao Del Sur',NULL,NULL,'1962','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(48,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Corner Rizal Avenue - Aurora St., Digos City Davao Del Sur',NULL,NULL,'1981','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(49,NULL,NULL,NULL,'Our Mother of Perpetual Help Parish',NULL,'Guihing, Davao Del Sur',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(50,NULL,NULL,NULL,'Immaculate Conception Parish',NULL,'Poblacion Bansalan, Davao Del Sur',NULL,NULL,'1956','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(51,NULL,NULL,NULL,'St. Michael Parish',NULL,'Poblacion Matanao, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(52,NULL,NULL,NULL,'Sto. Niño Parish (Magsaysay)',NULL,'Poblacion Magsaysay, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(53,NULL,NULL,NULL,'St. Vincent Ferrer Parish',NULL,'Barrio of Bangkal Matan-ao, Davao Del Sur',NULL,NULL,'1995','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(54,NULL,NULL,NULL,'St. Michael Parish',NULL,'Poblacion Padada, Davao Del Sur',NULL,NULL,'1952','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(55,NULL,NULL,NULL,'Immaculate Conception Parish',NULL,'Poblacion Kiblawan, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(56,NULL,NULL,NULL,'Malopolo District (Sub Parish of Kiblawan)',NULL,'Kiblawan, Davao Del Sur',NULL,NULL,'2014','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(57,NULL,NULL,NULL,'San Roque Parish',NULL,'Poblacion Sulop, Davao Del Sur',NULL,NULL,'1969','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(58,NULL,NULL,NULL,'Banate Mission Station',NULL,'Banate, Saranggani Province',NULL,NULL,'2002','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(59,NULL,NULL,NULL,'Sta. Teresa de Avila Parish',NULL,'Poblacion Malalag, Davao Del Sur',NULL,NULL,'1959','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(60,NULL,NULL,NULL,'Kilegbeg Mission Station',NULL,'Sta. Maria, Davao Del Sur',NULL,NULL,'1975','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(61,NULL,NULL,NULL,'San Vicente Ferrer Parish',NULL,'Basiawan Sta. Maria, Davao Del Sur',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(62,NULL,NULL,NULL,'Our Lady of the Assumption Parish',NULL,'Poblacion Sta. Maria, Davao Del Sur',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(63,NULL,NULL,NULL,'Sto. Rosario Parish',NULL,'Poblacion Malita, Davao Del Sur',NULL,NULL,'1947','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(64,NULL,NULL,NULL,'Little Baguio Mission Station',NULL,'Malita, Davao Del Sur',NULL,NULL,'1977','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(65,NULL,NULL,NULL,'Malita Tagakaolo Mission Station',NULL,'Malita, Davao Del Sur',NULL,NULL,'1988','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(66,NULL,NULL,NULL,'Our Lady of Assumption Parish',NULL,'Poblacion Jose Abad Santos, Davao Del Sur',NULL,NULL,'1959','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(67,NULL,NULL,NULL,'San Lorenzo Ruiz de Manila Parish',NULL,'Poblacion Don Marcelino, Davao Del Sur',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(68,NULL,NULL,NULL,'Sta. Teresita del Niño Jesus Parish',NULL,'Balut Sarangani Island, Davao Del Sur',NULL,NULL,'1997','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(69,NULL,NULL,NULL,'Nuing Mission Station (Manobo Mission)',NULL,'Kasunogan Molmol Jose Abad Santos, Davao Del Sur',NULL,NULL,'2002','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(70,NULL,NULL,NULL,'San Nicholas de Tolentino Cathedral',NULL,'Mati, Davao Oriental',NULL,NULL,'1937','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(71,NULL,NULL,NULL,'Sto. Rosario Parish',NULL,'Calapagan Lupon, Davao Oriental',NULL,NULL,'1993','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(72,NULL,NULL,NULL,'Nuestra Sra. De Guia Parish',NULL,'Dawan Mati, Davao Oriental',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(73,NULL,NULL,NULL,'Sacred Heart of Jesus Parish',NULL,'Dahican Mati, Davao Oriental',NULL,NULL,'1997','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(74,NULL,NULL,NULL,'Divine Mercy Shrine Parish',NULL,'Madang Mati, Davao Oriental',NULL,NULL,'2006','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(75,NULL,NULL,NULL,'San Vicente Ferrer Parish',NULL,'Lupon, Davao Oriental',NULL,NULL,'1955','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(76,NULL,NULL,NULL,'St. Francis Xavier Parish',NULL,'Governor Generoso, Davao Oriental',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(77,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Banaybanay, Davao Oriental',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(78,NULL,NULL,NULL,'San Ignacio de Loyola Parish',NULL,'Luzon Gov. Generoso, Davao Oriental',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(79,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'San Isidro, Davao Oriental',NULL,NULL,'1965','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(80,NULL,NULL,NULL,'El Salvador del Mundo Parish',NULL,'Caraga, Davao Oriental',NULL,NULL,'1884','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(81,NULL,NULL,NULL,'St. Francis Xavier Parish',NULL,'Manay, Davao Oriental',NULL,NULL,'1897','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(82,NULL,NULL,NULL,'San Ignacio de Loyola Parish',NULL,'San Ignacio Manay, Davao Oriental',NULL,NULL,'1995','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(83,NULL,NULL,NULL,'San Pedro Claver Parish',NULL,'Tarragona, Davao Oriental',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(84,NULL,NULL,NULL,'San Antonio de Padua Quasi-Parish',NULL,'San Antonio Baugo Caraga, Davao Oriental',NULL,NULL,'2020','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(85,NULL,NULL,NULL,'St. James the Apostle Parish',NULL,'Cateel, Davao Oriental',NULL,NULL,'1894','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(86,NULL,NULL,NULL,'San Nicholas de Tolentino Parish',NULL,'Boston, Davao Oriental',NULL,NULL,'1986','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(87,NULL,NULL,NULL,'Immaculate Conception Parish',NULL,'Baganga, Davao Oriental',NULL,NULL,'1885','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(88,NULL,NULL,NULL,'Sto. Niño Parish (Baganga)',NULL,'Kinablangan Baganga, Davao Oriental',NULL,NULL,'2000','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(89,NULL,NULL,NULL,'Sacred Heart of Jesus Parish',NULL,'Lambajon, Davao Oriental',NULL,NULL,'2010','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(90,NULL,NULL,NULL,'Christ the King Parish',NULL,'Gonzalez Ave., Tagum City Davao del Norte',NULL,NULL,'2001 as Parish; 2005 as Cathedral','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(91,NULL,NULL,NULL,'Christ the Eucharistic King Parish',NULL,'Rizal St., Tagum City Davao del Norte',NULL,NULL,'1947','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(92,NULL,NULL,NULL,'Birhen sa Kasilak Parish',NULL,'Hijo Madaum, Tagum City Davao del Norte',NULL,NULL,'1973; 2011 as Parish','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(93,NULL,NULL,NULL,'Sacred Heart of Jesus (Quasi-Parish)',NULL,'Apokon, Tagum City Davao del Norte',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(94,NULL,NULL,NULL,'Sagrado Corazon de Jesus',NULL,'Prk. 4 Bermudez Apokon, Tagum City Davao del Norte',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(95,NULL,NULL,NULL,'Our Lady of Fatima Parish',NULL,'Third Ave. Teachers\' Village, Tagum City Davao del Norte',NULL,NULL,'1991','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(96,NULL,NULL,NULL,'Immaculate Conception of Mary (Quasi-Parish)',NULL,'Seminary Drive, Tagum City Davao del Norte',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(97,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'New Corella, Davao del Norte',NULL,NULL,'1966','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(98,NULL,NULL,NULL,'Our Lady of the Assumption (Quasi-Parish)',NULL,'Merville Subd., Tagum City Davao del Norte',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(99,NULL,NULL,NULL,'St. Michael the Archangel (Quasi Parish)',NULL,'Prk. 2-A La Filipina, Tagum City Davao del Norte',NULL,NULL,'1994','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(100,NULL,NULL,NULL,'Our Lady of Mount Carmel Parish',NULL,'Carmen, Davao del Norte',NULL,NULL,'1987','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(101,NULL,NULL,NULL,'Sta. Faustina (Quasi-Parish)',NULL,'Prk. 8 Alejal Carmen, Davao del Norte',NULL,NULL,'2017','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(102,NULL,NULL,NULL,'Santo Niño Chapel',NULL,'Davao Penal Colony, Panabo City Davao del Norte',NULL,NULL,'1940','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(103,NULL,NULL,NULL,'Saint Anthony of Padua Chapel',NULL,'Tagum Development Corp., Bo. Antonio O. Floirendo, Panabo City Davao del Norte',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(104,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Manay, Panabo City Davao del Norte',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(105,NULL,NULL,NULL,'Saint Therese of the Child Jesus Parish',NULL,'Nabunturan, Comval',NULL,NULL,'1951','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(106,NULL,NULL,NULL,'Saint Vincent Ferrer (Quasi-Parish)',NULL,'Manat Nabunturan, Comval',NULL,NULL,'1999','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(107,NULL,NULL,NULL,'Saint Vincent Ferrer Parish',NULL,'Maragusan, Comval',NULL,NULL,'1968','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(108,NULL,NULL,NULL,'Birhen sa Sto. Rosario (Quasi-Parish)',NULL,'Brgy. Mapawa Maragusan, Comval',NULL,NULL,'2017','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(109,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Camanlangan New Bataan, Comval',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(110,NULL,NULL,NULL,'Sr. Santo Niño (Quasi-Parish)',NULL,'Prk. 1 Antequera Nabunturan, Comval',NULL,NULL,'2016','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(111,NULL,NULL,NULL,'Saint James the Apostle Parish',NULL,'Compostela Comval',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(112,NULL,NULL,NULL,'Saint Anthony of Padua Parish',NULL,'New Bataan, Comval',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(113,NULL,NULL,NULL,'Our Lady of Perpetual Help (Quasi-Parish)',NULL,'Bantacan New Bataan, Comval',NULL,NULL,'1983','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(114,NULL,NULL,NULL,'San Francisco Javier (Quasi-Parish)',NULL,'Brgy. Gabi Compostela, Comval',NULL,NULL,'2008','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(115,NULL,NULL,NULL,'Santo Niño Parish (Mabini-ComVal)',NULL,'Mabini, Comval',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(116,NULL,NULL,NULL,'Our Lady of Perpetual Help Parish',NULL,'Maco, Comval',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(117,NULL,NULL,NULL,'Saint Joseph the Husband of Mary Parish',NULL,'King-King Pantukan, Comval',NULL,NULL,'1939','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(118,NULL,NULL,NULL,'Saint Ignatius of Loyola Parish',NULL,'Monkayo, Comval',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(119,NULL,NULL,NULL,'Nuestra Señora del Pilar (Quasi-Parish)',NULL,'Babag Monkayo, Comval',NULL,NULL,'2004','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(120,NULL,NULL,NULL,'Saint Michael the Archangel Mission Station',NULL,'Mine Site Mt. Diwalwal Monkayo, Comval',NULL,NULL,'1991','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(121,NULL,NULL,NULL,'Saint Vincent Ferrer (Quasi-Parish)',NULL,'Brgy. Pasian Monkayo, Comval',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(122,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Maniki Kapalong, Davao del Norte',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(123,NULL,NULL,NULL,'Our Lady of the Assumption Parish',NULL,'Cambanogoy Asuncion, Davao del Norte',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(124,NULL,NULL,NULL,'Holy Family Parish',NULL,'Laak, Comval',NULL,NULL,'1979','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(125,NULL,NULL,NULL,'San Isidro Labrador Parish',NULL,'Sawata Asuncion, Davao del Norte',NULL,NULL,'1985','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(126,NULL,NULL,NULL,'Santo Niño (Quasi-Parish)',NULL,'Sto. Niño Talaingod, Davao del Norte',NULL,NULL,'2006','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(127,NULL,NULL,NULL,'San Isidro Labrador (Quasi-Parish)',NULL,'Laak, Comval Province',NULL,NULL,'2015','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(128,NULL,NULL,NULL,'Saint Joseph the Worker Parish',NULL,'Montevista, Comval',NULL,NULL,'1982','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(129,NULL,NULL,NULL,'San Roque Parish',NULL,'Mawab, Comval',NULL,NULL,'1963','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(130,NULL,NULL,NULL,'Immaculate Conception Parish',NULL,'Elizalde Maco, Comval',NULL,NULL,'2006','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(131,NULL,NULL,NULL,'Santo Niño Parish',NULL,'Panabo City, Davao del Norte',NULL,NULL,'1955','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(132,NULL,NULL,NULL,'Saint Augustine Parish',NULL,'San Agustin Ave. Km. 31, Panabo City',NULL,NULL,'2001','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(133,NULL,NULL,NULL,'San Jose Parish',NULL,'Gamao, Panabo City Davao del Norte',NULL,NULL,'2007','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(134,NULL,NULL,NULL,'San Pedro Parish',NULL,'San Vicente, Panabo City Davao del Norte',NULL,NULL,'2009','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(135,NULL,NULL,NULL,'Saint Michael the Archangel Parish',NULL,'Tibal-og Sto. Tomas, Davao del Norte',NULL,NULL,'1960','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(136,NULL,NULL,NULL,'Nuestra Señora de la Candelaria Parish',NULL,'Kimamon Sto. Tomas, Davao del Norte',NULL,NULL,'1997','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(137,NULL,NULL,NULL,'Saint Joseph the Husband of Mary Parish',NULL,'B. E. Dujali, Davao del Norte',NULL,NULL,'2003','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(138,NULL,NULL,NULL,'Nuestra Señora dela Salvacion (Quasi-Parish)',NULL,'La Libertad Sto. Tomas, Davao del Norte',NULL,NULL,'2014','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(139,5,30,'478636d','Our Lady Mediatrix of All Grace Cathedral Parish','Kidapawan','9400 Kidapawan City, Cotabato','(064) 577-1706',25,'1947','2025-06-02 00:55:37','2025-06-02 04:13:25',1);
 /*!40000 ALTER TABLE `parishes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -797,7 +800,7 @@ CREATE TABLE `priest` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `statuscode` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -806,7 +809,7 @@ CREATE TABLE `priest` (
 
 LOCK TABLES `priest` WRITE;
 /*!40000 ALTER TABLE `priest` DISABLE KEYS */;
-INSERT INTO `priest` VALUES (1,'Afable','Guillermo','D',26,'2025-06-01 10:36:50',NULL,1),(2,'Macalisang','Juan','D',27,'2025-06-01 10:38:32',NULL,1),(3,'Dingal','Rico','H',28,'2025-06-01 10:39:31',NULL,1),(4,'Tampon','Judito','O',11,'2025-06-01 10:40:53','2025-06-01 10:57:07',1),(5,'Parantar','Frederick','',11,'2025-06-01 10:41:40',NULL,1),(6,'Zamora','Marvin','',11,'2025-06-01 10:41:56',NULL,1),(7,'Sabud','Hermes','',17,'2025-06-01 10:42:15',NULL,1),(8,'Muckian','Patrick','',17,'2025-06-01 10:42:30',NULL,1),(9,'Garferio','Arnold','',17,'2025-06-01 10:42:45','2025-06-01 11:02:29',1),(10,'Lopez, Jr.','Consorcio','S',11,'2025-06-01 10:43:26',NULL,1),(11,'Dorilag','Kristian Peter Edwyn','A',11,'2025-06-01 10:43:44',NULL,1),(12,'Estoon','Regino','D',11,'2025-06-01 11:03:00',NULL,1),(13,'Nuñez','Allan Joie','T',11,'2025-06-01 11:03:18',NULL,1),(14,'Messiona','Loreto','',11,'2025-06-01 11:03:45',NULL,1),(15,'Pardillo','Urbano','L',11,'2025-06-01 11:04:01',NULL,1),(16,'Templa','Diomedes','',11,'2025-06-01 11:04:22',NULL,1),(17,'Baraga','Roger','',29,'2025-06-01 11:05:54',NULL,1),(18,'Mundoc','Efren','',29,'2025-06-01 11:06:15',NULL,1),(19,'Caritan','Rolando','',29,'2025-06-01 11:06:32',NULL,1),(20,'Maglangit, Jr.','Aljun','',29,'2025-06-01 11:06:51',NULL,1),(21,'Olavides','Felix','',29,'2025-06-01 11:07:05',NULL,1),(22,'Doguiles','Lito','',30,'2025-06-01 11:09:12',NULL,1),(23,'Momo','Jomar','P',11,'2025-06-01 11:09:42',NULL,1),(24,'Sila','Antonio','C',11,'2025-06-01 11:10:02',NULL,1),(25,'(NA)','Not Applicable','(NA)',NULL,'2025-06-01 11:52:56',NULL,1),(26,'Bagaforo','Jose Colin','M',26,'2025-06-01 12:02:28',NULL,1),(27,'Esparagoza','Jessie','S',11,'2025-06-01 12:02:44',NULL,1),(28,'Alerta','Ludwin','L',11,'2025-06-01 12:03:02',NULL,1);
+INSERT INTO `priest` VALUES (1,'Afable','Guillermo','D',26,'2025-06-01 10:36:50',NULL,1),(2,'Macalisang','Juan','D',27,'2025-06-01 10:38:32',NULL,1),(3,'Dingal','Rico','H',28,'2025-06-01 10:39:31',NULL,1),(4,'Tampon','Judito','O',11,'2025-06-01 10:40:53','2025-06-01 10:57:07',1),(5,'Parantar','Frederick','',11,'2025-06-01 10:41:40',NULL,1),(6,'Zamora','Marvin','',11,'2025-06-01 10:41:56',NULL,1),(7,'Sabud','Hermes','',17,'2025-06-01 10:42:15',NULL,1),(8,'Muckian','Patrick','',17,'2025-06-01 10:42:30',NULL,1),(9,'Garferio','Arnold','',17,'2025-06-01 10:42:45','2025-06-01 11:02:29',1),(10,'Lopez, Jr.','Consorcio','S',11,'2025-06-01 10:43:26',NULL,1),(11,'Dorilag','Kristian Peter Edwyn','A',11,'2025-06-01 10:43:44',NULL,1),(12,'Estoon','Regino','D',11,'2025-06-01 11:03:00',NULL,1),(13,'Nuñez','Allan Joie','T',11,'2025-06-01 11:03:18',NULL,1),(14,'Messiona','Loreto','',11,'2025-06-01 11:03:45',NULL,1),(15,'Pardillo','Urbano','L',11,'2025-06-01 11:04:01',NULL,1),(16,'Templa','Diomedes','',11,'2025-06-01 11:04:22',NULL,1),(17,'Baraga','Roger','',29,'2025-06-01 11:05:54',NULL,1),(18,'Mundoc','Efren','',29,'2025-06-01 11:06:15',NULL,1),(19,'Caritan','Rolando','',29,'2025-06-01 11:06:32',NULL,1),(20,'Maglangit, Jr.','Aljun','',29,'2025-06-01 11:06:51',NULL,1),(21,'Olavides','Felix','',29,'2025-06-01 11:07:05',NULL,1),(22,'Doguiles','Lito','',30,'2025-06-01 11:09:12',NULL,1),(23,'Momo','Jomar','P',11,'2025-06-01 11:09:42',NULL,1),(24,'Sila','Antonio','C',11,'2025-06-01 11:10:02',NULL,1),(25,'(NA)','Not Applicable','(NA)',NULL,'2025-06-01 11:52:56',NULL,1),(26,'Bagaforo','Jose Colin','M',26,'2025-06-01 12:02:28',NULL,1),(27,'Esparagoza','Jessie','S',11,'2025-06-01 12:02:44',NULL,1),(28,'Alerta','Ludwin','L',11,'2025-06-01 12:03:02',NULL,1),(29,'Ampong','Zenon','',11,'2025-06-02 01:50:07',NULL,1),(30,'Campeon','Henry','',11,'2025-06-02 01:59:09',NULL,1),(31,'Bahinting','Maximo','',11,'2025-06-02 02:02:29',NULL,1),(32,'Cuison','Paul','',11,'2025-06-02 02:27:53',NULL,1),(33,'Autida','Johnny','',11,'2025-06-02 02:31:18',NULL,1),(34,'Duhaylungsod','Roger','',11,'2025-06-02 02:43:15',NULL,1);
 /*!40000 ALTER TABLE `priest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -911,9 +914,9 @@ CREATE TABLE `religions` (
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -922,7 +925,7 @@ CREATE TABLE `religions` (
 
 LOCK TABLES `religions` WRITE;
 /*!40000 ALTER TABLE `religions` DISABLE KEYS */;
-INSERT INTO `religions` VALUES (1,'Aglipayan (Philippine Independence Church)','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Ang Dating Daan','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Assemblies of God','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Atheists','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(5,'Baptist World Alliance','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(6,'Born Again Christian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(7,'Buddhists','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(8,'Christian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(9,'Church of Jesus Christ and the Latter Day Saints','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(10,'Church of the Nazarene','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(11,'Evangelical','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(12,'Foursquare','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(13,'God World Missions Church','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(14,'Hindu','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(15,'Iglesia ni Cristo','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(16,'Indigenous Religions','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(17,'Jehovah\'s Witnesses','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(18,'Judaism','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(19,'Lutheran Church in the Philippines','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(20,'Members of Church of God International','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(21,'Mennonites','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(22,'Methodist','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(23,'Muslim/Islamic','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(24,'Other Christian Denominations','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(25,'Philippine Benevolent Missionary Association','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(26,'Philippine Episcopal Church','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(27,'Presbyterian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(28,'Protestants','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(29,'Roman Catholic','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(30,'Seventh-Day Adventists','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(31,'Sikhism','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(32,'Unitarian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(33,'United Church of Christ in the Philippines','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(34,'Unspecified','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(35,'Worldwide Church of God','2024-11-10 05:31:29','2024-11-10 05:31:29',1);
+INSERT INTO `religions` VALUES (1,'Aglipayan (Philippine Independence Church)','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Ang Dating Daan','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Assemblies of God','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(4,'Atheists','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(5,'Baptist World Alliance','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(6,'Born Again Christian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(7,'Buddhists','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(8,'Christian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(9,'Church of Jesus Christ and the Latter Day Saints','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(10,'Church of the Nazarene','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(11,'Evangelical','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(12,'Foursquare','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(13,'God World Missions Church','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(14,'Hindu','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(15,'Iglesia ni Cristo','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(16,'Indigenous Religions','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(17,'Jehovah\'s Witnesses','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(18,'Judaism','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(19,'Lutheran Church in the Philippines','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(20,'Members of Church of God International','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(21,'Mennonites','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(22,'Methodist','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(23,'Muslim/Islamic','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(24,'Other Christian Denominations','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(25,'Philippine Benevolent Missionary Association','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(26,'Philippine Episcopal Church','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(27,'Presbyterian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(28,'Protestants','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(29,'Roman Catholic','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(30,'Seventh-Day Adventists','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(31,'Sikhism','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(32,'Unitarian','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(33,'United Church of Christ in the Philippines','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(34,'Unspecified','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(35,'Worldwide Church of God','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(36,'Sample Onlyy','2025-06-04 11:09:13','2025-06-04 11:33:26',0);
 /*!40000 ALTER TABLE `religions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -939,9 +942,9 @@ CREATE TABLE `roles` (
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -950,7 +953,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'admin','Admin','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(2,'teacher','Teacher','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(3,'principal','Principal','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(4,'cashier','Cashier','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(5,'registrar','Registrar','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(6,'guidance','Guidance','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(7,'student','Student','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(8,'admission','Admission','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(9,'ntp','Non-Teaching Personnel','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(10,'admin','Admin','2025-05-31 01:44:03','2025-05-31 01:44:03',1000),(11,'user','User','2025-05-31 01:44:03','2025-05-31 01:44:03',1000),(12,'admin','Admin','2025-05-31 01:45:29','2025-05-31 01:45:29',1000),(13,'user','User','2025-05-31 01:45:29','2025-05-31 01:45:29',1000),(14,'admin','Admin','2025-05-31 01:46:34','2025-05-31 01:46:34',1000),(15,'user','User','2025-05-31 01:46:34','2025-05-31 01:46:34',1000);
+INSERT INTO `roles` VALUES (1,'admin','Admin','2024-11-10 05:29:14','2024-11-10 05:29:14',1),(11,'user','User','2025-05-31 01:44:03','2025-05-31 01:44:03',1),(16,'sadmin','Super Admin','2025-06-04 12:38:53','2025-06-04 13:42:04',1);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1098,7 +1101,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,'App Administrator','admin','admin@uic.edu.ph','AAdmin',NULL,'$2y$12$I6HZQ3sTCRxx6ZbP6C4ij.cmqXi5WRnCwEZYMXfCMXxOT7PTLNo6y','di66Ew609JRgD9b3vl5G92rowXTO3u6m9w7TdJ8R6rigKybpH9utvw0AO72S','2025-05-31 01:46:34','2025-05-31 01:46:34',1,1500),(5,'App User','user','user@uic.edu.ph','AUser',NULL,'$2y$12$avnnPjrAetBmnm1mswRSZ.rd9f9zT3wCPeztuYn4VwLsu8Fr34W9e',NULL,'2025-05-31 01:46:35','2025-05-31 01:46:35',1,1500);
+INSERT INTO `users` VALUES (4,'App Administrator','admin','admin@uic.edu.ph','AAdmin',NULL,'$2y$12$I6HZQ3sTCRxx6ZbP6C4ij.cmqXi5WRnCwEZYMXfCMXxOT7PTLNo6y','O2VxgJYu7kLhDx3xzfwzF87QB3ZOXZZydlJUZTjEsv7syA5oDCVE1cSF5T9H','2025-05-31 01:46:34','2025-05-31 01:46:34',1,1500),(5,'App User','user','user@uic.edu.ph','AUser',NULL,'$2y$12$avnnPjrAetBmnm1mswRSZ.rd9f9zT3wCPeztuYn4VwLsu8Fr34W9e',NULL,'2025-05-31 01:46:35','2025-05-31 01:46:35',1,1500);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1242,7 +1245,8 @@ BEGIN
 		update barangays
         set province_id = province_id,
 			city_municipality_id = city_municipality_id,
-            label = label
+            label = label,
+            updated_at = now()
 		where id = barangay_id;
         
         set result_id = barangay_id;
@@ -1333,6 +1337,240 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_bec_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_bec_by_id_sel`(
+IN p_bed_id int
+)
+BEGIN
+	select
+		b.id as bec_id,
+        b.parish_id,
+        b.name,
+        b.address
+    from basic_ecclecial_communities b
+    where b.id = p_bed_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_bec_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_bec_by_id_upd`(
+IN p_bec_id int,
+IN p_parish_id int,
+IN p_name varchar(2048),
+IN p_address varchar(2048),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from basic_ecclecial_communities where id = p_bec_id) then 
+		update basic_ecclecial_communities
+        set parish_id = p_parish_id,
+			name = p_name,
+            address = p_address,
+            updated_at = now()
+		where id = p_bec_id;
+        
+        set result_id = p_bec_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_bec_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_bec_ins`(
+IN p_parish_id int,
+IN p_name varchar(2048),
+IN p_address varchar(2048),
+OUT result_id int
+)
+BEGIN
+	DECLARE is_unique BOOL DEFAULT FALSE;
+    DECLARE temp_code VARCHAR(7);
+    DECLARE generated_code VARCHAR(7);
+    
+    WHILE NOT is_unique DO
+        -- Generate random 7 char code from MD5 of UUID()
+        SET temp_code = LEFT(MD5(UUID()), 7);
+
+        -- Check uniqueness against your table, e.g. 'your_table' column 'code'
+        IF NOT EXISTS (SELECT 1 FROM basic_ecclecial_communities WHERE code COLLATE utf8mb4_unicode_ci like CONCAT('%', temp_code COLLATE utf8mb4_unicode_ci, '%')) THEN
+            SET is_unique = TRUE;
+        END IF;
+    END WHILE;
+
+    SET generated_code = temp_code;
+    
+    IF EXISTS (select id from basic_ecclecial_communities where parish_id = p_parish_id and name COLLATE utf8mb4_unicode_ci like CONCAT('%', p_name COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into basic_ecclecial_communities(parish_id, code, name, address)
+        values(p_parish_id, generated_code, p_name, p_address);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_bec_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_bec_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY b.name) AS row_num,
+		b.id as bec_id,
+        b.code as bec_code,
+        case
+			when d.name is null or d.name = '' then p.name
+            else concat(p.name, ' (', d.name, ')')
+		end as parish_name,
+        b.name,
+        b.address,
+        b.statuscode,
+        case
+			when b.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from basic_ecclecial_communities b
+    left join parishes p ON p.id = b.parish_id
+    left join dioceses d ON d.id = p.diocese_id
+    ORDER BY b.name;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_bec_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_bec_lst_by_keyword`(
+IN p_keyword varchar(512)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY b.name) AS row_num,
+		b.id as bec_id,
+        b.code as bec_code,
+        case
+			when d.name is null or d.name = '' then p.name
+            else concat(p.name, ' (', d.name, ')')
+		end as parish_name,
+        b.name,
+        b.address,
+        b.statuscode,
+        case
+			when b.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from basic_ecclecial_communities b
+    left join parishes p ON p.id = b.parish_id
+    left join dioceses d ON d.id = p.diocese_id
+    where 	b.name COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+			OR p.name COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+            OR d.name COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY b.name;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_bec_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_bec_status_by_id_upd`(
+IN p_bec_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from basic_ecclecial_communities where id = p_bec_id) then
+		if p_statuscode = 1 then
+			update basic_ecclecial_communities
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_bec_id;
+        else
+			update basic_ecclecial_communities
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_bec_id;
+        end if;
+        
+        set result_id = p_bec_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_city_municipality_select_options` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1350,6 +1588,388 @@ BEGIN
         c.label
     from city_municipalities c
     where c.statuscode = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_category_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_category_by_id_sel`(
+IN p_client_category_id int
+)
+BEGIN
+	select
+		c.id as client_category_id,
+        c.label
+    from client_categories c
+    where c.id = p_client_category_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_category_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_category_by_id_upd`(
+IN p_client_category_id int,
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from client_categories where id = p_client_category_id) then 
+		update client_categories
+        set label = p_label,
+            updated_at = now()
+		where id = p_client_category_id;
+        
+        set result_id = p_client_category_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_category_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_category_ins`(
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from client_categories where label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into client_categories(label)
+        values(p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_category_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_category_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as client_category_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from client_categories c
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_category_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_category_lst_by_keyword`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as client_category_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from client_categories c
+    where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_category_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_category_status_by_id_upd`(
+IN p_client_category_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from client_categories where id = p_client_category_id) then
+		if p_statuscode = 1 then
+			update client_categories
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_client_category_id;
+        else
+			update client_categories
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_client_category_id;
+        end if;
+        
+        set result_id = p_client_category_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_type_by_id_sel`(
+IN p_client_type_id int
+)
+BEGIN
+	select
+		c.id as client_type_id,
+        c.label
+    from client_types c
+    where c.id = p_client_type_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_type_by_id_upd`(
+IN p_client_type_id int,
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from client_types where id = p_client_type_id) then 
+		update client_types
+        set label = p_label,
+            updated_at = now()
+		where id = p_client_type_id;
+        
+        set result_id = p_client_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_type_ins`(
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from client_types where label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into client_types(label)
+        values(p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_type_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as client_type_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from client_types c
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_type_lst_by_keyword`(
+IN p_keyword varchar(255)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as client_type_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from client_types c
+    where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_type_status_by_id_upd`(
+IN p_client_type_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from client_types where id = p_client_type_id) then
+		if p_statuscode = 1 then
+			update client_types
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_client_type_id;
+        else
+			update client_types
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_client_type_id;
+        end if;
+        
+        set result_id = p_client_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1566,6 +2186,653 @@ BEGIN
         end if;
         
         set result_id = p_congregation_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_by_id_sel`(
+IN p_contract_category_id int
+)
+BEGIN
+	select
+		c.id as contract_category_id,
+        c.abbreviation,
+        c.label
+    from contract_categories c
+    where c.id = p_contract_category_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_by_id_upd`(
+IN p_contract_category_id int,
+IN p_abbreviation varchar(64),
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from contract_categories where id = p_contract_category_id) then 
+		update contract_categories
+        set abbreviation = p_abbreviation,
+            label = p_label,
+            updated_at = now()
+		where id = p_contract_category_id;
+        
+        set result_id = p_contract_category_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_ins`(
+IN p_abbreviation varchar(64),
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from contract_categories where abbreviation COLLATE utf8mb4_unicode_ci like CONCAT('%', p_abbreviation COLLATE utf8mb4_unicode_ci, '%') and label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into contract_categories(abbreviation, label)
+        values(p_abbreviation, p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as contract_category_id,
+        c.abbreviation,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from contract_categories c
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_lst_by_keyword`(
+IN p_keyword varchar(255)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as contract_category_id,
+        c.abbreviation,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from contract_categories c
+    where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+			OR c.abbreviation COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_select_options`()
+BEGIN
+	select
+		c.id,
+        c.label
+    from contract_categories c
+    where c.statuscode = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_status_by_id_upd`(
+IN p_contract_category_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from contract_categories where id = p_contract_category_id) then
+		if p_statuscode = 1 then
+			update contract_categories
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_contract_category_id;
+        else
+			update contract_categories
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_contract_category_id;
+        end if;
+        
+        set result_id = p_contract_category_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_type_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_type_by_id_sel`(
+IN p_contract_category_type_id int
+)
+BEGIN
+	select
+		c.id as contract_category_type_id,
+        c.contract_category_id,
+        c.contract_type_id,
+        c.label
+    from contract_category_type_details c
+    where c.id = p_contract_category_type_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_type_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_type_by_id_upd`(
+IN p_contract_category_type_id int,
+IN p_contract_category_id int,
+IN p_contract_type_id int,
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from contract_category_type_details where id = p_contract_category_type_id) then 
+		update contract_category_type_details
+        set contract_category_id = p_contract_category_id,
+			contract_type_id = p_contract_type_id,
+            label = p_label,
+            updated_at = now()
+		where id = p_contract_category_type_id;
+        
+        set result_id = p_contract_category_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_type_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_type_ins`(
+IN p_contract_category_id int,
+IN p_contract_type_id int,
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from contract_category_type_details where contract_category_id = p_contract_category_id and contract_type_id = p_contract_type_id and label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into contract_category_type_details(contract_category_id, contract_type_id, label)
+        values(p_contract_category_id, p_contract_type_id, p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_type_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_type_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as contract_category_type_id,
+        cc.label as contract_categories_label,
+        t.label as contract_type_label,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from contract_category_type_details c
+    left join contract_categories cc ON cc.id = c.contract_category_id
+    left join contract_types t ON t.id = c.contract_type_id
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_type_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_type_lst_by_keyword`(
+IN p_keyword varchar(256)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as contract_category_type_id,
+        cc.label as contract_categories_label,
+        t.label as contract_type_label,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from contract_category_type_details c
+    left join contract_categories cc ON cc.id = c.contract_category_id
+    left join contract_types t ON t.id = c.contract_type_id
+    where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+			OR cc.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+            OR t.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_category_type_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_category_type_status_by_id_upd`(
+IN p_contract_category_type_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from contract_category_type_details where id = p_contract_category_type_id) then
+		if p_statuscode = 1 then
+			update contract_category_type_details
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_contract_category_type_id;
+        else
+			update contract_category_type_details
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_contract_category_type_id;
+        end if;
+        
+        set result_id = p_contract_category_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_by_id_sel`(
+IN p_contract_type_id int
+)
+BEGIN
+	select
+		c.id as contract_type_id,
+        c.label
+    from contract_types c
+    where c.id = p_contract_type_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_by_id_upd`(
+IN p_contract_type_id int,
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from contract_types where id = p_contract_type_id) then 
+		update contract_types
+        set label = p_label,
+            updated_at = now()
+		where id = p_contract_type_id;
+        
+        set result_id = p_contract_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_ins`(
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from contract_types where label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into contract_types(label)
+        values(p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as contract_type_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from contract_types c
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_lst_by_keyword`(
+IN p_keyword varchar(256)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as contract_type_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from contract_types c
+    where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_select_options`()
+BEGIN
+	select
+		c.id,
+        c.label
+    from contract_types c
+    where c.statuscode = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_type_status_by_id_upd`(
+IN p_contract_type_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from contract_types where id = p_contract_type_id) then
+		if p_statuscode = 1 then
+			update contract_types
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_contract_type_id;
+        else
+			update contract_types
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_contract_type_id;
+        end if;
+        
+        set result_id = p_contract_type_id;
     else
 		set result_id = 0;
     end if;
@@ -1882,6 +3149,406 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_employee_type_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_employee_type_by_id_upd`(
+IN p_employee_type_id int,
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from employee_types where id = p_employee_type_id) then 
+		update employee_types
+        set label = p_label,
+            updated_at = now()
+		where id = p_employee_type_id;
+        
+        set result_id = p_employee_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_employee_type_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_employee_type_ins`(
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from employee_types where label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into employee_types(label)
+        values(p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_employee_type_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_employee_type_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY e.label) AS row_num,
+		e.id as employee_type_id,
+        e.label,
+        e.statuscode,
+        case
+			when e.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from employee_types e
+    ORDER BY e.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_employee_type_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_employee_type_lst_by_keyword`(
+IN p_keyword varchar(256)
+)
+BEGIN
+	SELECT
+		ROW_NUMBER() OVER (ORDER BY e.label) AS row_num,
+		e.id as employee_type_id,
+        e.label,
+        e.statuscode,
+        CASE
+			WHEN e.statuscode = 0 then 'Inactive'
+            ELSE 'Active'
+		END AS statuscode_label
+    FROM employee_types e
+    WHERE 	e.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY e.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_employee_type_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_employee_type_status_by_id_upd`(
+IN p_employee_type_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from employee_types where id = p_employee_type_id) then
+		if p_statuscode = 1 then
+			update employee_types
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_employee_type_id;
+        else
+			update employee_types
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_employee_type_id;
+        end if;
+        
+        set result_id = p_employee_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_empployee_type_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_empployee_type_by_id_sel`(
+IN p_employee_type_id int
+)
+BEGIN
+	select
+		e.id as employee_type_id,
+        e.label
+    from employee_types e
+    where e.id = p_employee_type_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parishes_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_parishes_select_options`()
+BEGIN
+	select
+		p.id,
+        case
+			when d.name is null or d.name = '' then case when p.primary_location is null or p.primary_location = '' then p.name else concat(p.name, ' - ', p.primary_location) end
+			else case when p.primary_location is null or p.primary_location = '' then CONCAT(p.name, ' (', d.name, ')') else  CONCAT(p.name, ' - ', p.primary_location, ' (', d.name, ')') end
+		end as parish_name
+    from parishes p
+    left join dioceses d ON d.id = p.diocese_id
+    where p.statuscode = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parish_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_parish_by_id_sel`(
+IN p_parish_id int
+)
+BEGIN
+	select
+		p.id as parish_id,
+        p.diocese_id,
+        p.vicariate_id,
+        p.name,
+        p.primary_location,
+        p.address,
+        p.contact_number,
+        p.parish_priest_id,
+        p.established_year
+    from parishes p
+    where	p.id = p_parish_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parish_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_parish_by_id_upd`(
+IN p_parish_id int,
+IN p_diocese_id int,
+IN p_vicariate_id int,
+IN p_name varchar(2048),
+IN p_primary_location varchar(256),
+IN p_address varchar(2048),
+IN p_contact_number varchar(64),
+IN p_parish_priest_id int,
+IN p_established_year varchar(64),
+OUT result_id int
+)
+BEGIN
+	DECLARE temp_code_check BOOL DEFAULT FALSE;
+    DECLARE is_unique BOOL DEFAULT FALSE;
+    DECLARE temp_code VARCHAR(7);
+    DECLARE generated_code VARCHAR(7);
+    
+    -- Check uniqueness against your table, e.g. 'your_table' column 'code'
+	IF EXISTS (SELECT 1 FROM parishes WHERE id = p_parish_id and (parish_code is not null or parish_code != '')) THEN
+		SET temp_code_check = TRUE;
+	END IF;
+    
+    IF temp_code_check = FALSE then
+    
+		WHILE NOT is_unique DO
+			-- Generate random 7 char code from MD5 of UUID()
+			SET temp_code = LEFT(MD5(UUID()), 7);
+
+			-- Check uniqueness against your table, e.g. 'your_table' column 'code'
+			IF NOT EXISTS (SELECT 1 FROM parishes WHERE parish_code COLLATE utf8mb4_unicode_ci like CONCAT('%', temp_code COLLATE utf8mb4_unicode_ci, '%')) THEN
+				SET is_unique = TRUE;
+			END IF;
+		END WHILE;
+
+		SET generated_code = temp_code;
+        
+        if exists (select id from parishes where id = p_parish_id) then 
+			update parishes
+			set diocese_id = p_diocese_id,
+				vicariate_id = p_vicariate_id,
+                parish_code = generated_code,
+				name = p_name,
+                primary_location = p_primary_location,
+				address = p_address,
+				contact_number = p_contact_number,
+				parish_priest_id = p_parish_priest_id,
+				established_year = p_established_year,
+				updated_at = now()
+			where id = p_parish_id;
+			
+			set result_id = p_parish_id;
+		else
+			set result_id = 0;
+		end if;
+    
+    ELSE
+    
+		if exists (select id from parishes where id = p_parish_id) then 
+			update parishes
+			set diocese_id = p_diocese_id,
+				vicariate_id = p_vicariate_id,
+				name = p_name,
+                primary_location = p_primary_location,
+				address = p_address,
+				contact_number = p_contact_number,
+				parish_priest_id = p_parish_priest_id,
+				established_year = p_established_year,
+				updated_at = now()
+			where id = p_parish_id;
+			
+			set result_id = p_parish_id;
+		else
+			set result_id = 0;
+		end if;
+        
+	END IF;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parish_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_parish_ins`(
+IN p_diocese_id int,
+IN p_vicariate_id int,
+IN p_name varchar(2048),
+IN p_primary_location varchar(256),
+IN p_address varchar(2048),
+IN p_contact_number varchar(64),
+IN p_parish_priest_id int,
+IN p_established_year varchar(64),
+OUT result_id int
+)
+BEGIN
+	DECLARE is_unique BOOL DEFAULT FALSE;
+    DECLARE temp_code VARCHAR(7);
+    DECLARE generated_code VARCHAR(7);
+
+    WHILE NOT is_unique DO
+        -- Generate random 7 char code from MD5 of UUID()
+        SET temp_code = LEFT(MD5(UUID()), 7);
+
+        -- Check uniqueness against your table, e.g. 'your_table' column 'code'
+        IF NOT EXISTS (SELECT 1 FROM parishes WHERE parish_code COLLATE utf8mb4_unicode_ci like CONCAT('%', temp_code COLLATE utf8mb4_unicode_ci, '%')) THEN
+            SET is_unique = TRUE;
+        END IF;
+    END WHILE;
+
+    SET generated_code = temp_code;
+    
+	IF EXISTS (select id from parishes where diocese_id = p_diocese_id and vicariate_id = p_vicariate_id and name COLLATE utf8mb4_unicode_ci like CONCAT('%', p_name COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into parishes(diocese_id, vicariate_id, parish_code, name, primary_location, address, contact_number, parish_priest_id, established_year)
+        values(p_diocese_id, p_vicariate_id, generated_code, p_name, p_primary_location, p_address, p_contact_number, p_parish_priest_id, p_established_year);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parish_lst` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1902,6 +3569,10 @@ BEGIN
         p.parish_code,
         p.name as parish_name, 
         p.address,
+        case
+			when p.primary_location is null or p.primary_location = '' then '-'
+            else p.primary_location
+		end as primary_location,
         p.contact_number,
         case
 			when r.middlename is null or r.middlename = '' then CONCAT(r.firstname, ' ', r.lastname, ', ', c.abbreviation)
@@ -1947,6 +3618,10 @@ BEGIN
         p.parish_code,
         p.name as parish_name, 
         p.address,
+        case
+			when p.primary_location is null or p.primary_location = '' then '-'
+            else p.primary_location
+		end as primary_location,
         p.contact_number,
         case
 			when r.middlename is null or r.middlename = '' then CONCAT(r.firstname, ' ', r.lastname, ', ', c.abbreviation)
@@ -1969,6 +3644,239 @@ BEGIN
             OR v.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
             OR d.name COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
     ORDER BY p.name;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parish_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_parish_status_by_id_upd`(
+IN p_parish_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from parishes where id = p_parish_id) then
+		if p_statuscode = 1 then
+			update parishes
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_parish_id;
+        else
+			update parishes
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_parish_id;
+        end if;
+        
+        set result_id = p_parish_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_by_id_sel`(
+IN p_payment_type_id int
+)
+BEGIN
+	select
+		c.id as payment_type_id,
+        c.label
+    from cashier_transaction_types c
+    where c.id = p_payment_type_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_by_id_upd`(
+IN p_payment_type_id int,
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from cashier_transaction_types where id = p_payment_type_id) then 
+		update cashier_transaction_types
+        set label = p_label,
+            updated_at = now()
+		where id = p_payment_type_id;
+        
+        set result_id = p_payment_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_ins`(
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from cashier_transaction_types where label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into cashier_transaction_types(label)
+        values(p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as payment_type_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from cashier_transaction_types c
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_lst_by_keyword`(
+IN p_keyword varchar(255)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY c.label) AS row_num,
+		c.id as payment_type_id,
+        c.label,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from cashier_transaction_types c
+    where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_status_by_id_upd`(
+IN p_payment_type_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from cashier_transaction_types where id = p_payment_type_id) then
+		if p_statuscode = 1 then
+			update cashier_transaction_types
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_payment_type_id;
+        else
+			update cashier_transaction_types
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_payment_type_id;
+        end if;
+        
+        set result_id = p_payment_type_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2241,6 +4149,424 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_religion_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_religion_by_id_sel`(
+IN p_religion_id int
+)
+BEGIN
+	select
+		r.id as religion_id,
+        r.label
+    from religions r
+    where r.id = p_religion_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_religion_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_religion_by_id_upd`(
+IN p_religion_id int,
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from religions where id = p_religion_id) then 
+		update religions
+        set label = p_label,
+            updated_at = now()
+		where id = p_religion_id;
+        
+        set result_id = p_religion_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_religion_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_religion_ins`(
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from religions where label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into religions(label)
+        values(p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_religion_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_religion_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY r.label) AS row_num,
+		r.id as religion_id,
+        r.label,
+        r.statuscode,
+        case
+			when r.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from religions r
+    ORDER BY r.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_religion_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_religion_lst_by_keyword`(
+IN p_keyword varchar(252)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY r.label) AS row_num,
+		r.id as religion_id,
+        r.label,
+        r.statuscode,
+        case
+			when r.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from religions r
+    where 	r.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY r.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_religion_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_religion_status_by_id_upd`(
+IN p_religion_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from religions where id = p_religion_id) then
+		if p_statuscode = 1 then
+			update religions
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_religion_id;
+        else
+			update religions
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_religion_id;
+        end if;
+        
+        set result_id = p_religion_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_role_by_id_sel`(
+IN p_role_id int
+)
+BEGIN
+	select
+		r.id as role_id,
+        r.abbreviation,
+        r.label
+    from roles r
+    where r.id = p_role_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_role_by_id_upd`(
+IN p_role_id int,
+IN p_abbreviation varchar(255),
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from roles where id = p_role_id) then 
+		update roles
+        set abbreviation = p_abbreviation,
+            label = p_label,
+            updated_at = now()
+		where id = p_role_id;
+        
+        set result_id = p_role_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_role_ins`(
+IN p_abbreviation varchar(255),
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from roles where 	abbreviation COLLATE utf8mb4_unicode_ci like CONCAT('%', p_abbreviation COLLATE utf8mb4_unicode_ci, '%')  
+											and label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into roles(abbreviation, label)
+        values(p_abbreviation, p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_role_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY r.label) AS row_num,
+		r.id as role_id,
+        r.abbreviation,
+        r.label,
+        r.statuscode,
+        case
+			when r.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from roles r
+    ORDER BY r.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_role_lst_by_keyword`(
+IN p_keyword varchar(255)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY r.label) AS row_num,
+		r.id as role_id,
+        r.abbreviation,
+        r.label,
+        r.statuscode,
+        case
+			when r.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from roles r
+    where 	r.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+			OR r.abbreviation COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%') 
+    ORDER BY r.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_role_status_by_id_upd`(
+IN p_role_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from roles where id = p_role_id) then
+		if p_statuscode = 1 then
+			update roles
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_role_id;
+        else
+			update roles
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_role_id;
+        end if;
+        
+        set result_id = p_role_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_vicariate_by_diocese_id_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_vicariate_by_diocese_id_select_options`(
+IN p_diocese_id int
+)
+BEGIN
+	select
+		v.id,
+		v.label
+    from diocese_vicariates v
+    where 	v.statuscode = 1
+			and v.diocese_id = p_diocese_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_vicariate_by_id_sel` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -2452,4 +4778,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-01 22:18:09
+-- Dump completed on 2025-06-04 21:42:36

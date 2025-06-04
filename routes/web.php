@@ -86,4 +86,6 @@ require __DIR__.'/app_routes/employee_type_routes.php';
 
 require __DIR__.'/app_routes/religion_routes.php';
 
+require __DIR__.'/app_routes/role_routes.php';
+
 require __DIR__.'/auth.php';

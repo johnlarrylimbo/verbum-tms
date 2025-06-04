@@ -69,6 +69,7 @@
 						<x-mary-menu-item title="Payment Type" icon="s-wrench-screwdriver" link="/payment-type" />
 						<x-mary-menu-item title="Priest Directory" icon="s-wrench-screwdriver" link="/priest" />
 						<x-mary-menu-item title="Religion" icon="s-wrench-screwdriver" link="/religion" />
+						<x-mary-menu-item title="Roles" icon="s-wrench-screwdriver" link="/roles" />
 						
 						{{-- <x-mary-menu-item title="Basic Ecclesial Comm" icon="s-list-bullet" link="/barangay" /> --}}
 						{{-- <x-mary-menu-item title="Cashier Transaction Type" icon="s-list-bullet" link="/barangay" /> --}}
