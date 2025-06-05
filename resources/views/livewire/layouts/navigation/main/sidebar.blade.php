@@ -68,6 +68,7 @@
 						<x-mary-menu-item title="Diocese" icon="s-wrench-screwdriver" link="/diocese" />
 						<x-mary-menu-item title="Diocese Vicariate" icon="s-wrench-screwdriver" link="/vicariate" />
 						<x-mary-menu-item title="Employee Type" icon="s-wrench-screwdriver" link="/employee-type" />
+						<x-mary-menu-item title="Island Groups" icon="s-wrench-screwdriver" link="/island-groups" />
 						<x-mary-menu-item title="Parish" icon="s-wrench-screwdriver" link="/parish" />
 						<x-mary-menu-item title="Payment Type" icon="s-wrench-screwdriver" link="/payment-type" />
 						<x-mary-menu-item title="Priest Directory" icon="s-wrench-screwdriver" link="/priest" />

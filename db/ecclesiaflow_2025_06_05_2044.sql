@@ -589,11 +589,11 @@ DROP TABLE IF EXISTS `island_groups`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `island_groups` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `abbreviation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abbreviation` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -604,7 +604,7 @@ CREATE TABLE `island_groups` (
 
 LOCK TABLES `island_groups` WRITE;
 /*!40000 ALTER TABLE `island_groups` DISABLE KEYS */;
-INSERT INTO `island_groups` VALUES (1,'LZN','Luzon','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(2,'VSY','Visayas','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(3,'MIN','Mindanao','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(4,'NA','Not Applicable','2024-11-10 05:29:15','2024-11-10 05:29:15',1);
+INSERT INTO `island_groups` VALUES (1,'LZN','Luzon','2024-11-10 05:29:15','2025-06-05 12:44:01',1),(2,'VSY','Visayas','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(3,'MIN','Mindanao','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(4,'NA','Not Applicable','2024-11-10 05:29:15','2024-11-10 05:29:15',1);
 /*!40000 ALTER TABLE `island_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3364,6 +3364,165 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_island_group_by_id_sel`(
+IN p_island_group_id int
+)
+BEGIN
+	select
+		i.id as p_island_group_id,
+        i.abbreviation,
+        i.label
+    from island_groups i
+    where i.id = p_island_group_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_island_group_by_id_upd`(
+IN p_island_group_id int,
+IN p_abbreviation varchar(64),
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from island_groups where id = p_island_group_id) then 
+		update island_groups
+        set abbreviation = p_abbreviation,
+            label = p_label,
+            updated_at = now()
+		where id = p_island_group_id;
+        
+        set result_id = p_island_group_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_island_group_ins`(
+IN p_abbreviation varchar(64),
+IN p_label varchar(255),
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from island_groups where 	abbreviation COLLATE utf8mb4_unicode_ci like CONCAT('%', p_abbreviation COLLATE utf8mb4_unicode_ci, '%') 
+													and label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into island_groups(abbreviation, label)
+        values(p_abbreviation, p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_island_group_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY i.label) AS row_num,
+		i.id as island_group_id,
+        i.abbreviation,
+        i.label,
+        i.statuscode,
+        case
+			when i.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from island_groups i
+    ORDER BY i.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_island_group_lst_by_keyword`(
+IN p_keyword varchar(255)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY i.label) AS row_num,
+		i.id as island_group_id,
+        i.abbreviation,
+        i.label,
+        i.statuscode,
+        case
+			when i.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from island_groups i
+    where 	i.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+			OR i.abbreviation COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY i.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_select_options` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3381,6 +3540,47 @@ BEGIN
         i.label
     from island_groups i
     where i.statuscode = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_island_group_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_island_group_status_by_id_upd`(
+IN p_island_group_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from island_groups where id = p_island_group_id) then
+		if p_statuscode = 1 then
+			update island_groups
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_island_group_id;
+        else
+			update island_groups
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_island_group_id;
+        end if;
+        
+        set result_id = p_island_group_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -5081,4 +5281,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-05 20:09:19
+-- Dump completed on 2025-06-05 20:44:25
