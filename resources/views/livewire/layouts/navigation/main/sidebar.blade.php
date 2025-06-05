@@ -53,6 +53,9 @@
 					<x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
 					<x-mary-menu-separator />
 
+					<x-mary-menu-item title="Client Profiling" icon="s-user-plus" link="/client-profiling" />
+					<x-mary-menu-separator />
+
 					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth" open>
 						<x-mary-menu-item title="Barangay" icon="s-wrench-screwdriver" link="/barangay" />
 						<x-mary-menu-item title="Basic Ecclesial Community" icon="s-wrench-screwdriver" link="/bec" />
@@ -68,6 +71,7 @@
 						<x-mary-menu-item title="Parish" icon="s-wrench-screwdriver" link="/parish" />
 						<x-mary-menu-item title="Payment Type" icon="s-wrench-screwdriver" link="/payment-type" />
 						<x-mary-menu-item title="Priest Directory" icon="s-wrench-screwdriver" link="/priest" />
+						<x-mary-menu-item title="Provinces" icon="s-wrench-screwdriver" link="/provinces" />
 						<x-mary-menu-item title="Religion" icon="s-wrench-screwdriver" link="/religion" />
 						<x-mary-menu-item title="Roles" icon="s-wrench-screwdriver" link="/roles" />
 						

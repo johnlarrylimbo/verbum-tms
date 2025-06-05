@@ -139,5 +139,64 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting contract type select options', 500, $exception);
         }
     }
+
+    public function loadCountryOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_country_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting country select options', 500, $exception);
+        }
+    }
+
+    public function loadRegionOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_region_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting region select options', 500, $exception);
+        }
+    }
+
+    public function loadProvincesByRegionIdOptions(int $param_region_id)
+    {
+        try {
+            $region_id = $param_region_id ?? 0;
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_provinces_by_region_id_select_options')
+                ->stored_procedure_params([' :p_region_id '])
+				->stored_procedure_values([ $region_id ])
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting provinces by region id select options', 500, $exception);
+        }
+    }
+
+    public function loadIslandGroupOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_island_group_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting island group select options', 500, $exception);
+        }
+    }
     
 }

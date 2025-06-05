@@ -88,4 +88,8 @@ require __DIR__.'/app_routes/religion_routes.php';
 
 require __DIR__.'/app_routes/role_routes.php';
 
+require __DIR__.'/app_routes/client_profiling_routes.php';
+
+require __DIR__.'/app_routes/province_routes.php';
+
 require __DIR__.'/auth.php';
