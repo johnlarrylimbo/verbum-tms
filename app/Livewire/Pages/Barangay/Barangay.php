@@ -47,10 +47,11 @@ class Barangay extends Component
   public bool $addBarangayModal = false;
   public bool $editBarangayModal = false;
   public bool $updateBarangayStatusModal = false;
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		BarangayService $barangay_service,
@@ -77,12 +78,19 @@ class Barangay extends Component
   #[Computed]
 	// public function loadRecords
 	public function barangay_lst(){
-    if(!$this->search){
-      $barangay_lst = $this->barangay_service->loadBarangayLst()->paginate(15);
-		  return $barangay_lst;
-    }else{
-      $barangay_lst = $this->barangay_service->loadBarangayLstByKeyword($this->search)->paginate(15);
-		  return $barangay_lst;
+    try{
+      if(!$this->search){
+        $barangay_lst = $this->barangay_service->loadBarangayLst()->paginate(15);
+        return $barangay_lst;
+      }else{
+        $barangay_lst = $this->barangay_service->loadBarangayLstByKeyword($this->search)->paginate(15);
+        return $barangay_lst;
+      }
+    } catch(e){
+     // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
@@ -99,107 +107,149 @@ class Barangay extends Component
 	}
 
   // public function save barangay record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_barangay(){
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'province_id' => 'required|not_in:0',
+        'city_municipality_id' => 'required|not_in:0',
+        'label' => 'required|string|max:255'
+      ]);
 
-		$this->validate([
-      'province_id' => 'required|not_in:0',
-      'city_municipality_id' => 'required|not_in:0',
-      'label' => 'required|string|max:255'
-		]);
+      $exists = $this->barangay_service->addBarangayById($this->province_id, $this->city_municipality_id, $this->label, auth()->user()->id);
 
-    $exists = $this->barangay_service->addBarangayById($this->province_id, $this->city_municipality_id, $this->label, auth()->user()->id);
+      if ($exists[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Added new barangay successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		if ($exists[0]->result_id == 1) {
-			// $this->error('Failed to update record. Record does not exists.');
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      // $this->success('Record updated successfully!');
-      $this->showAddSuccessMessage = true;
-		}
+      // Optionally reset form fields after save
+      $this->reset(['province_id', 'province_id']);
+      $this->reset(['city_municipality_id', 'city_municipality_id']);
+      $this->reset(['label', 'label']);
 
-		// Optionally reset form fields after save
-		$this->reset(['province_id', 'province_id']);
-    $this->reset(['city_municipality_id', 'city_municipality_id']);
-    $this->reset(['label', 'label']);
+      // Close the modal
+      $this->addBarangayModal = false;
 
-		// Close the modal
-		$this->addBarangayModal = false;
-
-		$this->barangay_lst();
+      $this->barangay_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get barangay by id
 	public function openEditBarangayModal(int $barangay_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editBarangayModal = true;
-		$this->barangay_id = $barangay_id;
+    try{
+      $this->resetValidation();  // clears validation errors
+      $this->editBarangayModal = true;
+      $this->barangay_id = $barangay_id;
 
-    $result = $this->barangay_service->getBarangayById($this->barangay_id);
+      $result = $this->barangay_service->getBarangayById($this->barangay_id);
 
-		foreach($result as $result){
-			$this->edit_province_id = $result->province_id;
-      $this->edit_city_municipality_id = $result->city_municipality_id;
-      $this->edit_label = $result->label;
-		}
+      foreach($result as $result){
+        $this->edit_province_id = $result->province_id;
+        $this->edit_city_municipality_id = $result->city_municipality_id;
+        $this->edit_label = $result->label;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save barangay record changes
   public function save_barangay_record_changes(){
-		// Validation and saving logic
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'edit_province_id' => 'required|not_in:0',
+        'edit_city_municipality_id' => 'required|not_in:0',
+        'edit_label' => 'required|string|max:255'
+      ]);
 
-		$this->validate([
-      'edit_province_id' => 'required|not_in:0',
-      'edit_city_municipality_id' => 'required|not_in:0',
-      'edit_label' => 'required|string|max:255'
-		]);
+      $exists = $this->barangay_service->updateBarangayById($this->barangay_id, $this->edit_province_id, $this->edit_city_municipality_id, $this->edit_label);
 
-    $exists = $this->barangay_service->updateBarangayById($this->barangay_id, $this->edit_province_id, $this->edit_city_municipality_id, $this->edit_label);
+      if ($exists[0]->result_id == 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Updated barangay successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		if ($exists[0]->result_id == 0) {
-			// $this->error('Failed to update record. Record does not exists.');
-      $this->showErrorMessage = true;
-		}
-		else{
-      // $this->success('Record updated successfully!');
-      $this->showSuccessMessage = true;
-		}
+      // Optionally reset form fields after save
+      $this->reset(['barangay_id', 'barangay_id']);
+      $this->reset(['edit_province_id', 'edit_province_id']);
+      $this->reset(['edit_city_municipality_id', 'edit_city_municipality_id']);
+      $this->reset(['edit_label', 'edit_label']);
 
-		// Optionally reset form fields after save
-		$this->reset(['barangay_id', 'barangay_id']);
-    $this->reset(['edit_province_id', 'edit_province_id']);
-    $this->reset(['edit_city_municipality_id', 'edit_city_municipality_id']);
-    $this->reset(['edit_label', 'edit_label']);
+      // Close the modal
+      $this->editBarangayModal = false;
 
-		// Close the modal
-		$this->editBarangayModal = false;
-
-		$this->barangay_lst();
+      $this->barangay_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateBarangayStatusModal(int $barangay_id, int $statuscode){
-		$this->updateBarangayStatusModal = true;
-		$this->barangay_id = $barangay_id;
-    $this->statuscode = $statuscode;
+    try{
+      $this->updateBarangayStatusModal = true;
+      $this->barangay_id = $barangay_id;
+      $this->statuscode = $statuscode;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_barangay_status($barangay_id, $statuscode){
-    // $param = [  $clearance_area_id, 0 ];
-    // $sp_query = "EXEC pr_clearance_area_by_id_del :clearance_area_id, :result_id;";
-    // $result = DB::connection('iclearance_connection')->select($sp_query, $param);
+    try{
+      $result = $this->barangay_service->updateBarangayStatusById($barangay_id, $statuscode, auth()->user()->id);
+      
+      // // Toast
+      if ($result[0]->result_id > 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Updated barangay status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }else{
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
 
-    $result = $this->barangay_service->updateBarangayStatusById($barangay_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
+      $this->updateBarangayStatusModal = false;	
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
-
-		// $this->reset('clearance_area_id');
-		$this->updateBarangayStatusModal = false;	
 	}
 
 

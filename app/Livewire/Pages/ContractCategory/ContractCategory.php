@@ -44,10 +44,10 @@ class ContractCategory extends Component
   public bool $editContractCategoryModal = false;
   public bool $updateContractCategoryStatusModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		ContractCategoryService $contract_category_service,
@@ -71,103 +71,161 @@ class ContractCategory extends Component
   #[Computed]
 	// public function load contract category records
 	public function contract_category_lst(){
-    if(!$this->search){
-      $contract_category_lst = $this->contract_category_service->loadContractCategoryLst()->paginate(15);
-		  return $contract_category_lst;
-    }else{
-      $contract_category_lst = $this->contract_category_service->loadContractCategoryLstByKeyword($this->search)->paginate(15);
-		  return $contract_category_lst;
+    try{
+      if(!$this->search){
+        $contract_category_lst = $this->contract_category_service->loadContractCategoryLst()->paginate(15);
+        return $contract_category_lst;
+      }else{
+        $contract_category_lst = $this->contract_category_service->loadContractCategoryLstByKeyword($this->search)->paginate(15);
+        return $contract_category_lst;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
   // public function save contract category record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_contract_category(){
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'abbreviation' => 'required|string|max:64',
+        'label' => 'required|string|max:256'
+      ]);
 
-		$this->validate([
-      'abbreviation' => 'required|string|max:64',
-      'label' => 'required|string|max:256'
-		]);
+      $exists = $this->contract_category_service->addContractCategory($this->abbreviation, $this->label, auth()->user()->id);
 
-    $exists = $this->contract_category_service->addContractCategory($this->abbreviation, $this->label, auth()->user()->id);
+      if ($exists[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Added new contract category successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		if ($exists[0]->result_id == 0) {
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      $this->showAddSuccessMessage = true;
-		}
+      // Optionally reset form fields after save
+      $this->reset(['abbreviation', 'abbreviation']);
+      $this->reset(['label', 'label']);
 
-		// Optionally reset form fields after save
-    $this->reset(['abbreviation', 'abbreviation']);
-    $this->reset(['label', 'label']);
+      // Close the modal
+      $this->addContractCategoryModal = false;
 
-		// Close the modal
-		$this->addContractCategoryModal = false;
-
-		$this->contract_category_lst();
+      $this->contract_category_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get contract category by id
 	public function openEditContractCategoryModal(int $contract_category_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editContractCategoryModal = true;
-		$this->contract_category_id = $contract_category_id;
+    try{
+      $this->resetValidation();  // clears validation errors
+      $this->editContractCategoryModal = true;
+      $this->contract_category_id = $contract_category_id;
 
-    $result = $this->contract_category_service->getContractCategoryById($this->contract_category_id);
+      $result = $this->contract_category_service->getContractCategoryById($this->contract_category_id);
 
-		foreach($result as $result){
-      $this->edit_abbreviation = $result->abbreviation;
-      $this->edit_label = $result->label;
-		}
+      foreach($result as $result){
+        $this->edit_abbreviation = $result->abbreviation;
+        $this->edit_label = $result->label;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save contract category record changes
   public function save_contract_category_record_changes(){
-		// Validation and saving logic
-    $this->validate([
-      'edit_abbreviation' => 'required|string|max:64',
-      'edit_label' => 'required|string|max:256'
-		]);
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'edit_abbreviation' => 'required|string|max:64',
+        'edit_label' => 'required|string|max:256'
+      ]);
 
-    $exists = $this->contract_category_service->updateContractCategoryById($this->contract_category_id, $this->edit_abbreviation, $this->edit_label, auth()->user()->id);
+      $exists = $this->contract_category_service->updateContractCategoryById($this->contract_category_id, $this->edit_abbreviation, $this->edit_label, auth()->user()->id);
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+      if ($exists[0]->result_id == 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Updated contract category successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		// Optionally reset form fields after save
-    $this->reset(['contract_category_id', 'contract_category_id']);
-    $this->reset(['edit_abbreviation', 'edit_abbreviation']);
-    $this->reset(['edit_label', 'edit_label']);
+      // Optionally reset form fields after save
+      $this->reset(['contract_category_id', 'contract_category_id']);
+      $this->reset(['edit_abbreviation', 'edit_abbreviation']);
+      $this->reset(['edit_label', 'edit_label']);
 
-		// Close the modal
-		$this->editContractCategoryModal = false;
+      // Close the modal
+      $this->editContractCategoryModal = false;
 
-		$this->contract_category_lst();
+      $this->contract_category_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateContractCategoryStatusModal(int $contract_category_id, int $statuscode){
-		$this->updateContractCategoryStatusModal = true;
-		$this->contract_category_id = $contract_category_id;
-    $this->statuscode = $statuscode;
+    try{
+      $this->updateContractCategoryStatusModal = true;
+      $this->contract_category_id = $contract_category_id;
+      $this->statuscode = $statuscode;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_contract_category_status($contract_category_id, $statuscode){
+    try{
+      $result = $this->contract_category_service->updateContractCategoryStatusById($contract_category_id, $statuscode, auth()->user()->id);
+      
+      // // Toast
+      if ($result[0]->result_id > 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Updated contract category status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }else{
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
 
-    $result = $this->contract_category_service->updateContractCategoryStatusById($contract_category_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
+      $this->updateContractCategoryStatusModal = false;	
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
-
-		$this->updateContractCategoryStatusModal = false;	
 	}
 
 

@@ -46,10 +46,10 @@ class DioceseVicariate extends Component
   public bool $editVicariateModal = false;
   public bool $updateVicariateStatusModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		DioceseVicariateService $diocese_vicariate_service,
@@ -75,12 +75,19 @@ class DioceseVicariate extends Component
   #[Computed]
 	// public function load vicariate records
 	public function vicariate_lst(){
-    if(!$this->search){
-      $vicariate_lst = $this->diocese_vicariate_service->loadVicariateLst()->paginate(15);
-		  return $vicariate_lst;
-    }else{
-      $vicariate_lst = $this->diocese_vicariate_service->loadVicariateLstByKeyword($this->search)->paginate(15);
-		  return $vicariate_lst;
+		try{
+			if(!$this->search){
+				$vicariate_lst = $this->diocese_vicariate_service->loadVicariateLst()->paginate(15);
+				return $vicariate_lst;
+			}else{
+				$vicariate_lst = $this->diocese_vicariate_service->loadVicariateLstByKeyword($this->search)->paginate(15);
+				return $vicariate_lst;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
@@ -91,94 +98,144 @@ class DioceseVicariate extends Component
 	}
 
   // public function save diocese record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_vicariate(){
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'diocese_id' => 'required|not_in:0',
+				'label' => 'required|string|max:256'
+			]);
 
-		$this->validate([
-      'diocese_id' => 'required|not_in:0',
-      'label' => 'required|string|max:256'
-		]);
+			$exists = $this->diocese_vicariate_service->addVicariate($this->diocese_id, $this->label, auth()->user()->id);
 
-    $exists = $this->diocese_vicariate_service->addVicariate($this->diocese_id, $this->label, auth()->user()->id);
+			if ($exists[0]->result_id == 1) {
+				// Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Added new diocese vicariate successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		if ($exists[0]->result_id == 0) {
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      $this->showAddSuccessMessage = true;
-		}
+			// Optionally reset form fields after save
+			$this->reset(['diocese_id', 'diocese_id']);
+			$this->reset(['label', 'label']);
 
-		// Optionally reset form fields after save
-    $this->reset(['diocese_id', 'diocese_id']);
-		$this->reset(['label', 'label']);
+			// Close the modal
+			$this->addVicariateModal = false;
 
-		// Close the modal
-		$this->addVicariateModal = false;
-
-		$this->vicariate_lst();
+			$this->vicariate_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get vicariate by id
 	public function openEditVicariateModal(int $vicariate_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editVicariateModal = true;
-		$this->vicariate_id = $vicariate_id;
+		try{
+			$this->resetValidation();  // clears validation errors
+			$this->editVicariateModal = true;
+			$this->vicariate_id = $vicariate_id;
 
-    $result = $this->diocese_vicariate_service->getVicariateById($this->vicariate_id);
+			$result = $this->diocese_vicariate_service->getVicariateById($this->vicariate_id);
 
-		foreach($result as $result){
-      $this->edit_label = $result->label;
-      $this->edit_diocese_id = $result->diocese_id;
-		}
+			foreach($result as $result){
+				$this->edit_label = $result->label;
+				$this->edit_diocese_id = $result->diocese_id;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save vicariate record changes
   public function save_vicariate_record_changes(){
-		// Validation and saving logic
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'edit_label' => 'required|string|max:256',
+				'edit_diocese_id' => 'required|not_in:0'
+			]);
 
-		$this->validate([
-      'edit_label' => 'required|string|max:256',
-      'edit_diocese_id' => 'required|not_in:0'
-		]);
+			$exists = $this->diocese_vicariate_service->updateVicariateById($this->vicariate_id, $this->edit_label, $this->edit_diocese_id, auth()->user()->id);
 
-    $exists = $this->diocese_vicariate_service->updateVicariateById($this->vicariate_id, $this->edit_label, $this->edit_diocese_id, auth()->user()->id);
+			if ($exists[0]->result_id == 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Updated diocese vicariate successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+			// Optionally reset form fields after save
+			$this->reset(['vicariate_id', 'vicariate_id']);
+			$this->reset(['edit_label', 'edit_label']);
+			$this->reset(['edit_diocese_id', 'edit_diocese_id']);
 
-		// Optionally reset form fields after save
-		$this->reset(['vicariate_id', 'vicariate_id']);
-    $this->reset(['edit_label', 'edit_label']);
-		$this->reset(['edit_diocese_id', 'edit_diocese_id']);
+			// Close the modal
+			$this->editVicariateModal = false;
 
-		// Close the modal
-		$this->editVicariateModal = false;
-
-		$this->vicariate_lst();
+			$this->vicariate_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateVicariateStatusModal(int $vicariate_id, int $statuscode){
-		$this->updateVicariateStatusModal = true;
-		$this->vicariate_id = $vicariate_id;
-    $this->statuscode = $statuscode;
+		try{
+			$this->updateVicariateStatusModal = true;
+			$this->vicariate_id = $vicariate_id;
+			$this->statuscode = $statuscode;
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_vicariate_status($vicariate_id, $statuscode){
+		try{
+			$result = $this->diocese_vicariate_service->updateVicariateStatusById($vicariate_id, $statuscode, auth()->user()->id);
+			
+			// // Toast
+			if ($result[0]->result_id > 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Updated diocese vicariate status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}else{
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
 
-    $result = $this->diocese_vicariate_service->updateVicariateStatusById($vicariate_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
+			$this->updateVicariateStatusModal = false;	
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
-
-		$this->updateVicariateStatusModal = false;	
 	}
 
 

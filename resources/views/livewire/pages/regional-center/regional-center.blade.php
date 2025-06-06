@@ -11,20 +11,18 @@
 
   @if ($showMessageToast)
     <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showMessageToast', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      @if ($is_success)
-        <x-mary-alert icon="s-check-circle" class="alert-success text-white">
-            {{ $addMessage; }}
-        </x-mary-alert>
-      @else
-        <x-mary-alert icon="c-x-circle" class="bg-danger text-white">
-            {{ $addMessage; }}
-        </x-mary-alert>
-      @endif
+      x-data="{ show: true }" 
+      x-show="show" 
+      x-init="setTimeout(() => { show = false; @this.set('showMessageToast', false) }, 3000)" 
+      x-transition 
+      class="fixed top-4 right-4 z-50"
+    >
+      <x-mary-alert 
+        :icon="$is_success ? 's-check-circle' : 'c-x-circle'" 
+        :class="$is_success ? 'alert-success text-white' : 'bg-danger text-white'"
+      >
+        {{ $addMessage }}
+      </x-mary-alert>
     </div>
   @endif
 
@@ -173,66 +171,12 @@
   <!-- 
     Loader goes here 
   -->
+  <x-livewire-loader target="regional_center_lst" message="Please wait while the system loads all regional center records for you..." />
 
-  <!-- Loader using Blade Component for loading all record -->
-	<div
-			wire:loading
-			wire:target="regional_center_lst"
-			class="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-50 rounded-lg"
-	>
-			<div class="text-center">
-					<x-mary-loading class="progress-primary w-10 h-10" style="margin-top: 400px;" />
-					<p class="mt-2 text-gray-700 font-medium">Please wait while the system loads all regional center records for you...</p>
-			</div>
-	</div>
+  <x-livewire-loader target="save_regional_center,save_regional_center_record_changes" message="Saving... please wait..." />
 
-  <!-- Loader using Blade Component for saving new records -->
-	<div
-			wire:loading
-			wire:target="save_regional_center"
-			class="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-50 rounded-lg"
-	>
-			<div class="text-center">
-					<x-mary-loading class="progress-primary w-10 h-10" style="margin-top: 400px;" />
-					<p class="mt-2 text-gray-700 font-medium">Saving records changes... please wait...</p>
-			</div>
-	</div>
+  <x-livewire-loader target="openEditRegionalCenterModal" message="Please wait while the system retrieves the record for you..." />
 
-  <!-- Loader using Blade Component for retrieving records -->
-	<div
-			wire:loading
-			wire:target="openEditRegionalCenterModal"
-			class="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-50 rounded-lg"
-	>
-			<div class="text-center">
-					<x-mary-loading class="progress-primary w-10 h-10" style="margin-top: 400px;" />
-					<p class="mt-2 text-gray-700 font-medium">Please wait while the system retrieves the for you...</p>
-			</div>
-	</div>
-
-  <!-- Loader using Blade Component for saving record changes -->
-	<div
-			wire:loading
-			wire:target="save_regional_center_record_changes"
-			class="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-50 rounded-lg"
-	>
-			<div class="text-center">
-					<x-mary-loading class="progress-primary w-10 h-10" style="margin-top: 400px;" />
-					<p class="mt-2 text-gray-700 font-medium">Saving records changes... please wait...</p>
-			</div>
-	</div>
-
-  <!-- Loader using Blade Component for updated record status -->
-	<div
-			wire:loading
-			wire:target="update_regional_center_status"
-			class="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-50 rounded-lg"
-	>
-			<div class="text-center">
-					<x-mary-loading class="progress-primary w-10 h-10" style="margin-top: 400px;" />
-					<p class="mt-2 text-gray-700 font-medium">Updating record status... please wait...</p>
-			</div>
-	</div>
-
+  <x-livewire-loader target="update_regional_center_status" message="Updating record status... please wait..." />
 
 </div>

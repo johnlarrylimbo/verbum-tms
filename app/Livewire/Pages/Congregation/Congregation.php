@@ -44,10 +44,10 @@ class Congregation extends Component
   public bool $editCongregationModal = false;
   public bool $updateCongregationStatusModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		CongregationService $congregation_service,
@@ -71,106 +71,161 @@ class Congregation extends Component
   #[Computed]
 	// public function loadRecords
 	public function congregation_lst(){
-    if(!$this->search){
-      $congregation_lst = $this->congregation_service->loadCongregationLst()->paginate(15);
-		  return $congregation_lst;
-    }else{
-      $congregation_lst = $this->congregation_service->loadCongregationLstByKeyword($this->search)->paginate(15);
-		  return $congregation_lst;
+		try{
+			if(!$this->search){
+				$congregation_lst = $this->congregation_service->loadCongregationLst()->paginate(15);
+				return $congregation_lst;
+			}else{
+				$congregation_lst = $this->congregation_service->loadCongregationLstByKeyword($this->search)->paginate(15);
+				return $congregation_lst;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
   // public function save congregation record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_congregation(){
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'abbreviation' => 'required|string|max:45',
+				'description' => 'required|string|max:2048'
+			]);
 
-		$this->validate([
-      'abbreviation' => 'required|string|max:45',
-      'description' => 'required|string|max:2048'
-		]);
+			$exists = $this->congregation_service->addCongregation($this->abbreviation, $this->description, auth()->user()->id);
 
-    $exists = $this->congregation_service->addCongregation($this->abbreviation, $this->description, auth()->user()->id);
+			if ($exists[0]->result_id == 1) {
+				 // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Added new congregation successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		if ($exists[0]->result_id == 0) {
-			// $this->error('Failed to update record. Record does not exists.');
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      // $this->success('Record updated successfully!');
-      $this->showAddSuccessMessage = true;
-		}
+			// Optionally reset form fields after save
+			$this->reset(['abbreviation', 'abbreviation']);
+			$this->reset(['description', 'description']);
 
-		// Optionally reset form fields after save
-		$this->reset(['abbreviation', 'abbreviation']);
-    $this->reset(['description', 'description']);
+			// Close the modal
+			$this->addCongregationModal = false;
 
-		// Close the modal
-		$this->addCongregationModal = false;
-
-		$this->congregation_lst();
+			$this->congregation_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get congregation by id
 	public function openEditCongregationModal(int $congregation_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editCongregationModal = true;
-		$this->congregation_id = $congregation_id;
+		try{
+			$this->resetValidation();  // clears validation errors
+			$this->editCongregationModal = true;
+			$this->congregation_id = $congregation_id;
 
-    $result = $this->congregation_service->getCongregationById($this->congregation_id);
+			$result = $this->congregation_service->getCongregationById($this->congregation_id);
 
-		foreach($result as $result){
-      $this->edit_abbreviation = $result->abbreviation;
-      $this->edit_description = $result->congregation_label;
-		}
+			foreach($result as $result){
+				$this->edit_abbreviation = $result->abbreviation;
+				$this->edit_description = $result->congregation_label;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save congregation record changes
   public function save_congregation_record_changes(){
-		// Validation and saving logic
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'edit_abbreviation' => 'required|string|max:45',
+				'edit_description' => 'required|string|max:2048'
+			]);
 
-		$this->validate([
-      'edit_abbreviation' => 'required|string|max:45',
-      'edit_description' => 'required|string|max:2048'
-		]);
+			$exists = $this->congregation_service->updateCongregationById($this->congregation_id, $this->edit_abbreviation, $this->edit_description, auth()->user()->id);
 
-    $exists = $this->congregation_service->updateCongregationById($this->congregation_id, $this->edit_abbreviation, $this->edit_description, auth()->user()->id);
+			if ($exists[0]->result_id == 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Updated congregation successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+			// Optionally reset form fields after save
+			$this->reset(['congregation_id', 'congregation_id']);
+			$this->reset(['edit_abbreviation', 'edit_abbreviation']);
+			$this->reset(['edit_description', 'edit_description']);
 
-		// Optionally reset form fields after save
-		$this->reset(['congregation_id', 'congregation_id']);
-    $this->reset(['edit_abbreviation', 'edit_abbreviation']);
-    $this->reset(['edit_description', 'edit_description']);
+			// Close the modal
+			$this->editCongregationModal = false;
 
-		// Close the modal
-		$this->editCongregationModal = false;
-
-		$this->congregation_lst();
+			$this->congregation_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateCongregationStatusModal(int $congregation_id, int $statuscode){
-		$this->updateCongregationStatusModal = true;
-		$this->congregation_id = $congregation_id;
-    $this->statuscode = $statuscode;
+		try{
+			$this->updateCongregationStatusModal = true;
+			$this->congregation_id = $congregation_id;
+			$this->statuscode = $statuscode;
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_congregation_status($congregation_id, $statuscode){
+		try{
+			$result = $this->congregation_service->updateCongregationStatusById($congregation_id, $statuscode, auth()->user()->id);
+			
+			// // Toast
+			if ($result[0]->result_id > 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Updated congregation status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}else{
+				 // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
 
-    $result = $this->congregation_service->updateCongregationStatusById($congregation_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
+			$this->updateCongregationStatusModal = false;	
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
-
-		$this->updateCongregationStatusModal = false;	
 	}
 
 

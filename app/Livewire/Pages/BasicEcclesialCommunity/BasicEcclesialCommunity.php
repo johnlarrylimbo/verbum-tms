@@ -48,10 +48,10 @@ class BasicEcclesialCommunity extends Component
   public bool $editBasicEcclesialCommunityModal = false;
   public bool $updateBasicEcclesialCommunityStatusModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		BasicEcclesialCommunityService $bec_service,
@@ -78,12 +78,19 @@ class BasicEcclesialCommunity extends Component
   #[Computed]
 	// public function load bec records
 	public function bec_lst(){
-    if(!$this->search){
-      $bec_lst = $this->bec_service->loadBasicEcclesialCommunityLst()->paginate(15);
-		  return $bec_lst;
-    }else{
-      $bec_lst = $this->bec_service->loadBasicEcclesialCommunityLstByKeyword($this->search)->paginate(15);
-		  return $bec_lst;
+    try{
+      if(!$this->search){
+        $bec_lst = $this->bec_service->loadBasicEcclesialCommunityLst()->paginate(15);
+        return $bec_lst;
+      }else{
+        $bec_lst = $this->bec_service->loadBasicEcclesialCommunityLstByKeyword($this->search)->paginate(15);
+        return $bec_lst;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
@@ -94,98 +101,149 @@ class BasicEcclesialCommunity extends Component
 	}
 
   // public function save bec record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_bec(){
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'parish_id' => 'required|not_in:0',
+        'name' => 'required|string|max:2048',
+        'address' => 'required|string|max:2048'
+      ]);
 
-		$this->validate([
-      'parish_id' => 'required|not_in:0',
-      'name' => 'required|string|max:2048',
-      'address' => 'required|string|max:2048'
-		]);
+      $exists = $this->bec_service->addBasicEcclesialCommunity($this->parish_id, $this->name, $this->address, auth()->user()->id);
 
-    $exists = $this->bec_service->addBasicEcclesialCommunity($this->parish_id, $this->name, $this->address, auth()->user()->id);
+      if ($exists[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Added new basic ecclesial community successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		if ($exists[0]->result_id == 0) {
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      $this->showAddSuccessMessage = true;
-		}
+      // Optionally reset form fields after save
+      $this->reset(['parish_id', 'parish_id']);
+      $this->reset(['name', 'name']);
+      $this->reset(['address', 'address']);
 
-		// Optionally reset form fields after save
-    $this->reset(['parish_id', 'parish_id']);
-    $this->reset(['name', 'name']);
-    $this->reset(['address', 'address']);
+      // Close the modal
+      $this->addBasicEcclesialCommunityModal = false;
 
-		// Close the modal
-		$this->addBasicEcclesialCommunityModal = false;
-
-		$this->bec_lst();
+      $this->bec_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get bec by id
 	public function openEditBasicEcclesialCommunityModal(int $bec_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editBasicEcclesialCommunityModal = true;
-		$this->bec_id = $bec_id;
+    try{
+      $this->resetValidation();  // clears validation errors
+      $this->editBasicEcclesialCommunityModal = true;
+      $this->bec_id = $bec_id;
 
-    $result = $this->bec_service->getBasicEcclesialCommunityById($this->bec_id);
+      $result = $this->bec_service->getBasicEcclesialCommunityById($this->bec_id);
 
-		foreach($result as $result){
-      $this->edit_parish_id = $result->parish_id;
-      $this->edit_name = $result->name;
-      $this->edit_address = $result->address;
-		}
+      foreach($result as $result){
+        $this->edit_parish_id = $result->parish_id;
+        $this->edit_name = $result->name;
+        $this->edit_address = $result->address;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save bec record changes
   public function save_bec_record_changes(){
-		// Validation and saving logic
-    $this->validate([
-      'edit_parish_id' => 'required|not_in:0',
-      'edit_name' => 'required|string|max:2048',
-      'edit_address' => 'required|string|max:2048'
-		]);
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'edit_parish_id' => 'required|not_in:0',
+        'edit_name' => 'required|string|max:2048',
+        'edit_address' => 'required|string|max:2048'
+      ]);
 
-    $exists = $this->bec_service->updateBasicEcclesialCommunityById($this->bec_id, $this->edit_parish_id, $this->edit_name, $this->edit_address, auth()->user()->id);
+      $exists = $this->bec_service->updateBasicEcclesialCommunityById($this->bec_id, $this->edit_parish_id, $this->edit_name, $this->edit_address, auth()->user()->id);
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+      if ($exists[0]->result_id == 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Updated basic ecclesial community successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		// Optionally reset form fields after save
-    $this->reset(['bec_id', 'bec_id']);
-    $this->reset(['edit_parish_id', 'edit_parish_id']);
-		$this->reset(['edit_name', 'edit_name']);
-    $this->reset(['edit_address', 'edit_address']);
+      // Optionally reset form fields after save
+      $this->reset(['bec_id', 'bec_id']);
+      $this->reset(['edit_parish_id', 'edit_parish_id']);
+      $this->reset(['edit_name', 'edit_name']);
+      $this->reset(['edit_address', 'edit_address']);
 
-		// Close the modal
-		$this->editBasicEcclesialCommunityModal = false;
+      // Close the modal
+      $this->editBasicEcclesialCommunityModal = false;
 
-		$this->bec_lst();
+      $this->bec_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateBasicEcclesialCommunityStatusModal(int $bec_id, int $statuscode){
-		$this->updateBasicEcclesialCommunityStatusModal = true;
-		$this->bec_id = $bec_id;
-    $this->statuscode = $statuscode;
+    try{
+      $this->updateBasicEcclesialCommunityStatusModal = true;
+      $this->bec_id = $bec_id;
+      $this->statuscode = $statuscode;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_bec_status($bec_id, $statuscode){
+    try{
+      $result = $this->bec_service->updateBasicEcclesialCommunityStatusById($bec_id, $statuscode, auth()->user()->id);
+      
+      // // Toast
+      if ($result[0]->result_id > 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Updated basic ecclesial community status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }else{
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
 
-    $result = $this->bec_service->updateBasicEcclesialCommunityStatusById($bec_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
+      $this->updateBasicEcclesialCommunityStatusModal = false;	
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
-
-		$this->updateBasicEcclesialCommunityStatusModal = false;	
 	}
 
 

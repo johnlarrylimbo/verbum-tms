@@ -42,10 +42,10 @@ class Religion extends Component
   public bool $editReligionModal = false;
   public bool $updateReligionStatusModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		ReligionService $religion_service,
@@ -68,98 +68,156 @@ class Religion extends Component
   #[Computed]
 	// public function load religion records
 	public function religion_lst(){
-    if(!$this->search){
-      $religion_lst = $this->religion_service->loadReligionLst()->paginate(15);
-		  return $religion_lst;
-    }else{
-      $religion_lst = $this->religion_service->loadReligionLstByKeyword($this->search)->paginate(15);
-		  return $religion_lst;
+		try{
+			if(!$this->search){
+				$religion_lst = $this->religion_service->loadReligionLst()->paginate(15);
+				return $religion_lst;
+			}else{
+				$religion_lst = $this->religion_service->loadReligionLstByKeyword($this->search)->paginate(15);
+				return $religion_lst;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
   // public function save religion record changes
   public function save_religion(){
-		// Validation and saving logic
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'label' => 'required|string|max:255'
+			]);
 
-		$this->validate([
-      'label' => 'required|string|max:255'
-		]);
+			$exists = $this->religion_service->addReligion($this->label, auth()->user()->id);
 
-    $exists = $this->religion_service->addReligion($this->label, auth()->user()->id);
+			if ($exists[0]->result_id == 1) {
+				// Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Added new religion successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		if ($exists[0]->result_id == 0) {
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      $this->showAddSuccessMessage = true;
-		}
+			// Optionally reset form fields after save
+			$this->reset(['label', 'label']);
 
-		// Optionally reset form fields after save
-    $this->reset(['label', 'label']);
+			// Close the modal
+			$this->addReligionModal = false;
 
-		// Close the modal
-		$this->addReligionModal = false;
-
-		$this->religion_lst();
+			$this->religion_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get religion by id
 	public function openEditReligionModal(int $religion_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editReligionModal = true;
-		$this->religion_id = $religion_id;
+		try{
+			$this->resetValidation();  // clears validation errors
+			$this->editReligionModal = true;
+			$this->religion_id = $religion_id;
 
-    $result = $this->religion_service->getReligionById($this->religion_id);
+			$result = $this->religion_service->getReligionById($this->religion_id);
 
-		foreach($result as $result){
-      $this->edit_label = $result->label;
-		}
+			foreach($result as $result){
+				$this->edit_label = $result->label;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save employee type record changes
   public function save_religion_record_changes(){
-		// Validation and saving logic
-    $this->validate([
-      'edit_label' => 'required|string|max:255'
-		]);
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'edit_label' => 'required|string|max:255'
+			]);
 
-    $exists = $this->religion_service->updateReligionById($this->religion_id, $this->edit_label, auth()->user()->id);
+			$exists = $this->religion_service->updateReligionById($this->religion_id, $this->edit_label, auth()->user()->id);
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+			if ($exists[0]->result_id == 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Updated religion successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		// Optionally reset form fields after save
-    $this->reset(['religion_id', 'religion_id']);
-    $this->reset(['edit_label', 'edit_label']);
+			// Optionally reset form fields after save
+			$this->reset(['religion_id', 'religion_id']);
+			$this->reset(['edit_label', 'edit_label']);
 
-		// Close the modal
-		$this->editReligionModal = false;
+			// Close the modal
+			$this->editReligionModal = false;
 
-		$this->religion_lst();
+			$this->religion_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateReligionStatusModal(int $religion_id, int $statuscode){
-		$this->updateReligionStatusModal = true;
-		$this->religion_id = $religion_id;
-    $this->statuscode = $statuscode;
+		try{
+			$this->updateReligionStatusModal = true;
+			$this->religion_id = $religion_id;
+			$this->statuscode = $statuscode;
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_religion_status($religion_id, $statuscode){
+		try{
+			$result = $this->religion_service->updateReligionStatusById($religion_id, $statuscode, auth()->user()->id);
+			
+			// // Toast
+			if ($result[0]->result_id > 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Updated religion status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}else{
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
 
-    $result = $this->religion_service->updateReligionStatusById($religion_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
-    }
-
-		$this->updateReligionStatusModal = false;	
+			$this->updateReligionStatusModal = false;
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }	
 	}
 
 

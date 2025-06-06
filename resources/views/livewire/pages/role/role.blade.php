@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.role_lst() }">
   <x-mary-header title="SystemLib :: Roles">
       <x-slot:middle class="!justify-end">
           <x-mary-input icon="o-magnifying-glass" placeholder="Search Roles..."  wire:model.live="search"/>
@@ -9,54 +9,19 @@
   </x-mary-header>
 
 
-  @if ($showSuccessMessage)
+  @if ($showMessageToast)
     <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showSuccessMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
-          Record updated successfully!
-      </x-mary-alert>
-    </div>
-  @endif
-
-  @if ($showAddSuccessMessage)
-    <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showAddSuccessMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
-          Record added successfully!
-      </x-mary-alert>
-    </div>
-  @endif
-
-  @if ($showAddErrorMessage)
-    <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showAddErrorMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="c-x-circle" class="bg-danger text-white">
-        Failed to add new record. Record already exists in our database.
-      </x-mary-alert>
-    </div>
-  @endif
-
-  @if ($showErrorMessage)
-    <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showErrorMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="c-x-circle" class="bg-danger text-white">
-        Failed to update record. Record does not exists.
+      x-data="{ show: true }" 
+      x-show="show" 
+      x-init="setTimeout(() => { show = false; @this.set('showMessageToast', false) }, 3000)" 
+      x-transition 
+      class="fixed top-4 right-4 z-50"
+    >
+      <x-mary-alert 
+        :icon="$is_success ? 's-check-circle' : 'c-x-circle'" 
+        :class="$is_success ? 'alert-success text-white' : 'bg-danger text-white'"
+      >
+        {{ $addMessage }}
       </x-mary-alert>
     </div>
   @endif
@@ -101,6 +66,7 @@
                 <td class="text-center vertical-align-top">
                   <x-mary-button icon="o-pencil-square" 
                                   wire:click="openEditRoleModal({{ $result->role_id }})" 
+                                  wire:target="openEditRoleModal"
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
                   @if($result->statuscode == 1)
@@ -146,7 +112,12 @@
    
       <x-slot:actions>
           <x-mary-button label="Cancel" @click="$wire.addRoleModal = false"/>
-          <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_role" />
+          <x-mary-button 
+                label="Save Record" 
+                class="btn-primary" 
+                type="submit" 
+                spinner="save_role"
+                wire:target="save_role" />
       </x-slot:actions>
 
     </x-mary-form>
@@ -169,7 +140,12 @@
 
       <x-slot:actions>
         <x-mary-button label="Cancel" @click="$wire.editRoleModal = false"/>
-        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_role_record_changes" />
+        <x-mary-button 
+              label="Save Record" 
+              class="btn-primary" 
+              type="submit" 
+              spinner="save_role_record_changes"
+              wire:target="save_role_record_changes" />
       </x-slot:actions>
     </x-mary-form>
   </x-mary-modal>  
@@ -180,10 +156,25 @@
 
     <x-slot:actions>
         <x-mary-button label="Cancel" wire:click="updateRoleStatusModal = false" />
-        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_role_status({{ $role_id }}, {{ $statuscode }})"  />
+        <x-mary-button 
+              label="Confirm" 
+              class="btn-primary" 
+              spinner="delete" 
+              wire:click="update_role_status({{ $role_id }}, {{ $statuscode }})"
+              wire:target="update_role_status"  />
     </x-slot:actions>
 
   </x-mary-modal>
 
+  <!-- 
+    Loader goes here 
+  -->
+  <x-livewire-loader target="role_lst" message="Please wait while the system loads all role records for you..." />
+
+  <x-livewire-loader target="save_role,save_role_record_changes" message="Saving... please wait..." />
+
+  <x-livewire-loader target="openEditRoleModal" message="Please wait while the system retrieves the record for you..." />
+
+  <x-livewire-loader target="update_role_status" message="Updating record status... please wait..." />
 
 </div>

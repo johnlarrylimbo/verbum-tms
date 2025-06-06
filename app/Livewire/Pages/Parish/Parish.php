@@ -65,10 +65,10 @@ class Parish extends Component
   public bool $updateParishStatusModal = false;
   public bool $addPriestModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
   public $vicariate_options = [];
 
@@ -109,12 +109,19 @@ class Parish extends Component
   #[Computed]
 	// public function load parish records
 	public function parish_lst(){
-    if(!$this->search){
-      $parish_lst = $this->parish_service->loadParishLst()->paginate(15);
-		  return $parish_lst;
-    }else{
-      $parish_lst = $this->parish_service->loadParishLstByKeyword($this->search)->paginate(15);
-		  return $parish_lst;
+    try{
+      if(!$this->search){
+        $parish_lst = $this->parish_service->loadParishLst()->paginate(15);
+        return $parish_lst;
+      }else{
+        $parish_lst = $this->parish_service->loadParishLstByKeyword($this->search)->paginate(15);
+        return $parish_lst;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
@@ -151,72 +158,91 @@ class Parish extends Component
 	}
 
   // public function save diocese record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_parish(){
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'diocese_id' => 'required|not_in:0',
+        'vicariate_id' => 'required|not_in:0',
+        'name' => 'required|string|max:2048',
+        'primary_location' => 'required|string|max:256',
+        'address' => 'required|string|max:2048',
+        'contact_number' => 'required|string|max:64',
+        'parish_priest_id' => 'required|not_in:0',
+        'established_year' => 'required|string|max:64'
+      ]);
 
-		$this->validate([
-      'diocese_id' => 'required|not_in:0',
-      'vicariate_id' => 'required|not_in:0',
-      'name' => 'required|string|max:2048',
-      'primary_location' => 'required|string|max:256',
-      'address' => 'required|string|max:2048',
-      'contact_number' => 'required|string|max:64',
-      'parish_priest_id' => 'required|not_in:0',
-      'established_year' => 'required|string|max:64'
-		]);
+      $exists = $this->parish_service->addParish($this->diocese_id, $this->vicariate_id, $this->name, $this->primary_location, $this->address, $this->contact_number, $this->parish_priest_id, $this->established_year, auth()->user()->id);
 
-    $exists = $this->parish_service->addParish($this->diocese_id, $this->vicariate_id, $this->name, $this->primary_location, $this->address, $this->contact_number, $this->parish_priest_id, $this->established_year, auth()->user()->id);
+      if ($exists[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Added new parish successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		if ($exists[0]->result_id == 0) {
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      $this->showAddSuccessMessage = true;
-		}
+      // Optionally reset form fields after save
+      $this->reset(['diocese_id', 'diocese_id']);
+      $this->reset(['vicariate_id', 'vicariate_id']);
+      $this->reset(['name', 'name']);
+      $this->reset(['primary_location', 'primary_location']);
+      $this->reset(['address', 'address']);
+      $this->reset(['contact_number', 'contact_number']);
+      $this->reset(['parish_priest_id', 'parish_priest_id']);
+      $this->reset(['established_year', 'established_year']);
 
-		// Optionally reset form fields after save
-    $this->reset(['diocese_id', 'diocese_id']);
-		$this->reset(['vicariate_id', 'vicariate_id']);
-    $this->reset(['name', 'name']);
-    $this->reset(['primary_location', 'primary_location']);
-    $this->reset(['address', 'address']);
-    $this->reset(['contact_number', 'contact_number']);
-    $this->reset(['parish_priest_id', 'parish_priest_id']);
-    $this->reset(['established_year', 'established_year']);
+      // Close the modal
+      $this->addParishModal = false;
 
-		// Close the modal
-		$this->addParishModal = false;
-
-		$this->parish_lst();
+      $this->parish_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get parish by id
 	public function openEditParishModal(int $parish_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editParishModal = true;
-		$this->parish_id = $parish_id;
+    try{
+      $this->resetValidation();  // clears validation errors
+      $this->editParishModal = true;
+      $this->parish_id = $parish_id;
 
-    $result = $this->parish_service->getParishById($this->parish_id);
+      $result = $this->parish_service->getParishById($this->parish_id);
 
-		foreach($result as $result){
-      $this->edit_diocese_id = $result->diocese_id;
-      $this->edit_vicariate_id = $result->vicariate_id;
-      $this->edit_name = $result->name;
-      $this->edit_primary_location = $result->primary_location;
-      $this->edit_address = $result->address;
-      $this->edit_contact_number = $result->contact_number;
-      $this->edit_parish_priest_id = $result->parish_priest_id;
-      $this->edit_established_year = $result->established_year;
-		}
+      foreach($result as $result){
+        $this->edit_diocese_id = $result->diocese_id;
+        $this->edit_vicariate_id = $result->vicariate_id;
+        $this->edit_name = $result->name;
+        $this->edit_primary_location = $result->primary_location;
+        $this->edit_address = $result->address;
+        $this->edit_contact_number = $result->contact_number;
+        $this->edit_parish_priest_id = $result->parish_priest_id;
+        $this->edit_established_year = $result->established_year;
+      }
 
-    $diocese_id = $this->edit_diocese_id;
+      $diocese_id = $this->edit_diocese_id;
 
-    if (!$diocese_id) {
-        $this->vicariate_options = [];
-        return;
+      if (!$diocese_id) {
+          $this->vicariate_options = [];
+          return;
+      }
+      // Update the property that holds vicariate options
+      $this->vicariate_options = $this->select_option_service->loadVicariateByDioceseIdOptions($diocese_id);
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
-    // Update the property that holds vicariate options
-    $this->vicariate_options = $this->select_option_service->loadVicariateByDioceseIdOptions($diocese_id);
 	}
 
   //public function load vicariate when diocese change
@@ -235,93 +261,135 @@ class Parish extends Component
 
   // public function save parish record changes
   public function save_parish_record_changes(){
-		// Validation and saving logic
-    $this->validate([
-      'edit_diocese_id' => 'required|not_in:0',
-      'edit_vicariate_id' => 'required|not_in:0',
-      'edit_name' => 'required|string|max:2048',
-      'edit_primary_location' => 'required|string|max:256',
-      'edit_address' => 'required|string|max:2048',
-      'edit_contact_number' => 'required|string|max:64',
-      'edit_parish_priest_id' => 'required|not_in:0',
-      'edit_established_year' => 'required|string|max:64'
-		]);
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'edit_diocese_id' => 'required|not_in:0',
+        'edit_vicariate_id' => 'required|not_in:0',
+        'edit_name' => 'required|string|max:2048',
+        'edit_primary_location' => 'required|string|max:256',
+        'edit_address' => 'required|string|max:2048',
+        'edit_contact_number' => 'required|string|max:64',
+        'edit_parish_priest_id' => 'required|not_in:0',
+        'edit_established_year' => 'required|string|max:64'
+      ]);
 
-    $exists = $this->parish_service->updateParishById($this->parish_id, $this->edit_diocese_id, $this->edit_vicariate_id, $this->edit_name, $this->edit_primary_location, $this->edit_address, $this->edit_contact_number, $this->edit_parish_priest_id, $this->edit_established_year, auth()->user()->id);
+      $exists = $this->parish_service->updateParishById($this->parish_id, $this->edit_diocese_id, $this->edit_vicariate_id, $this->edit_name, $this->edit_primary_location, $this->edit_address, $this->edit_contact_number, $this->edit_parish_priest_id, $this->edit_established_year, auth()->user()->id);
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+      if ($exists[0]->result_id == 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Updated parish successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		// Optionally reset form fields after save
-    $this->reset(['parish_id', 'parish_id']);
-    $this->reset(['edit_diocese_id', 'edit_diocese_id']);
-		$this->reset(['edit_vicariate_id', 'edit_vicariate_id']);
-    $this->reset(['edit_name', 'edit_name']);
-    $this->reset(['edit_primary_location', 'edit_primary_location']);
-    $this->reset(['edit_address', 'edit_address']);
-    $this->reset(['edit_contact_number', 'edit_contact_number']);
-    $this->reset(['edit_parish_priest_id', 'edit_parish_priest_id']);
-    $this->reset(['edit_established_year', 'edit_established_year']);
+      // Optionally reset form fields after save
+      $this->reset(['parish_id', 'parish_id']);
+      $this->reset(['edit_diocese_id', 'edit_diocese_id']);
+      $this->reset(['edit_vicariate_id', 'edit_vicariate_id']);
+      $this->reset(['edit_name', 'edit_name']);
+      $this->reset(['edit_primary_location', 'edit_primary_location']);
+      $this->reset(['edit_address', 'edit_address']);
+      $this->reset(['edit_contact_number', 'edit_contact_number']);
+      $this->reset(['edit_parish_priest_id', 'edit_parish_priest_id']);
+      $this->reset(['edit_established_year', 'edit_established_year']);
 
-		// Close the modal
-		$this->editParishModal = false;
+      // Close the modal
+      $this->editParishModal = false;
 
-		$this->parish_lst();
+      $this->parish_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save barangay record changes
   public function save_new_priest(){
-		// Validation and saving logic
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'firstname' => 'required|string|max:64',
+        'lastname' => 'required|string|max:64',
+        'congregation_id' => 'required|not_in:0'
+      ]);
 
-		$this->validate([
-      'firstname' => 'required|string|max:64',
-      'lastname' => 'required|string|max:64',
-      'congregation_id' => 'required|not_in:0'
-		]);
+      $exists = $this->priest_service->addPriest($this->firstname, $this->middlename, $this->lastname, $this->congregation_id, auth()->user()->id);
 
-    $exists = $this->priest_service->addPriest($this->firstname, $this->middlename, $this->lastname, $this->congregation_id, auth()->user()->id);
+      if ($exists[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Added new priest successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-		if ($exists[0]->result_id == 1) {
-			// $this->error('Failed to update record. Record does not exists.');
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      // $this->success('Record updated successfully!');
-      $this->showAddSuccessMessage = true;
-		}
+      // Optionally reset form fields after save
+      $this->reset(['firstname', 'firstname']);
+      $this->reset(['middlename', 'middlename']);
+      $this->reset(['lastname', 'lastname']);
+      $this->reset(['congregation_id', 'congregation_id']);
 
-		// Optionally reset form fields after save
-		$this->reset(['firstname', 'firstname']);
-    $this->reset(['middlename', 'middlename']);
-    $this->reset(['lastname', 'lastname']);
-    $this->reset(['congregation_id', 'congregation_id']);
-
-		// Close the modal
-		$this->addPriestModal = false;
+      // Close the modal
+      $this->addPriestModal = false;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateParishStatusModal(int $parish_id, int $statuscode){
-		$this->updateParishStatusModal = true;
-		$this->parish_id = $parish_id;
-    $this->statuscode = $statuscode;
+    try{
+      $this->updateParishStatusModal = true;
+      $this->parish_id = $parish_id;
+      $this->statuscode = $statuscode;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_parish_status($parish_id, $statuscode){
+    try{
+      $result = $this->parish_service->updateParishStatusById($parish_id, $statuscode, auth()->user()->id);
+      
+      // // Toast
+      if ($result[0]->result_id > 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Updated parish status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }else{
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
 
-    $result = $this->parish_service->updateParishStatusById($parish_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
-    }
-
-		$this->updateParishStatusModal = false;	
+      $this->updateParishStatusModal = false;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }	
 	}
 
 

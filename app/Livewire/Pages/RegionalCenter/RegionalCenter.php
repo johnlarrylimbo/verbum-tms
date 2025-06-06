@@ -80,9 +80,9 @@ class RegionalCenter extends Component
       }
     } catch(e){
       // Optional: Show error to user
-      $this->addMessage = 'Failed to load regional center. An error occured while loading regional centers.';
-      $this->showErrorMessage = true;
-
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
@@ -120,7 +120,7 @@ class RegionalCenter extends Component
       $this->regional_center_lst();
     } catch(e){
       // Optional: Show error to user
-      $this->addMessage = 'Failed to add regional center. An error occured while adding this new record.';
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
       $this->showMessageToast = true;
       $this->is_success = false;
     }
@@ -141,7 +141,7 @@ class RegionalCenter extends Component
       }
     } catch(e){
       // Optional: Show error to user
-      $this->addMessage = 'Failed to retrieve regional center. An error occured while retrieving this record.';
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
       $this->showMessageToast = true;
       $this->is_success = false;
     }
@@ -182,7 +182,7 @@ class RegionalCenter extends Component
       $this->regional_center_lst();
     } catch(e){
       // Optional: Show error to user
-      $this->addMessage = 'Failed to update regional center. An error occured while retrieving this record.';
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
       $this->showMessageToast = true;
       $this->is_success = false;
     }
@@ -195,7 +195,7 @@ class RegionalCenter extends Component
       $this->statuscode = $statuscode;
     } catch(e){
       // Optional: Show error to user
-      $this->addMessage = 'Failed to retrieve regional center. An error occured while retrieving this record.';
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
       $this->showMessageToast = true;
       $this->is_success = false;
     }
@@ -221,7 +221,7 @@ class RegionalCenter extends Component
       $this->updateRegionalCenterStatusModal = false;	
     } catch(e){
       // Optional: Show error to user
-      $this->addMessage = 'Failed to retrieve regional center. An error occured while retrieving this record.';
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
       $this->showMessageToast = true;
       $this->is_success = false;
     }

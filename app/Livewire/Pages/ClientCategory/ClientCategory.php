@@ -42,10 +42,10 @@ class ClientCategory extends Component
   public bool $editClientCategoryModal = false;
   public bool $updateClientCategoryStatusModal = false;
 
-  public $showAddSuccessMessage = false;
-  public $showAddErrorMessage = false;
-  public $showSuccessMessage = false;
-  public $showErrorMessage = false;
+  #toast messages
+  public bool $showMessageToast = false;
+  public bool $is_success = false;
+	public string $addMessage = '';
 
 	public function boot(
 		ClientCategoryService $client_category_service,
@@ -68,98 +68,156 @@ class ClientCategory extends Component
   #[Computed]
 	// public function load client category records
 	public function client_category_lst(){
-    if(!$this->search){
-      $client_category_lst = $this->client_category_service->loadClientCategoryLst()->paginate(15);
-		  return $client_category_lst;
-    }else{
-      $client_category_lst = $this->client_category_service->loadClientCategoryLstByKeyword($this->search)->paginate(15);
-		  return $client_category_lst;
+		try{
+			if(!$this->search){
+				$client_category_lst = $this->client_category_service->loadClientCategoryLst()->paginate(15);
+				return $client_category_lst;
+			}else{
+				$client_category_lst = $this->client_category_service->loadClientCategoryLstByKeyword($this->search)->paginate(15);
+				return $client_category_lst;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Failed to load. An error occured while loading records.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
     }
 	}
 
   // public function save client category record changes
-  public function save(){
-		// Validation and saving logic
+  public function save_client_category(){
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'label' => 'required|string|max:256'
+			]);
 
-		$this->validate([
-      'label' => 'required|string|max:256'
-		]);
+			$exists = $this->client_category_service->addClientCategory($this->label, auth()->user()->id);
 
-    $exists = $this->client_category_service->addClientCategory($this->label, auth()->user()->id);
+			if ($exists[0]->result_id == 1) {
+				// Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Added new client category successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		if ($exists[0]->result_id == 0) {
-      $this->showAddErrorMessage = true;
-		}
-		else{
-      $this->showAddSuccessMessage = true;
-		}
+			// Optionally reset form fields after save
+			$this->reset(['label', 'label']);
 
-		// Optionally reset form fields after save
-    $this->reset(['label', 'label']);
+			// Close the modal
+			$this->addClientCategoryModal = false;
 
-		// Close the modal
-		$this->addClientCategoryModal = false;
-
-		$this->client_category_lst();
+			$this->client_category_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function get client category by id
 	public function openEditClientCategoryModal(int $client_category_id){
-    $this->resetValidation();  // clears validation errors
-		$this->editClientCategoryModal = true;
-		$this->client_category_id = $client_category_id;
+		try{
+			$this->resetValidation();  // clears validation errors
+			$this->editClientCategoryModal = true;
+			$this->client_category_id = $client_category_id;
 
-    $result = $this->client_category_service->getClientCategoryById($this->client_category_id);
+			$result = $this->client_category_service->getClientCategoryById($this->client_category_id);
 
-		foreach($result as $result){
-      $this->edit_label = $result->label;
-		}
+			foreach($result as $result){
+				$this->edit_label = $result->label;
+			}
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   // public function save client category record changes
   public function save_client_category_record_changes(){
-		// Validation and saving logic
-    $this->validate([
-      'edit_label' => 'required|string|max:256'
-		]);
+		try{
+			// Validation and saving logic
+			$this->validate([
+				'edit_label' => 'required|string|max:256'
+			]);
 
-    $exists = $this->client_category_service->updateClientCategoryById($this->client_category_id, $this->edit_label, auth()->user()->id);
+			$exists = $this->client_category_service->updateClientCategoryById($this->client_category_id, $this->edit_label, auth()->user()->id);
 
-		if ($exists[0]->result_id == 0) {
-      $this->showErrorMessage = true;
-		}
-		else{
-      $this->showSuccessMessage = true;
-		}
+			if ($exists[0]->result_id == 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
+			else{
+				// Optional: Show error to user
+        $this->addMessage = 'Updated client category successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}
 
-		// Optionally reset form fields after save
-    $this->reset(['client_category_id', 'client_category_id']);
-    $this->reset(['edit_label', 'edit_label']);
+			// Optionally reset form fields after save
+			$this->reset(['client_category_id', 'client_category_id']);
+			$this->reset(['edit_label', 'edit_label']);
 
-		// Close the modal
-		$this->editClientCategoryModal = false;
+			// Close the modal
+			$this->editClientCategoryModal = false;
 
-		$this->client_category_lst();
+			$this->client_category_lst();
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function openUpdateClientCategoryStatusModal(int $client_category_id, int $statuscode){
-		$this->updateClientCategoryStatusModal = true;
-		$this->client_category_id = $client_category_id;
-    $this->statuscode = $statuscode;
+		try{
+			$this->updateClientCategoryStatusModal = true;
+			$this->client_category_id = $client_category_id;
+			$this->statuscode = $statuscode;
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
 	}
 
   public function update_client_category_status($client_category_id, $statuscode){
+		try{
+			$result = $this->client_category_service->updateClientCategoryStatusById($client_category_id, $statuscode, auth()->user()->id);
+			
+			// // Toast
+			if ($result[0]->result_id > 0) {
+				// Optional: Show error to user
+        $this->addMessage = 'Updated client category status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+			}else{
+				// Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+			}
 
-    $result = $this->client_category_service->updateClientCategoryStatusById($client_category_id, $statuscode, auth()->user()->id);
-		
-		// // Toast
-    if ($result[0]->result_id > 0) {
-      $this->showSuccessMessage = true;
-    }else{
-      $this->showErrorMessage = true;
-    }
-
-		$this->updateClientCategoryStatusModal = false;	
+			$this->updateClientCategoryStatusModal = false;
+		} catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }	
 	}
 
 

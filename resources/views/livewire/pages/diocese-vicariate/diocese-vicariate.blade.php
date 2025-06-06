@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.vicariate_lst() }">
   <x-mary-header title="SystemLib :: Vicariate">
       <x-slot:middle class="!justify-end">
           <x-mary-input icon="o-magnifying-glass" placeholder="Search Vicariate..."  wire:model.live="search"/>
@@ -9,54 +9,19 @@
   </x-mary-header>
 
 
-  @if ($showSuccessMessage)
+  @if ($showMessageToast)
     <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showSuccessMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
-          Record updated successfully!
-      </x-mary-alert>
-    </div>
-  @endif
-
-  @if ($showAddSuccessMessage)
-    <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showAddSuccessMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
-          Record added successfully!
-      </x-mary-alert>
-    </div>
-  @endif
-
-  @if ($showAddErrorMessage)
-    <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showAddErrorMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="c-x-circle" class="bg-danger text-white">
-        Failed to add new record. Record already exists in our database.
-      </x-mary-alert>
-    </div>
-  @endif
-
-  @if ($showErrorMessage)
-    <div 
-    x-data="{ show: true }" 
-    x-show="show" 
-    x-init="setTimeout(() => { show = false; @this.set('showErrorMessage', false) }, 3000)"
-    x-transition
-    class="fixed top-4 right-4 z-50">
-      <x-mary-alert icon="c-x-circle" class="bg-danger text-white">
-        Failed to update record. Record does not exists.
+      x-data="{ show: true }" 
+      x-show="show" 
+      x-init="setTimeout(() => { show = false; @this.set('showMessageToast', false) }, 3000)" 
+      x-transition 
+      class="fixed top-4 right-4 z-50"
+    >
+      <x-mary-alert 
+        :icon="$is_success ? 's-check-circle' : 'c-x-circle'" 
+        :class="$is_success ? 'alert-success text-white' : 'bg-danger text-white'"
+      >
+        {{ $addMessage }}
       </x-mary-alert>
     </div>
   @endif
@@ -101,6 +66,7 @@
                 <td class="text-center vertical-align-top">
                   <x-mary-button icon="o-pencil-square" 
                                   wire:click="openEditVicariateModal({{ $result->vicariate_id }})" 
+                                  wire:target="openEditVicariateModal"
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
                   @if($result->statuscode == 1)
@@ -138,7 +104,7 @@
     </div>
 
     <!-- Modal Form -->
-    <x-mary-form wire:submit.prevent="save" no-separator>
+    <x-mary-form wire:submit.prevent="save_vicariate" no-separator>
 
       <x-mary-input label="Vicariate Name" wire:model="label" id="label" />
 
@@ -154,7 +120,12 @@
    
       <x-slot:actions>
           <x-mary-button label="Cancel" @click="$wire.addVicariateModal = false"/>
-          <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save" />
+          <x-mary-button 
+                label="Save Record" 
+                class="btn-primary" 
+                type="submit" 
+                spinner="save_vicariate"
+                wire:target="save_vicariate" />
       </x-slot:actions>
 
     </x-mary-form>
@@ -185,7 +156,12 @@
 
       <x-slot:actions>
         <x-mary-button label="Cancel" @click="$wire.editVicariateModal = false"/>
-        <x-mary-button label="Save Record" class="btn-primary" type="submit" spinner="save_vicariate_record_changes" />
+        <x-mary-button 
+              label="Save Record" 
+              class="btn-primary" 
+              type="submit" 
+              spinner="save_vicariate_record_changes"
+              wire:target="save_vicariate_record_changes" />
       </x-slot:actions>
     </x-mary-form>
   </x-mary-modal>
@@ -196,10 +172,27 @@
 
     <x-slot:actions>
         <x-mary-button label="Cancel" wire:click="updateVicariateStatusModal = false" />
-        <x-mary-button label="Confirm" class="btn-primary" spinner="delete" wire:click="update_vicariate_status({{ $vicariate_id }}, {{ $statuscode }})"  />
+        <x-mary-button 
+              label="Confirm" 
+              class="btn-primary" 
+              spinner="delete" 
+              wire:click="update_vicariate_status({{ $vicariate_id }}, {{ $statuscode }})"
+              wire:target="update_vicariate_status"  />
     </x-slot:actions>
 
   </x-mary-modal>
+
+
+  <!-- 
+    Loader goes here 
+  -->
+  <x-livewire-loader target="vicariate_lst" message="Please wait while the system loads all diocese vicariate records for you..." />
+
+  <x-livewire-loader target="save_vicariate,save_vicariate_record_changes" message="Saving... please wait..." />
+
+  <x-livewire-loader target="openEditVicariateModal" message="Please wait while the system retrieves the record for you..." />
+
+  <x-livewire-loader target="update_vicariate_status" message="Updating record status... please wait..." />
 
 
 </div>
