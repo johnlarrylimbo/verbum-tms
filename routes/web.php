@@ -98,4 +98,6 @@ require __DIR__.'/app_routes/regional_center_routes.php';
 
 require __DIR__.'/app_routes/region_routes.php';
 
+require __DIR__.'/app_routes/citizenship_routes.php';
+
 require __DIR__.'/auth.php';
