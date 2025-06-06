@@ -11,35 +11,43 @@
       </x-slot:actions> --}}
   </x-mary-header>
 
+  @if ($showSuccessMessage)
+    <div 
+    x-data="{ show: true }" 
+    x-show="show" 
+    x-init="setTimeout(() => { show = false; @this.set('showSuccessMessage', false) }, 3000)"
+    x-transition
+    class="fixed top-4 right-4 z-50">
+      <x-mary-alert icon="s-check-circle" class="alert-success text-white">
+          {{ $addMessage }}
+      </x-mary-alert>
+    </div>
+  @endif
+
+  <x-mary-card>
+
+    <button wire:click="sendMail('{{ auth()->user()->email }}')" class="btn btn-primary" wire.target="sendMail">
+      Send Mail
+    </button>
+
+    
   {{-- {{ auth()->user()->hasClearanceAreaRole(1) }}--}}
   {{-- {{ auth()->user() }} --}}
   {{-- {{ auth()->user()->account_role }} --}}
 
-  {{-- <div class="grid grid-cols-4 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <x-mary-stat title="Messages" value="44" icon="o-envelope" tooltip="Hello" />
 
-      <x-mary-stat
-          title="Sales"
-          description="This month"
-          value="22.124"
-          icon="o-arrow-trending-up"
-          tooltip-bottom="There" />
+  </x-mary-card>
 
-      <x-mary-stat
-          title="Lost"
-          description="This month"
-          value="34"
-          icon="o-arrow-trending-down"
-          tooltip-left="Ops!" />
-
-      <x-mary-stat
-          title="Sales"
-          description="This month"
-          value="22.124"
-          icon="o-arrow-trending-down"
-          class="text-orange-500"
-          color="text-pink-500"
-          tooltip-right="Gosh!" />
-  </div> --}}
+	<!-- Loader using Blade Component -->
+	<div
+			wire:loading
+			wire:target="sendMail"
+			class="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm z-50 rounded-lg"
+	>
+			<div class="text-center">
+					<x-mary-loading class="progress-primary w-10 h-10" style="margin-top: 400px;" />
+					<p class="mt-2 text-gray-700 font-medium">Please wait while the system loads all the transaction logs for you...</p>
+			</div>
+	</div>
 
 </div>

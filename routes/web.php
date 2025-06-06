@@ -94,4 +94,6 @@ require __DIR__.'/app_routes/province_routes.php';
 
 require __DIR__.'/app_routes/island_group_routes.php';
 
+require __DIR__.'/app_routes/regional_center_routes.php';
+
 require __DIR__.'/auth.php';
