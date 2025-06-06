@@ -198,5 +198,19 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting island group select options', 500, $exception);
         }
     }
+
+    public function loadRegionalCenterOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_regional_center_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting regional center select options', 500, $exception);
+        }
+    }
     
 }

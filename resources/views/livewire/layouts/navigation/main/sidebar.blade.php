@@ -74,6 +74,7 @@
 						<x-mary-menu-item title="Priest Directory" icon="s-wrench-screwdriver" link="/priest" />
 						<x-mary-menu-item title="Provinces" icon="s-wrench-screwdriver" link="/provinces" />
 						<x-mary-menu-item title="Regional Centers" icon="s-wrench-screwdriver" link="/regional-centers" />
+						<x-mary-menu-item title="Region" icon="s-wrench-screwdriver" link="/regions" />
 						<x-mary-menu-item title="Religion" icon="s-wrench-screwdriver" link="/religion" />
 						<x-mary-menu-item title="Roles" icon="s-wrench-screwdriver" link="/roles" />
 						
