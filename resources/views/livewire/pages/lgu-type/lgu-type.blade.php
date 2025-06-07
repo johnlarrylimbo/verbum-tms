@@ -1,7 +1,7 @@
 <div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.lgu_type_lst() }">
   <x-mary-header title="SystemLib :: LGU Type">
       <x-slot:middle class="!justify-end">
-          <x-mary-input icon="o-magnifying-glass" placeholder="Search Ctizenship..."  wire:model.live="search"/>
+          <x-mary-input icon="o-magnifying-glass" placeholder="Search LGU Type..."  wire:model.live="search"/>
       </x-slot:middle>
       <x-slot:actions>
           <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addLGUTypeModal = true" />

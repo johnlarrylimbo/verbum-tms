@@ -1,7 +1,7 @@
 <div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.citizenship_lst() }">
   <x-mary-header title="SystemLib :: Citizenship">
       <x-slot:middle class="!justify-end">
-          <x-mary-input icon="o-magnifying-glass" placeholder="Search Ctizenship..."  wire:model.live="search"/>
+          <x-mary-input icon="o-magnifying-glass" placeholder="Search Citizenship..."  wire:model.live="search"/>
       </x-slot:middle>
       <x-slot:actions>
           <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addCitizenshipModal = true" />

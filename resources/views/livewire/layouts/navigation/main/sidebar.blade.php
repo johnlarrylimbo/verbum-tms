@@ -60,6 +60,7 @@
 						<x-mary-menu-item title="Barangay" icon="s-wrench-screwdriver" link="/barangay" />
 						<x-mary-menu-item title="Basic Ecclesial Community" icon="s-wrench-screwdriver" link="/bec" />
 						<x-mary-menu-item title="Citizenship" icon="s-wrench-screwdriver" link="/citizenship" />
+						<x-mary-menu-item title="City/Municipality" icon="s-wrench-screwdriver" link="/city-municipality" />
 						<x-mary-menu-item title="Client Category" icon="s-wrench-screwdriver" link="/client-category" />
 						<x-mary-menu-item title="Client Type" icon="s-wrench-screwdriver" link="/client-type" />
 						<x-mary-menu-item title="Contract Category" icon="s-wrench-screwdriver" link="/contract-category" />

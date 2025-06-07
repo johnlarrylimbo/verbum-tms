@@ -237,6 +237,7 @@ class Parish extends Component
       }
       // Update the property that holds vicariate options
       $this->vicariate_options = $this->select_option_service->loadVicariateByDioceseIdOptions($diocese_id);
+      
     } catch(e){
       // Optional: Show error to user
       $this->addMessage = 'Action Failed! An error occured while retrieving this record.';

@@ -212,5 +212,19 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting regional center select options', 500, $exception);
         }
     }
+
+    public function loadLGUTypeOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_lgu_type_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting LGU type select options', 500, $exception);
+        }
+    }
     
 }
