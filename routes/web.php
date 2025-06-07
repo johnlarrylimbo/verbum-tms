@@ -100,4 +100,6 @@ require __DIR__.'/app_routes/region_routes.php';
 
 require __DIR__.'/app_routes/citizenship_routes.php';
 
+require __DIR__.'/app_routes/lgu_type_routes.php';
+
 require __DIR__.'/auth.php';

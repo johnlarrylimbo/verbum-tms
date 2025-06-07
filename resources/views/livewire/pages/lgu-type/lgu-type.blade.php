@@ -1,10 +1,10 @@
-<div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.citizenship_lst() }">
-  <x-mary-header title="SystemLib :: Citizenship">
+<div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.lgu_type_lst() }">
+  <x-mary-header title="SystemLib :: LGU Type">
       <x-slot:middle class="!justify-end">
           <x-mary-input icon="o-magnifying-glass" placeholder="Search Ctizenship..."  wire:model.live="search"/>
       </x-slot:middle>
       <x-slot:actions>
-          <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addCitizenshipModal = true" />
+          <x-mary-button label="Create" icon="m-folder-plus" class="btn-primary" @click="$wire.addLGUTypeModal = true" />
       </x-slot:actions>
   </x-mary-header>
 
@@ -30,7 +30,7 @@
   <x-mary-card>
 
     <div class="my-4">
-      {{ $this->citizenship_lst->links() }}
+      {{ $this->lgu_type_lst->links() }}
     </div>
     <br />
   
@@ -40,25 +40,23 @@
         <thead>
           <tr class="fs-14 pink h-2rem">
             <th class="text-center bg-primary text-white" width="5%">#</th>
-            <th class="text-center bg-primary text-white" width="15%">Short Code</th>
-            <th class="text-center bg-primary text-white" width="25%">Citizenship</th>
-            <th class="text-center bg-primary text-white" width="25%">Nationality</th>
+            <th class="text-center bg-primary text-white" width="20%">Abbreviation</th>
+            <th class="text-center bg-primary text-white" width="30%">Nationality</th>
             <th class="text-center bg-primary text-white">Status</th>
             <th class="text-center bg-primary text-white">Manage</th>
           </tr>
         </thead>
         <tbody>
-          @if(count($this->citizenship_lst) == 0)
+          @if(count($this->lgu_type_lst) == 0)
             <tr class="fs-13 border-btm content-tr">
-              <td class="text-center" colspan="6">No citizenship record(s) found.</td>
+              <td class="text-center" colspan="5">No LGU type record(s) found.</td>
             </tr>
           @else
-            @foreach ($this->citizenship_lst as $result)
+            @foreach ($this->lgu_type_lst as $result)
               <tr class="fs-13 border-btm content-tr">
                 <td class="align-top text-center">{{ $result->row_num }}</td>
                 <td class="text-center vertical-align-top" style="word-break: break-word;">{{ $result->abbreviation }}</td>
                 <td class="text-left vertical-align-top" style="word-break: break-word;">{{ $result->label }}</td>
-                <td class="text-left vertical-align-top" style="word-break: break-word;">{{ $result->nationality }}</td>
                 <td class="text-center vertical-align-top">
                   @if($result->statuscode == 1)
                     <x-mary-badge value="{{ $result->statuscode_label }}" class="bg-green-600 text-white" />
@@ -68,19 +66,19 @@
                 </td>
                 <td class="text-center vertical-align-top">
                   <x-mary-button icon="o-pencil-square" 
-                                  wire:click="openEditCitizenshipModal({{ $result->citizenship_id }})" 
-                                  wire:target="openEditCitizenshipModal"
+                                  wire:click="openEditLGUTypeModal({{ $result->lgu_type_id }})" 
+                                  wire:target="openEditLGUTypeModal"
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" />&nbsp;
                   @if($result->statuscode == 1)
                     <x-mary-button icon="o-eye-slash"
-                                    wire:click="openUpdateCitizenshipStatusModal({{ $result->citizenship_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateLGUTypeStatusModal({{ $result->lgu_type_id }},{{ $result->statuscode }})"
                                     class="bg-enabled text-white btn-sm align-center"
                                     spinner
                                     />
                   @else
                     <x-mary-button icon="o-eye"
-                                    wire:click="openUpdateCitizenshipStatusModal({{ $result->citizenship_id }},{{ $result->statuscode }})"
+                                    wire:click="openUpdateLGUTypeStatusModal({{ $result->lgu_type_id }},{{ $result->statuscode }})"
                                     class="bg-disabled text-white btn-sm align-center"
                                     spinner
                                     />
@@ -94,81 +92,77 @@
     </div>
 
     <div class="my-4">
-      {{ $this->citizenship_lst->links() }}
+      {{ $this->lgu_type_lst->links() }}
     </div>
 
   </x-mary-card>
 
 
-  <x-mary-modal wire:model="addCitizenshipModal" class="backdrop-blur custom-modal top-modal">
+  <x-mary-modal wire:model="addLGUTypeModal" class="backdrop-blur custom-modal top-modal">
     <!-- Manual Header -->
     <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
-        <h2 class="text-lg font-semibold text-gray-800">Add Citizenship</h2>
+        <h2 class="text-lg font-semibold text-gray-800">Add LGU Type</h2>
     </div>
 
     <!-- Modal Form -->
-    <x-mary-form wire:submit.prevent="save_citizenship" no-separator>
+    <x-mary-form wire:submit.prevent="save_lgu_type" no-separator>
 
       <x-mary-input label="Abbreviation" wire:model="abbreviation" id="abbreviation" />
 
-      <x-mary-input label="Citizenship Description" wire:model="label" id="label" />
-
-      <x-mary-input label="Nationality Description" wire:model="nationality" id="nationality" />
+      <x-mary-input label="Description" wire:model="label" id="label" />
    
       <x-slot:actions>
-          <x-mary-button label="Cancel" @click="$wire.addCitizenshipModal = false"/>
+          <x-mary-button label="Cancel" @click="$wire.addLGUTypeModal = false"/>
           <x-mary-button 
                   label="Save Record" 
                   class="btn-primary" 
                   type="submit" 
-                  spinner="save_citizenship"
-                  wire:target="save_citizenship" />
+                  spinner="save_lgu_type"
+                  wire:target="save_lgu_type" />
       </x-slot:actions>
 
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="editCitizenshipModal" class="backdrop-blur custom-modal top-modal">
+  <x-mary-modal wire:model="editLGUTypeModal" class="backdrop-blur custom-modal top-modal">
     <!-- Manual Header -->
     <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
-        <h2 class="text-lg font-semibold text-gray-800">Edit Citizenship</h2>
+        <h2 class="text-lg font-semibold text-gray-800">Edit LGU Type</h2>
     </div>
 
     <!-- Modal Form -->
-    <x-mary-form wire:submit.prevent="save_citizenship_record_changes" no-separator>
+    <x-mary-form wire:submit.prevent="save_lgu_type_record_changes" no-separator>
 
-      <x-mary-input type="hidden" wire:model="citizenship_id" id="citizenship_id" />
+      <x-mary-input type="hidden" wire:model="lgu_type_id" id="lgu_type_id" />
 
       <x-mary-input label="Abbreviation" wire:model="edit_abbreviation" id="edit_abbreviation" />
 
       <x-mary-input label="Citizenship Description" wire:model="edit_label" id="edit_label" />
 
-      <x-mary-input label="Nationality Description" wire:model="edit_nationality" id="edit_nationality" />
-
       <x-slot:actions>
-        <x-mary-button label="Cancel" @click="$wire.editCitizenshipModal = false"/>
+        <x-mary-button label="Cancel" @click="$wire.editLGUTypeModal = false"/>
         <x-mary-button 
                     label="Save Record" 
                     class="btn-primary" 
                     type="submit" 
-                    spinner="save_citizenship_record_changes"
-                    wire:target="save_citizenship_record_changes" />
+                    spinner="save_lgu_type_record_changes"
+                    wire:target="save_lgu_type_record_changes" />
       </x-slot:actions>
     </x-mary-form>
   </x-mary-modal>
 
-  <x-mary-modal wire:model="updateCitizenshipStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+  <x-mary-modal wire:model="updateLGUTypeStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 
     <x-slot:actions>
-        <x-mary-button label="Cancel" wire:click="updateCitizenshipStatusModal = false" />
+        <x-mary-button label="Cancel" wire:click="updateLGUTypeStatusModal = false" />
         <x-mary-button 
               label="Confirm" 
               class="btn-primary" 
               spinner="delete" 
-              wire:click="update_citizenship_status({{ $citizenship_id }}, {{ $statuscode }})" 
-              wire:target="update_citizenship_status" 
+              wire:click="update_lgu_type_status({{ $lgu_type_id }}, {{ $statuscode }})" 
+              wire:target="update_lgu_type_status" 
               />
     </x-slot:actions>
 
@@ -177,12 +171,12 @@
   <!-- 
     Loader goes here 
   -->
-  <x-livewire-loader target="citizenship_lst" message="Please wait while the system loads all citizenship records for you..." />
+  <x-livewire-loader target="lgu_type_lst" message="Please wait while the system loads all citizenship records for you..." />
 
-  <x-livewire-loader target="save_citizenship,save_citizenship_record_changes" message="Saving... please wait..." />
+  <x-livewire-loader target="save_lgu_type,save_lgu_type_record_changes" message="Saving... please wait..." />
 
-  <x-livewire-loader target="openEditCitizenshipModal" message="Please wait while the system retrieves the record for you..." />
+  <x-livewire-loader target="openEditLGUTypeModal" message="Please wait while the system retrieves the record for you..." />
 
-  <x-livewire-loader target="update_citizenship_status" message="Updating record status... please wait..." />
+  <x-livewire-loader target="update_lgu_type_status" message="Updating record status... please wait..." />
 
 </div>
