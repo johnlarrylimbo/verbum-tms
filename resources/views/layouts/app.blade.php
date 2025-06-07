@@ -42,7 +42,8 @@
 
         <x-mary-toast />
 
-        <x-mary-main class="w-full mx-auto max-w-screen-2xl">
+        {{-- <x-mary-main class="w-full mx-auto max-w-screen-2xl"> --}}
+        <x-mary-main class="w-full mx-auto">
 
             {{-- SIDEBAR --}}
             <livewire:layouts.navigation.main.sidebar />
