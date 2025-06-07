@@ -1,5 +1,5 @@
 <div x-data="{ init: false }" x-init="if (!init) { init = true; $wire.citizenship_lst() }">
-  <x-mary-header title="SystemLib :: Region">
+  <x-mary-header title="SystemLib :: Citizenship">
       <x-slot:middle class="!justify-end">
           <x-mary-input icon="o-magnifying-glass" placeholder="Search Ctizenship..."  wire:model.live="search"/>
       </x-slot:middle>
@@ -100,129 +100,89 @@
   </x-mary-card>
 
 
-  {{-- <x-mary-modal wire:model="addRegionModal" class="backdrop-blur custom-modal top-modal">
+  <x-mary-modal wire:model="addCitizenshipModal" class="backdrop-blur custom-modal top-modal">
     <!-- Manual Header -->
     <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
-        <h2 class="text-lg font-semibold text-gray-800">Add Regional Center</h2>
+        <h2 class="text-lg font-semibold text-gray-800">Add Citizenship</h2>
     </div>
 
     <!-- Modal Form -->
-    <x-mary-form wire:submit.prevent="save_region" no-separator>
-
-      <x-mary-select
-						label="Island Group"
-						:options="$this->load_island_group_options"
-						option-value="id"
-						option-label="label"
-						placeholder="Select a island group"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="island_group_id" />
-
-      <x-mary-select
-						label="Regional Center"
-						:options="$this->load_regional_center_options"
-						option-value="id"
-						option-label="label"
-						placeholder="Select a regional center"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="regional_center_id" />
-
-      <x-mary-input label="Short Code" wire:model="numerals" id="numerals" />
+    <x-mary-form wire:submit.prevent="save_citizenship" no-separator>
 
       <x-mary-input label="Abbreviation" wire:model="abbreviation" id="abbreviation" />
 
-      <x-mary-input label="Description" wire:model="label" id="label" />
+      <x-mary-input label="Citizenship Description" wire:model="label" id="label" />
+
+      <x-mary-input label="Nationality Description" wire:model="nationality" id="nationality" />
    
       <x-slot:actions>
-          <x-mary-button label="Cancel" @click="$wire.addRegionModal = false"/>
+          <x-mary-button label="Cancel" @click="$wire.addCitizenshipModal = false"/>
           <x-mary-button 
                   label="Save Record" 
                   class="btn-primary" 
                   type="submit" 
-                  spinner="save_region"
-                  wire:target="save_region" />
+                  spinner="save_citizenship"
+                  wire:target="save_citizenship" />
       </x-slot:actions>
 
     </x-mary-form>
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
-  {{-- <x-mary-modal wire:model="editRegionModal" class="backdrop-blur custom-modal top-modal">
+  <x-mary-modal wire:model="editCitizenshipModal" class="backdrop-blur custom-modal top-modal">
     <!-- Manual Header -->
     <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
-        <h2 class="text-lg font-semibold text-gray-800">Edit Regional Center</h2>
+        <h2 class="text-lg font-semibold text-gray-800">Edit Citizenship</h2>
     </div>
 
     <!-- Modal Form -->
-    <x-mary-form wire:submit.prevent="save_region_record_changes" no-separator>
+    <x-mary-form wire:submit.prevent="save_citizenship_record_changes" no-separator>
 
-      <x-mary-input type="hidden" wire:model="region_id" id="region_id" />
-
-      <x-mary-select
-						label="Island Group"
-						:options="$this->load_island_group_options"
-						option-value="id"
-						option-label="label"
-						placeholder="Select a island group"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="edit_island_group_id" />
-
-      <x-mary-select
-						label="Regional Center"
-						:options="$this->load_regional_center_options"
-						option-value="id"
-						option-label="label"
-						placeholder="Select a regional center"
-						placeholder-value=""
-						hint="Select one, please."
-						wire:model="edit_regional_center_id" />
-
-      <x-mary-input label="Short Code" wire:model="edit_numerals" id="edit_numerals" />
+      <x-mary-input type="hidden" wire:model="citizenship_id" id="citizenship_id" />
 
       <x-mary-input label="Abbreviation" wire:model="edit_abbreviation" id="edit_abbreviation" />
 
-      <x-mary-input label="Description" wire:model="edit_label" id="edit_label" />
+      <x-mary-input label="Citizenship Description" wire:model="edit_label" id="edit_label" />
+
+      <x-mary-input label="Nationality Description" wire:model="edit_nationality" id="edit_nationality" />
 
       <x-slot:actions>
-        <x-mary-button label="Cancel" @click="$wire.editRegionModal = false"/>
+        <x-mary-button label="Cancel" @click="$wire.editCitizenshipModal = false"/>
         <x-mary-button 
                     label="Save Record" 
                     class="btn-primary" 
                     type="submit" 
-                    spinner="save_region_record_changes"
-                    wire:target="save_region_record_changes" />
+                    spinner="save_citizenship_record_changes"
+                    wire:target="save_citizenship_record_changes" />
       </x-slot:actions>
     </x-mary-form>
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
-  {{-- <x-mary-modal wire:model="updateRegionStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+  <x-mary-modal wire:model="updateCitizenshipStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
 
     <p>Are you sure want to perform this action?</p>
 
     <x-slot:actions>
-        <x-mary-button label="Cancel" wire:click="updateRegionStatusModal = false" />
+        <x-mary-button label="Cancel" wire:click="updateCitizenshipStatusModal = false" />
         <x-mary-button 
               label="Confirm" 
               class="btn-primary" 
               spinner="delete" 
-              wire:click="update_region_status({{ $region_id }}, {{ $statuscode }})" 
-              wire:target="update_region_status" 
+              wire:click="update_citizenship_status({{ $citizenship_id }}, {{ $statuscode }})" 
+              wire:target="update_citizenship_status" 
               />
     </x-slot:actions>
 
-  </x-mary-modal> --}}
+  </x-mary-modal>
 
   <!-- 
     Loader goes here 
   -->
   <x-livewire-loader target="citizenship_lst" message="Please wait while the system loads all citizenship records for you..." />
 
-  {{-- <x-livewire-loader target="save_region,save_region_record_changes" message="Saving... please wait..." /> --}}
+  <x-livewire-loader target="save_citizenship,save_citizenship_record_changes" message="Saving... please wait..." />
 
-  {{-- <x-livewire-loader target="openEditRegionModal" message="Please wait while the system retrieves the record for you..." /> --}}
+  <x-livewire-loader target="openEditCitizenshipModal" message="Please wait while the system retrieves the record for you..." />
 
-  {{-- <x-livewire-loader target="update_region_status" message="Updating record status... please wait..." /> --}}
+  <x-livewire-loader target="update_citizenship_status" message="Updating record status... please wait..." />
 
 </div>

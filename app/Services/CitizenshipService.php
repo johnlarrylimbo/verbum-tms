@@ -46,88 +46,80 @@ class CitizenshipService extends Service
 		}
 	}
 
-  public function addRegion(int $param_island_group_id, int $param_regional_center_id, string $param_numerals, string $param_abbreviation, string $param_label, int $param_user_id)
+  public function addCitizenship(string $param_abbreviation, string $param_label, string $param_nationality, int $param_user_id)
 	{
 		try {
-      $island_group_id = $param_island_group_id ?? 0;
-      $regional_center_id = $param_regional_center_id ?? 0;
-      $numerals  = $param_numerals ?? '';
       $abbreviation  = $param_abbreviation ?? '';
-			$label  = $param_label ?? '';
+      $label  = $param_label ?? '';
+			$nationality  = $param_nationality ?? '';
 			$user_id = $param_user_id ?? 0;
 
 			$result = $this->sp
-								->stored_procedure('pr_datims_region_ins')
-								->stored_procedure_params([':p_island_group_id, :p_regional_center_id, :p_numerals, :p_abbreviation, :p_label, :result_id'])
-								->stored_procedure_values([ $island_group_id, $regional_center_id, $numerals, $abbreviation, $label, 0 ])
+								->stored_procedure('pr_datims_citizenship_ins')
+								->stored_procedure_params([':p_abbreviation, :p_label, :p_nationality, :result_id'])
+								->stored_procedure_values([ $abbreviation, $label, $nationality, 0 ])
 								->execute();
 
-			Log::channel('transaction_audit_trail')->info('Added new region:', [
-                    'island_group_id' => $island_group_id,
-                    'regional_center_id' => $regional_center_id,
-                    'numerals' => $numerals,
+			Log::channel('transaction_audit_trail')->info('Added new citizenship:', [
                     'abbreviation' => $abbreviation,
                     'label' => $label,
+                    'nationality' => $nationality,
 										'updated_by' => $user_id]);
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error adding region', 500, $exception);
+				throw new Exception('Error adding citizenship', 500, $exception);
 		}
 	}
 
-	public function getRegionById(int $param_region_id)
+	public function getCitizenshipById(int $param_citizenship_id)
 	{
 		try {
-			$region_id = $param_region_id ?? 0;
+			$citizenship_id = $param_citizenship_id ?? 0;
 			$result = $this->sp
-								->stored_procedure('pr_datims_region_by_id_sel')
-								->stored_procedure_params([':p_region_id'])
-								->stored_procedure_values([ $region_id ])
+								->stored_procedure('pr_datims_citizenship_by_id_sel')
+								->stored_procedure_params([':p_citizenship_id'])
+								->stored_procedure_values([ $citizenship_id ])
 								->execute();
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error getting region by id', 500, $exception);
+				throw new Exception('Error getting citizenship by id', 500, $exception);
 		}
 	}
 
-	public function updateRegionById(int $param_region_id, int $param_island_group_id, int $param_regional_center_id, string $param_numerals, string $param_abbreviation, string $param_label, int $param_user_id)
+	public function updateCitizenshipById(int $param_citizenship_id, string $param_abbreviation, string $param_label, string $param_nationality, int $param_user_id)
 	{
 		try {
-      $region_id = $param_region_id ?? 0;
-      $island_group_id = $param_island_group_id ?? 0;
-      $regional_center_id = $param_regional_center_id ?? 0;
-      $numerals = $param_numerals ?? '';
-			$abbreviation = $param_abbreviation ?? '';
-      $label = $param_label ?? '';
+      $citizenship_id = $param_citizenship_id ?? 0;
+      $abbreviation = $param_abbreviation ?? '';
+			$label = $param_label ?? '';
+      $nationality = $param_nationality ?? '';
 			$user_id = $param_user_id ?? 0;
 			
 			$result = $this->sp
-								->stored_procedure('pr_datims_region_by_id_upd')
-								->stored_procedure_params([':p_region_id, :p_island_group_id, :p_regional_center_id, :p_numerals, :p_abbreviation, :p_label, :result_id'])
-								->stored_procedure_values([ $region_id, $island_group_id, $regional_center_id, $numerals, $abbreviation, $label, 0 ])
+								->stored_procedure('pr_datims_citizenship_by_id_upd')
+								->stored_procedure_params([':p_citizenship_id, :p_abbreviation, :p_label, :p_nationality, :result_id'])
+								->stored_procedure_values([ $citizenship_id, $abbreviation, $label, $nationality, 0 ])
 								->execute();
 
-			Log::channel('transaction_audit_trail')->info('Updated region:', [
-                    'region_id' => $region_id,
-                    'island_group_id' => $island_group_id,
-                    'regional_center_id' => $regional_center_id,
-                    'numerals' => $numerals,
+			Log::channel('transaction_audit_trail')->info('Updated citizenship:', [
+                    'citizenship_id' => $citizenship_id,
                     'abbreviation' => $abbreviation,
                     'label' => $label,
+                    'nationality' => $nationality,
 										'updated_by' => $user_id]);
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error updating region by id', 500, $exception);
+				throw new Exception('Error updating citizenship by id', 500, $exception);
 		}
 	}
 
-	public function updateRegionStatusById(int $param_region_id, int $param_statuscode, int $param_user_id)
+	public function updateCitizenshipStatusById(int $param_citizenship_id, int $param_statuscode, int $param_user_id)
 	{
 		try {
-			$region_id  = $param_region_id ?? 0;
+			$citizenship_id  = $param_citizenship_id ?? 0;
 			$statuscode = $param_statuscode ?? 0;
 			$user_id = $param_user_id ?? 0;
 
@@ -138,20 +130,20 @@ class CitizenshipService extends Service
 			}
 
 			$result = $this->sp
-								->stored_procedure('pr_datims_region_status_by_id_upd')
-								->stored_procedure_params([':p_region_id, :p_statuscode, :result_id'])
-								->stored_procedure_values([ $region_id , $statuscode, 0 ])
+								->stored_procedure('pr_datims_citizenship_status_by_id_upd')
+								->stored_procedure_params([':p_citizenship_id, :p_statuscode, :result_id'])
+								->stored_procedure_values([ $citizenship_id , $statuscode, 0 ])
 								->execute();
 
-			Log::channel('transaction_audit_trail')->info('Updated region status:', [
-										'region_id ' => $region_id , 
+			Log::channel('transaction_audit_trail')->info('Updated citizenship status:', [
+										'citizenship_id ' => $citizenship_id , 
 										'from_status' => $statuscode,
 										'to_status' => $updated_to,
 										'updated_by' => $user_id]);
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error updating region status by id', 500, $exception);
+				throw new Exception('Error updating citizenship status by id', 500, $exception);
 		}
 	}
     

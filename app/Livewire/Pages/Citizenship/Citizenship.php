@@ -89,161 +89,151 @@ class Citizenship extends Component
     }
 	}
 
-  // // public function save region record changes
-  // public function save_region(){
-  //   try{
-  //     // Validation and saving logic
-  //     $this->validate([
-  //       'island_group_id' => 'required|not_in:0',
-  //       'regional_center_id' => 'required|not_in:0',
-  //       'numerals' => 'required|string|max:25',
-  //       'abbreviation' => 'required|string|max:64',
-  //       'label' => 'required|string|max:255',
-  //     ]);
+  // public function save citizenship record changes
+  public function save_citizenship(){
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'abbreviation' => 'required|string|max:15',
+        'label' => 'required|string|max:255',
+        'nationality' => 'required|string|max:255'
+      ]);
 
-  //     $exists = $this->region_service->addRegion($this->island_group_id, $this->regional_center_id, $this->numerals, $this->abbreviation, $this->label, auth()->user()->id);
+      $exists = $this->citizenship_service->addCitizenship($this->abbreviation, $this->label, $this->nationality, auth()->user()->id);
 
-  //     if ($exists[0]->result_id == 1) {
-  //       // Optional: Show error to user
-  //       $this->addMessage = 'Record already exist. Please try adding new record.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = false;
-  //     }
-  //     else{
-  //       // Optional: Show error to user
-  //       $this->addMessage = 'Added new region successfully.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = true;
-  //     }
+      if ($exists[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Record already exist. Please try adding new record.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Added new citizenship successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-  //     // Optionally reset form fields after save
-  //     $this->reset(['island_group_id', 'island_group_id']);
-  //     $this->reset(['regional_center_id', 'regional_center_id']);
-  //     $this->reset(['numerals', 'numerals']);
-  //     $this->reset(['abbreviation', 'abbreviation']);
-  //     $this->reset(['label', 'label']);
+      // Optionally reset form fields after save
+      $this->reset(['abbreviation', 'abbreviation']);
+      $this->reset(['label', 'label']);
+      $this->reset(['nationality', 'nationality']);
 
-  //     // Close the modal
-  //     $this->addRegionModal = false;
+      // Close the modal
+      $this->addCitizenshipModal = false;
 
-  //     $this->region_lst();
-  //   } catch(e){
-  //     // Optional: Show error to user
-  //     $this->addMessage = 'Action Failed! An error occured while adding this new record.';
-  //     $this->showMessageToast = true;
-  //     $this->is_success = false;
-  //   }
-	// }
+      $this->citizenship_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
 
-  // // public function get region by id
-	// public function openEditRegionModal(int $region_id){
-  //   try{
-  //     $this->resetValidation();  // clears validation errors
-  //     $this->editRegionModal = true;
-  //     $this->region_id = $region_id;
+  // public function get citizenship by id
+	public function openEditCitizenshipModal(int $citizenship_id){
+    try{
+      $this->resetValidation();  // clears validation errors
+      $this->editCitizenshipModal = true;
+      $this->citizenship_id = $citizenship_id;
 
-  //     $result = $this->region_service->getRegionById($this->region_id);
+      $result = $this->citizenship_service->getCitizenshipById($this->citizenship_id);
 
-  //     foreach($result as $result){
-  //       $this->edit_island_group_id = $result->island_group_id;
-  //       $this->edit_regional_center_id = $result->regional_center_id;
-  //       $this->edit_numerals = $result->numerals;
-  //       $this->edit_abbreviation = $result->abbreviation;
-  //       $this->edit_label = $result->label;
-  //     }
-  //   } catch(e){
-  //     // Optional: Show error to user
-  //     $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
-  //     $this->showMessageToast = true;
-  //     $this->is_success = false;
-  //   }
-	// }
+      foreach($result as $result){
+        $this->edit_abbreviation = $result->abbreviation;
+        $this->edit_label = $result->label;
+        $this->edit_nationality = $result->nationality;
+      }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
 
-  // // public function save region record changes
-  // public function save_region_record_changes(){
-  //   try{
-  //     // Validation and saving logic
-  //     $this->validate([
-  //       'edit_island_group_id' => 'required|not_in:0',
-  //       'edit_regional_center_id' => 'required|not_in:0',
-  //       'edit_numerals' => 'required|string|max:25',
-  //       'edit_abbreviation' => 'required|string|max:64',
-  //       'edit_label' => 'required|string|max:255',
-  //     ]);
+  // public function save citizenship record changes
+  public function save_citizenship_record_changes(){
+    try{
+      // Validation and saving logic
+      $this->validate([
+        'edit_abbreviation' => 'required|string|max:15',
+        'edit_label' => 'required|string|max:255',
+        'edit_nationality' => 'required|string|max:255'
+      ]);
 
-  //     $exists = $this->region_service->updateRegionById($this->region_id, $this->edit_island_group_id, $this->edit_regional_center_id, $this->edit_numerals, $this->edit_abbreviation, $this->edit_label, auth()->user()->id);
+      $exists = $this->citizenship_service->updateCitizenshipById($this->citizenship_id, $this->edit_abbreviation, $this->edit_label, $this->edit_nationality, auth()->user()->id);
 
-  //     if ($exists[0]->result_id == 0) {
-  //       // Optional: Show error to user
-  //       $this->addMessage = 'Failed to update record. Record does not exists in the database.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = false;
-  //     }
-  //     else{
-  //       // Optional: Show error to user
-  //       $this->addMessage = 'Updated region successfully.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = true;
-  //     }
+      if ($exists[0]->result_id == 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+      else{
+        // Optional: Show error to user
+        $this->addMessage = 'Updated citizenship successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
 
-  //     // Optionally reset form fields after save
-  //     $this->reset(['region_id', 'region_id']);
-  //     $this->reset(['edit_island_group_id', 'edit_island_group_id']);
-  //     $this->reset(['edit_regional_center_id', 'edit_regional_center_id']);
-  //     $this->reset(['edit_numerals', 'edit_numerals']);
-  //     $this->reset(['edit_abbreviation', 'edit_abbreviation']);
-  //     $this->reset(['edit_label', 'edit_label']);
+      // Optionally reset form fields after save
+      $this->reset(['citizenship_id', 'citizenship_id']);
+      $this->reset(['edit_abbreviation', 'edit_abbreviation']);
+      $this->reset(['edit_label', 'edit_label']);
+      $this->reset(['edit_nationality', 'edit_nationality']);
 
-  //     // Close the modal
-  //     $this->editRegionModal = false;
+      // Close the modal
+      $this->editCitizenshipModal = false;
 
-  //     $this->region_lst();
-  //   } catch(e){
-  //     // Optional: Show error to user
-  //     $this->addMessage = 'Action Failed! An error occured while performing this action.';
-  //     $this->showMessageToast = true;
-  //     $this->is_success = false;
-  //   }
-	// }
+      $this->citizenship_lst();
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
 
-  // public function openUpdateRegionStatusModal(int $region_id, int $statuscode){
-  //   try{
-  //     $this->updateRegionStatusModal = true;
-  //     $this->region_id = $region_id;
-  //     $this->statuscode = $statuscode;
-  //   } catch(e){
-  //     // Optional: Show error to user
-  //     $this->addMessage = 'Action Failed! An error occured while performing this action.';
-  //     $this->showMessageToast = true;
-  //     $this->is_success = false;
-  //   }
-	// }
+  public function openUpdateCitizenshipStatusModal(int $citizenship_id, int $statuscode){
+    try{
+      $this->updateCitizenshipStatusModal = true;
+      $this->citizenship_id = $citizenship_id;
+      $this->statuscode = $statuscode;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
 
-  // public function update_region_status($region_id, $statuscode){
-  //   try{
-  //     $result = $this->region_service->updateRegionStatusById($region_id, $statuscode, auth()->user()->id);
+  public function update_citizenship_status($citizenship_id, $statuscode){
+    try{
+      $result = $this->citizenship_service->updateCitizenshipStatusById($citizenship_id, $statuscode, auth()->user()->id);
       
-  //     // // Toast
-  //     if ($result[0]->result_id > 0) {
-  //       // Optional: Show error to user
-  //       $this->addMessage = 'Updated region status successfully.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = true;
-  //     }else{
-  //       // Optional: Show error to user
-  //       $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = false;
-  //     }
+      // // Toast
+      if ($result[0]->result_id > 0) {
+        // Optional: Show error to user
+        $this->addMessage = 'Updated citizenship status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }else{
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
 
-  //     $this->updateRegionStatusModal = false;	
-  //   } catch(e){
-  //     // Optional: Show error to user
-  //     $this->addMessage = 'Action Failed! An error occured while performing this action.';
-  //     $this->showMessageToast = true;
-  //     $this->is_success = false;
-  //   }
-	// }
+      $this->updateCitizenshipStatusModal = false;	
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
 
 
 	public function render(){
