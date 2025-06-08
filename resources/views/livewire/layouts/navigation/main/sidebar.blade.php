@@ -52,11 +52,15 @@
 
 					<x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
 					<x-mary-menu-separator />
+					
 
-					<x-mary-menu-item title="Client Profiling" icon="s-user-plus" link="/client-profiling" />
+					<x-mary-menu-sub title="Client" icon="s-user" open>
+						<x-mary-menu-item title="Client Profiling" icon="s-user-plus" link="/client-profiling" />
+					</x-mary-menu-sub>
+
 					<x-mary-menu-separator />
 
-					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth" open>
+					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth">
 						<x-mary-menu-item title="Barangay" icon="s-wrench-screwdriver" link="/barangay" />
 						<x-mary-menu-item title="Basic Ecclesial Community" icon="s-wrench-screwdriver" link="/bec" />
 						<x-mary-menu-item title="Citizenship" icon="s-wrench-screwdriver" link="/citizenship" />
@@ -80,31 +84,6 @@
 						<x-mary-menu-item title="Region" icon="s-wrench-screwdriver" link="/regions" />
 						<x-mary-menu-item title="Religion" icon="s-wrench-screwdriver" link="/religion" />
 						<x-mary-menu-item title="Roles" icon="s-wrench-screwdriver" link="/roles" />
-						
-						{{-- <x-mary-menu-item title="Basic Ecclesial Comm" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Cashier Transaction Type" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Citizenship & Nationality" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Client Category" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Client Type" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Congregation" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Contract Category" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Contract Type" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Country" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Diocese" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Employee Type" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Island Group" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Local Gov. Unit Type" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Months" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Parishes" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Priest" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Province" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Regional Center" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Region" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Religion" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="Role" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="User Type" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="System Directory" icon="s-list-bullet" link="/barangay" /> --}}
-						{{-- <x-mary-menu-item title="System Directory Type" icon="s-list-bullet" link="/barangay" /> --}}
 				</x-mary-menu-sub>
 				<x-mary-menu-separator />
 

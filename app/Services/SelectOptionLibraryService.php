@@ -226,5 +226,98 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting LGU type select options', 500, $exception);
         }
     }
+
+    public function loadCityMunicipalityByProvinceIdOptions(int $param_province_id)
+    {
+        try {
+            $province_id = $param_province_id ?? 0;
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_city_municipality_by_province_id_select_options')
+                ->stored_procedure_params([' :p_province_id '])
+				->stored_procedure_values([ $province_id ])
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting city or municipality by province id select options', 500, $exception);
+        }
+    }
+
+    public function loadBarangayByCityMunicipalityIdOptions(int $param_city_municipality_id)
+    {
+        try {
+            $city_municipality_id = $param_city_municipality_id ?? 0;
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_barangay_by_city_municipality_id_select_options')
+                ->stored_procedure_params([' :p_city_municipality_id '])
+				->stored_procedure_values([ $city_municipality_id ])
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting barangay by city or municipality id select options', 500, $exception);
+        }
+    }
+
+    public function loadCitizenshipOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_citizenship_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting citizenship select options', 500, $exception);
+        }
+    }
+
+    public function loadReligionOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_religion_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting religion select options', 500, $exception);
+        }
+    }
+
+    public function loadClientTypeOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_client_type_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting client type select options', 500, $exception);
+        }
+    }
+
+    public function loadBasicEcclesialCommunityByParishIdOptions(int $param_parish_id)
+    {
+        try {
+            $parish_id = $param_parish_id ?? 0;
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_basic_ecclesial_community_by_parish_id_select_options')
+                ->stored_procedure_params([' :p_parish_id '])
+				->stored_procedure_values([ $parish_id ])
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting basic ecclesial community by parish id select options', 500, $exception);
+        }
+    }
     
 }
