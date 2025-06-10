@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/print-client-profile/{id}', function ($id) {
         // Call stored procedure (adjust the name and parameters as needed)
-        $clientData = DB::select('CALL pr_datims_client_profile_by_id_sel(?)', [$id]);
+        $clientData = DB::select('CALL pr_datims_report_client_profile_by_id_sel_(?)', [$id]);
 
         // Optional: Handle case if no data is returned
         if (empty($clientData)) {
