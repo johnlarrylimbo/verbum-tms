@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\Dashboard\WireDashboard;
 use App\Livewire\Pages\Auth\WireAuth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Livewire\Volt\Volt;
 
@@ -54,6 +55,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/print-client-profile/{id}', function ($id) {
+        // Call stored procedure (adjust the name and parameters as needed)
+        $clientData = DB::select('CALL pr_datims_client_profile_by_id_sel(?)', [$id]);
+
+        // Optional: Handle case if no data is returned
+        if (empty($clientData)) {
+            abort(404, 'Client not found');
+        }
+
+        // Convert result to object/array as needed
+        $client = $clientData[0]; // Assuming the stored procedure returns a single row
+
+        $pdf = Pdf::loadView('pdf.client-profile', compact('client'));
+
+        return $pdf->stream('client-profile.pdf');
+    });
 });
 
 require __DIR__.'/app_routes/barangay_routes.php';

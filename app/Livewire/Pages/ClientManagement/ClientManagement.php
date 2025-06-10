@@ -10,6 +10,7 @@ use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\DB;
 
 use App\Services\ClientManagementService;
+use App\Services\ClientProfilingService;
 use App\Services\SelectOptionLibraryService;
 
 use Livewire\WithPagination;
@@ -27,14 +28,13 @@ class ClientManagement extends Component
 
 	#protected variables
 	protected $client_management_service;
+  protected $client_profiling_service;
   protected $select_option_service;
 
   #public variables
   public $search;
   public $client_id;
   public $statuscode;
-
-  public $same_as_client_address_details = false;
 
   // client information
   public $client_type_id, $client_name, $birthdate, $address_rm_flr_unit_bldg, $address_lot_block, $address_street, $address_subdivision, $country_id, $region_id, $province_id, $city_municipality_id, $barangay_id, $citizenship_id;
@@ -44,10 +44,8 @@ class ClientManagement extends Component
   public $spouse_name, $spouse_birthdate, $wedding_date, $spouse_address_rm_flr_unit_bldg, $spouse_address_lot_block, $spouse_address_street, $spouse_address_subdivision, $spouse_country_id;
   public $spouse_region_id, $spouse_province_id, $spouse_city_municipality_id, $spouse_barangay_id, $spouse_citizenship_id, $spouse_religion_id;
 
-  public $edit_client_name;
-
   #modals
-  // public bool $addRoleModal = false;
+  public bool $viewClientProfileModal = false;
   // public bool $editRoleModal = false;
   // public bool $updateRoleStatusModal = false;
 
@@ -57,16 +55,21 @@ class ClientManagement extends Component
 	public string $addMessage = '';
 
   public $provinces_options = [];
+  public $spouse_provinces_options = [];
   public $city_municipality_options = [];
+  public $spouse_city_municipality_options = [];
   public $barangay_options = [];
+  public $spouse_barangay_options = [];
   public $bec_options = [];
 
 	public function boot(
 		ClientManagementService $client_management_service,
+    ClientProfilingService $client_profiling_service,
     SelectOptionLibraryService $select_option_service,
 	)
 	{
 		$this->client_management_service = $client_management_service;
+    $this->client_profiling_service = $client_profiling_service;
     $this->select_option_service = $select_option_service;
 	}
 
@@ -139,231 +142,265 @@ class ClientManagement extends Component
 		$this->redirect(route('client.view_client_profile_by_id'));
 	}
 
-  // #[Computed]
-	// // public function load country options
-	// public function load_country_options(){
-	// 	return $this->select_option_service->loadCountryOptions();
-	// }
+  // public function get barangay by id
+	public function openViewClientProfileModal(int $client_id){
+    try{
+      $this->resetValidation();  // clears validation errors
+      $this->viewClientProfileModal = true;
+      $this->client_id = $client_id;
 
-  // #[Computed]
-	// // public function load region options
-	// public function load_region_options(){
-	// 	return $this->select_option_service->loadRegionOptions();
-	// }
+      $result = $this->client_profiling_service->loadClientProfileById($this->client_id);
 
-  // #[Computed]
-	// // public function load citizenship options
-	// public function load_citizenship_options(){
-	// 	return $this->select_option_service->loadCitizenshipOptions();
-	// }
+      foreach($result as $result){
+        $this->client_type_id = $result->client_type_id;
+        $this->client_name = $result->client_name;
+        $this->birthdate = $result->birthdate;
+        $this->address_rm_flr_unit_bldg = $result->address_rm_flr_unit_bldg;
+        $this->address_lot_block = $result->address_lot_block;
+        $this->address_street = $result->address_street;
+        $this->address_subdivision = $result->address_subdivision;
+        $this->country_id = $result->country_id;
+        $this->region_id = $result->region_id;
+        $this->province_id = $result->province_id;
+        $this->city_municipality_id = $result->city_municipality_id;
+        $this->barangay_id = $result->barangay_id;
+        $this->citizenship_id = $result->citizenship_id;
+        $this->religion_id = $result->religion_id;
+        $this->email_address = $result->email_address;
+        $this->facebook_name = $result->facebook_name;
+        $this->facebook_profile_link = $result->facebook_profile_link;
+        $this->contact_number = $result->telephone_number;
+        $this->parish_id = $result->parish_id;
+        $this->basic_ecclecial_community_id = $result->basic_ecclecial_community_id;
+        $this->spouse_name = $result->spouse_name;
+        $this->spouse_birthdate = $result->spouse_birthdate;
+        $this->wedding_date = $result->wedding_date;
+        $this->spouse_address_rm_flr_unit_bldg = $result->spouse_address_rm_flr_unit_bldg;
+        $this->spouse_address_lot_block = $result->spouse_address_lot_block;
+        $this->spouse_address_street = $result->spouse_address_street;
+        $this->spouse_address_subdivision = $result->spouse_address_subdivision;
+        $this->spouse_country_id = $result->spouse_country_id;
+        $this->spouse_region_id = $result->spouse_region_id;
+        $this->spouse_province_id = $result->spouse_province_id;
+        $this->spouse_city_municipality_id = $result->spouse_city_municipality_id;
+        $this->spouse_barangay_id = $result->spouse_barangay_id;
+        $this->spouse_citizenship_id = $result->spouse_citizenship_id;
+        $this->spouse_religion_id = $result->spouse_religion_id;
 
-  // #[Computed]
-	// // public function load religion options
-	// public function load_religion_options(){
-	// 	return $this->select_option_service->loadReligionOptions();
-	// }
+        $region_id = $this->region_id;
 
-  // #[Computed]
-	// // public function load parish options
-	// public function load_parish_options(){
-	// 	return $this->select_option_service->loadParishesOptions();
-	// }
+        if (!$region_id) {
+            $this->provinces_options = [];
+            return;
+        }
 
-  // #[Computed]
-	// // public function load client type options
-	// public function load_client_type_options(){
-	// 	return $this->select_option_service->loadClientTypeOptions();
-	// }
+        // Update the property that holds vicariate options
+        $this->provinces_options = $this->select_option_service->loadProvincesByRegionIdOptions($region_id);
 
-  // //public function load provinces when region change
-  // public function regionChanged()
-  // {
-  //   $region_id = $this->region_id;
+        $province_id = $this->province_id;
 
-  //   if (!$region_id) {
-  //       $this->provinces_options = [];
-  //       return;
-  //   }
+        if (!$province_id) {
+            $this->city_municipality_options = [];
+            return;
+        }
 
-  //   // Update the property that holds vicariate options
-  //   $this->provinces_options = $this->select_option_service->loadProvincesByRegionIdOptions($region_id);
-  // }
+        // Update the property that holds vicariate options
+        $this->city_municipality_options = $this->select_option_service->loadCityMunicipalityByProvinceIdOptions($province_id);
 
-  // //public function load city or municipality when province change
-  // public function provinceChanged()
-  // {
-  //   $province_id = $this->province_id;
+        $city_municipality_id = $this->city_municipality_id;
 
-  //   if (!$province_id) {
-  //       $this->city_municipality_options = [];
-  //       return;
-  //   }
+        if (!$city_municipality_id) {
+            $this->barangay_options = [];
+            return;
+        }
 
-  //   // Update the property that holds vicariate options
-  //   $this->city_municipality_options = $this->select_option_service->loadCityMunicipalityByProvinceIdOptions($province_id);
-  // }
+        // Update the property that holds vicariate options
+        $this->barangay_options = $this->select_option_service->loadBarangayByCityMunicipalityIdOptions($city_municipality_id);
 
-  // //public function load barangay when city or municipality change
-  // public function citymunicipalityChanged()
-  // {
-  //   $city_municipality_id = $this->city_municipality_id;
+        $parish_id = $this->parish_id;
 
-  //   if (!$city_municipality_id) {
-  //       $this->barangay_options = [];
-  //       return;
-  //   }
+        if (!$parish_id) {
+            $this->bec_options = [];
+            return;
+        }
 
-  //   // Update the property that holds vicariate options
-  //   $this->barangay_options = $this->select_option_service->loadBarangayByCityMunicipalityIdOptions($city_municipality_id);
-  // }
+        // Update the property that holds vicariate options
+        $this->bec_options = $this->select_option_service->loadBasicEcclesialCommunityByParishIdOptions($parish_id);
 
-  // //public function load basic ecclesial community when parish change
-  // public function parishChanged()
-  // {
-  //   $parish_id = $this->parish_id;
 
-  //   if (!$parish_id) {
-  //       $this->bec_options = [];
-  //       return;
-  //   }
 
-  //   // Update the property that holds vicariate options
-  //   $this->bec_options = $this->select_option_service->loadBasicEcclesialCommunityByParishIdOptions($parish_id);
-  // }
+        $spouse_region_id = $this->spouse_region_id;
 
-  // // public function save client profile record
-  // public function save_client_profile(){
-	// 	// Validation and saving logic
+        if (!$spouse_region_id) {
+            $this->spouse_provinces_options = [];
+            return;
+        }
 
-	// 	$this->validate([
-  //     'client_type_id' => 'required|not_in:0',
-	// 		'client_name' => 'required|string|max:2048',
-  //     'address_street' => 'required|string|max:256',
-  //     'country_id' => 'required|not_in:0',
-  //     'region_id' => 'required|not_in:0',
-  //     'province_id' => 'required|not_in:0',
-  //     'city_municipality_id' => 'required|not_in:0',
-  //     'barangay_id' => 'required|not_in:0',
-  //     'email_address' => 'required|string|max:512',
-  //     'contact_number' => 'required|string|max:512',
-  //     'parish_id' => 'required|not_in:0',
-  //     'basic_ecclecial_community_id' => 'required|not_in:0'
-	// 	]);
+        // Update the property that holds vicariate options
+        $this->spouse_provinces_options = $this->select_option_service->loadProvincesByRegionIdOptions($spouse_region_id);
 
-  //   $exists = $this->client_profiling_service->addClientProfile($this->client_type_id, strtoupper($this->client_name), $this->birthdate, strtoupper($this->address_rm_flr_unit_bldg), strtoupper($this->address_lot_block), strtoupper($this->address_street), strtoupper($this->address_subdivision), $this->country_id, $this->region_id, $this->province_id, $this->city_municipality_id, $this->barangay_id, $this->citizenship_id, $this->religion_id, strtoupper($this->email_address), strtoupper($this->facebook_name), $this->facebook_profile_link, $this->contact_number, $this->parish_id, $this->basic_ecclecial_community_id, strtoupper($this->spouse_name), $this->spouse_birthdate, $this->wedding_date, strtoupper($this->spouse_address_rm_flr_unit_bldg), strtoupper($this->spouse_address_lot_block), strtoupper($this->spouse_address_street), strtoupper($this->spouse_address_subdivision), $this->spouse_country_id, $this->spouse_region_id, $this->spouse_province_id, $this->spouse_city_municipality_id, $this->spouse_barangay_id, $this->spouse_citizenship_id, $this->spouse_religion_id, auth()->user()->id);
+        $spouse_province_id = $this->spouse_province_id;
 
-	// 	if ($exists[0]->result_id == 1) {
-  //     // Optional: Show error to user
-  //       $this->addMessage = 'Record already exist. Please try adding new record.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = false;
-	// 	}
-	// 	else{
-  //     // Optional: Show error to user
-  //       $this->addMessage = 'Added new client profile successfully.';
-  //       $this->showMessageToast = true;
-  //       $this->is_success = true;
-	// 	}
+        if (!$spouse_province_id) {
+            $this->spouse_city_municipality_options = [];
+            return;
+        }
 
-	// 	// Optionally reset form fields after save
-  //   $this->reset(['client_type_id', 'client_type_id']);
-	// 	$this->reset(['client_name', 'client_name']);
-  //   $this->reset(['birthdate', 'birthdate']);
-	// 	$this->reset(['address_rm_flr_unit_bldg', 'address_rm_flr_unit_bldg']);
-  //   $this->reset(['address_lot_block', 'address_lot_block']);
-	// 	$this->reset(['address_street', 'address_street']);
-  //   $this->reset(['address_subdivision', 'address_subdivision']);
-	// 	$this->reset(['country_id', 'country_id']);
-  //   $this->reset(['region_id', 'region_id']);
-	// 	$this->reset(['province_id', 'province_id']);
-  //   $this->reset(['city_municipality_id', 'city_municipality_id']);
-	// 	$this->reset(['barangay_id', 'barangay_id']);
-  //   $this->reset(['citizenship_id', 'citizenship_id']);
-	// 	$this->reset(['religion_id', 'religion_id']);
-  //   $this->reset(['email_address', 'email_address']);
-	// 	$this->reset(['facebook_name', 'facebook_name']);
-  //   $this->reset(['facebook_profile_link', 'facebook_profile_link']);
-	// 	$this->reset(['contact_number', 'contact_number']);
-  //   $this->reset(['parish_id', 'parish_id']);
-	// 	$this->reset(['basic_ecclecial_community_id', 'basic_ecclecial_community_id']);
-  //   $this->reset(['spouse_name', 'spouse_name']);
-	// 	$this->reset(['spouse_birthdate', 'spouse_birthdate']);
-  //   $this->reset(['wedding_date', 'wedding_date']);
-	// 	$this->reset(['spouse_address_rm_flr_unit_bldg', 'spouse_address_rm_flr_unit_bldg']);
-  //   $this->reset(['spouse_address_lot_block', 'spouse_address_lot_block']);
-	// 	$this->reset(['spouse_address_street', 'spouse_address_street']);
-  //   $this->reset(['spouse_address_subdivision', 'spouse_address_subdivision']);
-	// 	$this->reset(['spouse_country_id', 'spouse_country_id']);
-  //   $this->reset(['spouse_region_id', 'spouse_region_id']);
-	// 	$this->reset(['spouse_province_id', 'spouse_province_id']);
-  //   $this->reset(['spouse_city_municipality_id', 'spouse_city_municipality_id']);
-	// 	$this->reset(['spouse_barangay_id', 'spouse_barangay_id']);
-  //   $this->reset(['spouse_citizenship_id', 'spouse_citizenship_id']);
-	// 	$this->reset(['spouse_religion_id', 'spouse_religion_id']);
+        // Update the property that holds vicariate options
+        $this->spouse_city_municipality_options = $this->select_option_service->loadCityMunicipalityByProvinceIdOptions($spouse_province_id);
 
-	// }
+        $spouse_city_municipality_id = $this->spouse_city_municipality_id;
 
-  // // public function get role by id
-	// public function openEditRoleModal(int $role_id){
-  //   $this->resetValidation();  // clears validation errors
-	// 	$this->editRoleModal = true;
-	// 	$this->role_id = $role_id;
+        if (!$spouse_city_municipality_id) {
+            $this->spouse_barangay_options = [];
+            return;
+        }
 
-  //   $result = $this->role_service->getRoleById($this->role_id);
+        // Update the property that holds vicariate options
+        $this->spouse_barangay_options = $this->select_option_service->loadBarangayByCityMunicipalityIdOptions($city_municipality_id);
+      }
 
-	// 	foreach($result as $result){
-	// 		$this->edit_abbreviation = $result->abbreviation;
-  //     $this->edit_label = $result->label;
-	// 	}
-	// }
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while retrieving this record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
 
-  // // public function save role record changes
-  // public function save_role_record_changes(){
-	// 	// Validation and saving logic
-  //   $this->validate([
-	// 		'edit_abbreviation' => 'required|string|max:255',
-  //     'edit_label' => 'required|string|max:255'
-	// 	]);
+  #[Computed]
+	// public function load client type options
+	public function load_client_type_options(){
+		return $this->select_option_service->loadClientTypeOptions();
+	}
 
-  //   $exists = $this->role_service->updateRoleById($this->role_id, $this->edit_abbreviation, $this->edit_label, auth()->user()->id);
+  #[Computed]
+	// public function load country options
+	public function load_country_options(){
+		return $this->select_option_service->loadCountryOptions();
+	}
 
-	// 	if ($exists[0]->result_id == 0) {
-  //     $this->showErrorMessage = true;
-	// 	}
-	// 	else{
-  //     $this->showSuccessMessage = true;
-	// 	}
+  #[Computed]
+	// public function load region options
+	public function load_region_options(){
+		return $this->select_option_service->loadRegionOptions();
+	}
 
-	// 	// Optionally reset form fields after save
-  //   $this->reset(['role_id', 'role_id']);
-	// 	$this->reset(['edit_abbreviation', 'edit_abbreviation']);
-  //   $this->reset(['edit_label', 'edit_label']);
+  #[Computed]
+	// public function load citizenship options
+	public function load_citizenship_options(){
+		return $this->select_option_service->loadCitizenshipOptions();
+	}
 
-	// 	// Close the modal
-	// 	$this->editRoleModal = false;
+  #[Computed]
+	// public function load religion options
+	public function load_religion_options(){
+		return $this->select_option_service->loadReligionOptions();
+	}
 
-	// 	$this->role_lst();
-	// }
+  #[Computed]
+	// public function load parish options
+	public function load_parish_options(){
+		return $this->select_option_service->loadParishesOptions();
+	}
 
-  // public function openUpdateRoleStatusModal(int $role_id, int $statuscode){
-	// 	$this->updateRoleStatusModal = true;
-	// 	$this->role_id = $role_id;
-  //   $this->statuscode = $statuscode;
-	// }
+  //public function load provinces when region change
+  public function regionChanged()
+  {
+    $region_id = $this->region_id;
 
-  // public function update_role_status($role_id, $statuscode){
+    if (!$region_id) {
+        $this->provinces_options = [];
+        return;
+    }
 
-  //   $result = $this->role_service->updateRoleStatusById($role_id, $statuscode, auth()->user()->id);
-		
-	// 	// // Toast
-  //   if ($result[0]->result_id > 0) {
-  //     $this->showSuccessMessage = true;
-  //   }else{
-  //     $this->showErrorMessage = true;
-  //   }
+    // Update the property that holds vicariate options
+    $this->provinces_options = $this->select_option_service->loadProvincesByRegionIdOptions($region_id);
+  }
 
-	// 	$this->updateRoleStatusModal = false;	
-	// }
+  //public function load provinces when region change
+  public function spouseRegionChanged()
+  {
+    $spouse_region_id = $this->spouse_region_id;
+
+    if (!$spouse_region_id) {
+        $this->spouse_provinces_options = [];
+        return;
+    }
+
+    // Update the property that holds vicariate options
+    $this->spouse_provinces_options = $this->select_option_service->loadProvincesByRegionIdOptions($spouse_region_id);
+  }
+
+  //public function load city or municipality when province change
+  public function provinceChanged()
+  {
+    $province_id = $this->province_id;
+
+    if (!$province_id) {
+        $this->city_municipality_options = [];
+        return;
+    }
+
+    // Update the property that holds vicariate options
+    $this->city_municipality_options = $this->select_option_service->loadCityMunicipalityByProvinceIdOptions($province_id);
+  }
+
+  //public function load provinces when region change
+  public function spouseProvinceChanged()
+  {
+    $spouse_province_id = $this->spouse_province_id;
+
+    if (!$spouse_province_id) {
+        $this->spouse_city_municipality_options = [];
+        return;
+    }
+
+    // Update the property that holds vicariate options
+    $this->spouse_city_municipality_options = $this->select_option_service->loadCityMunicipalityByProvinceIdOptions($spouse_province_id);
+  }
+
+  //public function load barangay when city or municipality change
+  public function citymunicipalityChanged()
+  {
+    $city_municipality_id = $this->city_municipality_id;
+
+    if (!$city_municipality_id) {
+        $this->barangay_options = [];
+        return;
+    }
+
+    // Update the property that holds vicariate options
+    $this->barangay_options = $this->select_option_service->loadBarangayByCityMunicipalityIdOptions($city_municipality_id);
+  }
+
+  //public function load barangay when city or municipality change
+  public function spouseCityMunicipalityChanged()
+  {
+    $spouse_city_municipality_id = $this->spouse_city_municipality_id;
+
+    if (!$spouse_city_municipality_id) {
+        $this->spouse_barangay_options = [];
+        return;
+    }
+
+    // Update the property that holds vicariate options
+    $this->spouse_barangay_options = $this->select_option_service->loadBarangayByCityMunicipalityIdOptions($city_municipality_id);
+  }
+
+  //public function load basic ecclesial community when parish change
+  public function parishChanged()
+  {
+    $parish_id = $this->parish_id;
+
+    if (!$parish_id) {
+        $this->bec_options = [];
+        return;
+    }
+
+    // Update the property that holds vicariate options
+    $this->bec_options = $this->select_option_service->loadBasicEcclesialCommunityByParishIdOptions($parish_id);
+  }
 
 
 	public function render(){

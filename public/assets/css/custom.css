@@ -51,3 +51,8 @@
 .text-green{
   color: green;
 }
+
+.custom-content .modal-box {
+  width: 91.666667% !important;
+      max-width: 91rem !important;
+}

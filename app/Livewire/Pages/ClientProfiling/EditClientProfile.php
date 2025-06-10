@@ -37,7 +37,6 @@ class EditClientProfile extends Component
   public $statuscode;
 
   // client information
-  // client information
   public $client_type_id, $client_name, $birthdate, $address_rm_flr_unit_bldg, $address_lot_block, $address_street, $address_subdivision, $country_id, $region_id, $province_id, $city_municipality_id, $barangay_id, $citizenship_id;
   public $religion_id, $email_address, $facebook_name, $facebook_profile_link, $contact_number, $parish_id, $basic_ecclecial_community_id;
 
