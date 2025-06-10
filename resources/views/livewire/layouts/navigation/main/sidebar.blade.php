@@ -56,6 +56,7 @@
 
 					<x-mary-menu-sub title="Client" icon="s-user" open>
 						<x-mary-menu-item title="Client Profiling" icon="s-user-plus" link="/client-profiling" />
+						<x-mary-menu-item title="Client Management" icon="s-rectangle-stack" link="/client-management" />
 					</x-mary-menu-sub>
 
 					<x-mary-menu-separator />

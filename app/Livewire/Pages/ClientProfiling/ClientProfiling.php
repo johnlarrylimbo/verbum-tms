@@ -265,7 +265,7 @@ public function clearSpouseAddressDetails()
       'basic_ecclecial_community_id' => 'required|not_in:0'
 		]);
 
-    $exists = $this->client_profiling_service->addClientProfile($this->client_type_id, strtoupper($this->client_name), $this->birthdate, strtoupper($this->address_rm_flr_unit_bldg), strtoupper($this->address_lot_block), strtoupper($this->address_street), strtoupper($this->address_subdivision), $this->country_id, $this->region_id, $this->province_id, $this->city_municipality_id, $this->barangay_id, $this->citizenship_id, $this->religion_id, strtoupper($this->email_address), strtoupper($this->facebook_name), $this->facebook_profile_link, $this->contact_number, $this->parish_id, $this->basic_ecclecial_community_id, strtoupper($this->spouse_name), $this->spouse_birthdate, $this->wedding_date, strtoupper($this->spouse_address_rm_flr_unit_bldg), strtoupper($this->spouse_address_lot_block), strtoupper($this->spouse_address_street), strtoupper($this->spouse_address_subdivision), $this->spouse_country_id, $this->spouse_region_id, $this->spouse_province_id, $this->spouse_city_municipality_id, $this->spouse_barangay_id, $this->spouse_citizenship_id, $this->spouse_religion_id, auth()->user()->id);
+    $exists = $this->client_profiling_service->addClientProfile($this->client_type_id, strtoupper($this->client_name), $this->birthdate, $this->address_rm_flr_unit_bldg, $this->address_lot_block, $this->address_street, $this->address_subdivision, $this->country_id, $this->region_id, $this->province_id, $this->city_municipality_id, $this->barangay_id, $this->citizenship_id, $this->religion_id, $this->email_address, $this->facebook_name, $this->facebook_profile_link, $this->contact_number, $this->parish_id, $this->basic_ecclecial_community_id, strtoupper($this->spouse_name), $this->spouse_birthdate, $this->wedding_date, $this->spouse_address_rm_flr_unit_bldg, $this->spouse_address_lot_block, $this->spouse_address_street, $this->spouse_address_subdivision, $this->spouse_country_id, $this->spouse_region_id, $this->spouse_province_id, $this->spouse_city_municipality_id, $this->spouse_barangay_id, $this->spouse_citizenship_id, $this->spouse_religion_id, auth()->user()->id);
 
 		if ($exists[0]->result_id == 1) {
       // Optional: Show error to user
@@ -317,69 +317,6 @@ public function clearSpouseAddressDetails()
 		$this->reset(['spouse_religion_id', 'spouse_religion_id']);
 
 	}
-
-  // // public function get role by id
-	// public function openEditRoleModal(int $role_id){
-  //   $this->resetValidation();  // clears validation errors
-	// 	$this->editRoleModal = true;
-	// 	$this->role_id = $role_id;
-
-  //   $result = $this->role_service->getRoleById($this->role_id);
-
-	// 	foreach($result as $result){
-	// 		$this->edit_abbreviation = $result->abbreviation;
-  //     $this->edit_label = $result->label;
-	// 	}
-	// }
-
-  // // public function save role record changes
-  // public function save_role_record_changes(){
-	// 	// Validation and saving logic
-  //   $this->validate([
-	// 		'edit_abbreviation' => 'required|string|max:255',
-  //     'edit_label' => 'required|string|max:255'
-	// 	]);
-
-  //   $exists = $this->role_service->updateRoleById($this->role_id, $this->edit_abbreviation, $this->edit_label, auth()->user()->id);
-
-	// 	if ($exists[0]->result_id == 0) {
-  //     $this->showErrorMessage = true;
-	// 	}
-	// 	else{
-  //     $this->showSuccessMessage = true;
-	// 	}
-
-	// 	// Optionally reset form fields after save
-  //   $this->reset(['role_id', 'role_id']);
-	// 	$this->reset(['edit_abbreviation', 'edit_abbreviation']);
-  //   $this->reset(['edit_label', 'edit_label']);
-
-	// 	// Close the modal
-	// 	$this->editRoleModal = false;
-
-	// 	$this->role_lst();
-	// }
-
-  // public function openUpdateRoleStatusModal(int $role_id, int $statuscode){
-	// 	$this->updateRoleStatusModal = true;
-	// 	$this->role_id = $role_id;
-  //   $this->statuscode = $statuscode;
-	// }
-
-  // public function update_role_status($role_id, $statuscode){
-
-  //   $result = $this->role_service->updateRoleStatusById($role_id, $statuscode, auth()->user()->id);
-		
-	// 	// // Toast
-  //   if ($result[0]->result_id > 0) {
-  //     $this->showSuccessMessage = true;
-  //   }else{
-  //     $this->showErrorMessage = true;
-  //   }
-
-	// 	$this->updateRoleStatusModal = false;	
-	// }
-
 
 	public function render(){
 		return view('livewire.pages.client-profiling.client-profiling');
