@@ -56,3 +56,13 @@
   width: 91.666667% !important;
       max-width: 91rem !important;
 }
+
+.text-gray{
+  color: gray !important;
+}
+
+.excess{
+  color: red;
+    font-weight: 600;
+    font-style: italic;
+}

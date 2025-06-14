@@ -70,11 +70,11 @@
                                     spinner
                                     /> --}}
                   <x-mary-button 
-    icon="m-printer"
-    onclick="window.open('{{ url('/print-client-profile/' . $result->client_id) }}', '_blank')"
-    class="bg-enabled text-white btn-sm align-center"
-    spinner
-/>
+                      icon="m-printer"
+                      onclick="window.open('{{ url('/print-client-profile/' . $result->client_id) }}', '_blank')"
+                      class="bg-enabled text-white btn-sm align-center"
+                      spinner
+                  />
                 </td>
               </tr>
             @endforeach

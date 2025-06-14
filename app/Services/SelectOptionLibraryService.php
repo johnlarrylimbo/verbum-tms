@@ -319,5 +319,64 @@ class SelectOptionLibraryService extends Service
             throw new Exception('Error getting basic ecclesial community by parish id select options', 500, $exception);
         }
     }
+
+    public function loadClientOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_client_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting client select options', 500, $exception);
+        }
+    }
+
+    public function loadContractDetailByContractTypeIdOptions(int $param_contract_type_id)
+    {
+        try {
+            $contract_type_id = $param_contract_type_id ?? 0;
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_contract_detail_by_contract_type_id_select_options')
+                ->stored_procedure_params([' :p_contract_type_id '])
+				->stored_procedure_values([ $contract_type_id ])
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting contract detail by contract type id select options', 500, $exception);
+        }
+    }
+
+    public function loadEmployeeOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_employee_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting employee select options', 500, $exception);
+        }
+    }
+
+    public function loadPaymentTypeOptions()
+    {
+        try {
+
+            $result = $this->sp
+                ->stored_procedure('pr_datims_payment_type_select_options')
+                ->execute();
+
+            return $result->stored_procedure_result();
+        } catch (Exception $exception) {
+            throw new Exception('Error getting payment type select options', 500, $exception);
+        }
+    }
     
 }

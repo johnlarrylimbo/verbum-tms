@@ -281,7 +281,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1000,3,'CC-6fadfb5','UNIVERSITY OF THE IMMACULATE CONCEPTION','','','','Fr. Selga St., Bankerohan','',4827,1599,29,14,175,NULL,0,0,'info@uic.edu.ph','','','221-8181','221-8181',34,3,'','','','','','',0,0,0,0,0,0,0,NULL,'','CC-6fadfb5',1,'2025-06-08 13:34:30','2025-06-10 10:26:00',1);
+INSERT INTO `clients` VALUES (1000,3,'CC-6fadfb5','UNIVERSITY OF THE IMMACULATE CONCEPTION','1991-03-01','','','Fr. Selga St., Bankerohan','',4827,1599,29,14,175,NULL,0,0,'info@uic.edu.ph','','','221-8181','221-8181',34,3,'','','','','','',0,0,0,0,0,0,0,NULL,'','CC-6fadfb5',1,'2025-06-08 13:34:30','2025-06-10 10:26:00',1);
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,25 +379,29 @@ DROP TABLE IF EXISTS `contract_details`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contract_details` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `contract_account_no` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contract_account_no` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `client_id` int NOT NULL,
   `contract_category_id` int NOT NULL,
   `contract_type_id` int NOT NULL,
   `contract_category_type_detail_id` int NOT NULL,
   `contact_person` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact_person_designation` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `account_representative_id` int NOT NULL,
-  `contact_duration` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contract_duration_start_at` timestamp NULL DEFAULT NULL,
-  `contract_duration_end_at` timestamp NULL DEFAULT NULL,
+  `contract_duration_start_at` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contract_duration_end_at` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `amount_paid` decimal(10,2) DEFAULT NULL,
+  `balance` decimal(10,2) DEFAULT NULL,
+  `excess` decimal(10,2) DEFAULT NULL,
+  `is_paid` int DEFAULT '0',
   `remarks` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_renewed` int NOT NULL,
+  `is_renewed` tinyint NOT NULL DEFAULT '0',
   `contract_renewed_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `statuscode` int NOT NULL DEFAULT '1000' COMMENT '0 => inactive, 1 => active',
+  `statuscode` int NOT NULL DEFAULT '1' COMMENT '0 => inactive, 1 => active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,6 +410,7 @@ CREATE TABLE `contract_details` (
 
 LOCK TABLES `contract_details` WRITE;
 /*!40000 ALTER TABLE `contract_details` DISABLE KEYS */;
+INSERT INTO `contract_details` VALUES (1000,'CON-20250614122549',1000,1,1,1,'John Doe','Bookeeper',1000,'2025-06-14','2025-07-14',2000.00,2500.00,0.00,500.00,1,'',0,NULL,'2025-06-14 12:26:07',NULL,1),(1001,'CON-20250614123110',1000,1,1,1,'John Doe','Bookeeper',1000,'2025-06-15','2025-07-15',2000.00,2300.00,0.00,300.00,1,'',0,NULL,'2025-06-14 12:32:34',NULL,1);
 /*!40000 ALTER TABLE `contract_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,6 +467,34 @@ LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
 INSERT INTO `countries` VALUES (1,'AFG','AFGHANISTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(2,'ALA','ALAND ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(3,'ALB','ALBANIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(4,'DZA','ALGERIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(5,'ASM','AMERICAN SAMOA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(6,'AND','ANDORRA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(7,'AGO','ANGOLA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(8,'AIA','ANGUILLA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(9,'ATA','ANTARCTICA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(10,'ATG','ANTIGUA AND BARBUDA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(11,'ARG','ARGENTINA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(12,'ARM','ARMENIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(13,'ABW','ARUBA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(14,'AUS','AUSTRALIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(15,'AUT','AUSTRIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(16,'AZE','AZERBAIJAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(17,'BHS','BAHAMAS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(18,'BHR','BAHRAIN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(19,'BGD','BANGLADESH','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(20,'BRB','BARBADOS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(21,'BLR','BELARUS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(22,'BEL','BELGIUM','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(23,'BLZ','BELIZE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(24,'BEN','BENIN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(25,'BMU','BERMUDA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(26,'BTN','BHUTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(27,'BOL','BOLIVIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(28,'BIH','BOSNIA AND HERZEGOVINA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(29,'BWA','BOTSWANA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(30,'BVT','BOUVET ISLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(31,'BRA','BRAZIL','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(32,'VGB','BRITISH VIRGIN ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(33,'IOT','BRITISH INDIAN OCEAN TERRITORY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(34,'BRN','BRUNEI DARUSSALAM','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(35,'BGR','BULGARIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(36,'BFA','BURKINA FASO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(37,'BDI','BURUNDI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(38,'KHM','CAMBODIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(39,'CMR','CAMEROON','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(40,'CAN','CANADA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(41,'CPV','CAPE VERDE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(42,'CYM','CAYMAN ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(43,'CAF','CENTRAL AFRICAN REPUBLIC','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(44,'TCD','CHAD','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(45,'CHL','CHILE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(46,'CHN','CHINA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(47,'HKG','HONG KONG','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(48,'MAC','MACAO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(49,'CXR','CHRISTMAS ISLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(50,'CCK','COCOS (KEELING) ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(51,'COL','COLOMBIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(52,'COM','COMOROS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(53,'COG','CONGO (BRAZZAVILLE)','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(54,'COD','CONGO, (KINSHASA)','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(55,'COK','COOK ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(56,'CRI','COSTA RICA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(57,'CIV','CÔTE D\'IVOIRE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(58,'HRV','CROATIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(59,'CUB','CUBA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(60,'CYP','CYPRUS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(61,'CZE','CZECH REPUBLIC','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(62,'DNK','DENMARK','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(63,'DJI','DJIBOUTI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(64,'DMA','DOMINICA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(65,'DOM','DOMINICAN REPUBLIC','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(66,'ECU','ECUADOR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(67,'EGY','EGYPT','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(68,'SLV','EL SALVADOR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(69,'GNQ','EQUATORIAL GUINEA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(70,'ERI','ERITREA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(71,'EST','ESTONIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(72,'ETH','ETHIOPIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(73,'FLK','FALKLAND ISLANDS (MALVINAS)','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(74,'FRO','FAROE ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(75,'FJI','FIJI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(76,'FIN','FINLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(77,'FRA','FRANCE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(78,'GUF','FRENCH GUIANA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(79,'PYF','FRENCH POLYNESIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(80,'ATF','FRENCH SOUTHERN TERRITORIES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(81,'GAB','GABON','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(82,'GMB','GAMBIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(83,'GEO','GEORGIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(84,'DEU','GERMANY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(85,'GHA','GHANA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(86,'GIB','GIBRALTAR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(87,'GRC','GREECE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(88,'GRL','GREENLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(89,'GRD','GRENADA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(90,'GLP','GUADELOUPE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(91,'GUM','GUAM','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(92,'GTM','GUATEMALA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(93,'GGY','GUERNSEY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(94,'GIN','GUINEA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(95,'GNB','GUINEA-BISSAU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(96,'GUY','GUYANA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(97,'HTI','HAITI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(98,'HMD','HEARD AND MCDONALD ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(99,'VAT','VATICAN CITY STATE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(100,'HND','HONDURAS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(101,'HUN','HUNGARY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(102,'ISL','ICELAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(103,'IND','INDIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(104,'IDN','INDONESIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(105,'IRN','IRAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(106,'IRQ','IRAQ','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(107,'IRL','IRELAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(108,'IMN','ISLE OF MAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(109,'ISR','ISRAEL','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(110,'ITA','ITALY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(111,'JAM','JAMAICA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(112,'JPN','JAPAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(113,'JEY','JERSEY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(114,'JOR','JORDAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(115,'KAZ','KAZAKHSTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(116,'KEN','KENYA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(117,'KIR','KIRIBATI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(118,'PRK','KOREA (NORTH)','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(119,'KOR','KOREA (SOUTH)','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(120,'KWT','KUWAIT','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(121,'KGZ','KYRGYZSTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(122,'LAO','LAO PDR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(123,'LVA','LATVIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(124,'LBN','LEBANON','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(125,'LSO','LESOTHO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(126,'LBR','LIBERIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(127,'LBY','LIBYA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(128,'LIE','LIECHTENSTEIN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(129,'LTU','LITHUANIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(130,'LUX','LUXEMBOURG','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(131,'MKD','MACEDONIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(132,'MDG','MADAGASCAR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(133,'MWI','MALAWI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(134,'MYS','MALAYSIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(135,'MDV','MALDIVES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(136,'MLI','MALI','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(137,'MLT','MALTA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(138,'MHL','MARSHALL ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(139,'MTQ','MARTINIQUE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(140,'MRT','MAURITANIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(141,'MUS','MAURITIUS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(142,'MYT','MAYOTTE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(143,'MEX','MEXICO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(144,'FSM','MICRONESIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(145,'MDA','MOLDOVA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(146,'MCO','MONACO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(147,'MNG','MONGOLIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(148,'MNE','MONTENEGRO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(149,'MSR','MONTSERRAT','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(150,'MAR','MOROCCO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(151,'MOZ','MOZAMBIQUE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(152,'MMR','MYANMAR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(153,'NAM','NAMIBIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(154,'NRU','NAURU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(155,'NPL','NEPAL','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(156,'NLD','NETHERLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(157,'ANT','NETHERLANDS ANTILLES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(158,'NCL','NEW CALEDONIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(159,'NZL','NEW ZEALAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(160,'NIC','NICARAGUA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(161,'NER','NIGER','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(162,'NGA','NIGERIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(163,'NIU','NIUE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(164,'NFK','NORFOLK ISLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(165,'MNP','NORTHERN MARIANA ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(166,'NOR','NORWAY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(167,'OMN','OMAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(168,'PAK','PAKISTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(169,'PLW','PALAU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(170,'PSE','PALESTINIAN TERRITORY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(171,'PAN','PANAMA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(172,'PNG','PAPUA NEW GUINEA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(173,'PRY','PARAGUAY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(174,'PER','PERU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(175,'PHL','PHILIPPINES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(176,'PCN','PITCAIRN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(177,'POL','POLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(178,'PRT','PORTUGAL','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(179,'PRI','PUERTO RICO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(180,'QAT','QATAR','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(181,'REU','RÉUNION','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(182,'ROU','ROMANIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(183,'RUS','RUSSIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(184,'RWA','RWANDA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(185,'BLM','SAINT-BARTHÉLEMY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(186,'SHN','SAINT HELENA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(187,'KNA','SAINT KITTS AND NEVIS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(188,'LCA','SAINT LUCIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(189,'MAF','SAINT-MARTIN (FRENCH PART)','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(190,'SPM','SAINT PIERRE AND MIQUELON','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(191,'VCT','SAINT VINCENT AND GRENADINES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(192,'WSM','SAMOA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(193,'SMR','SAN MARINO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(194,'STP','SAO TOME AND PRINCIPE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(195,'SAU','SAUDI ARABIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(196,'SEN','SENEGAL','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(197,'SRB','SERBIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(198,'SYC','SEYCHELLES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(199,'SLE','SIERRA LEONE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(200,'SGP','SINGAPORE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(201,'SVK','SLOVAKIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(202,'SVN','SLOVENIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(203,'SLB','SOLOMON ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(204,'SOM','SOMALIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(205,'ZAF','SOUTH AFRICA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(206,'SGS','SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(207,'SSD','SOUTH SUDAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(208,'ESP','SPAIN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(209,'LKA','SRI LANKA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(210,'SDN','SUDAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(211,'SUR','SURINAME','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(212,'SJM','SVALBARD AND JAN MAYEN ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(213,'SWZ','SWAZILAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(214,'SWE','SWEDEN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(215,'CHE','SWITZERLAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(216,'SYR','SYRIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(217,'TWN','TAIWAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(218,'TJK','TAJIKISTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(219,'TZA','TANZANIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(220,'THA','THAILAND','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(221,'TLS','TIMOR-LESTE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(222,'TGO','TOGO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(223,'TKL','TOKELAU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(224,'TON','TONGA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(225,'TTO','TRINIDAD AND TOBAGO','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(226,'TUN','TUNISIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(227,'TUR','TURKEY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(228,'TKM','TURKMENISTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(229,'TCA','TURKS AND CAICOS ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(230,'TUV','TUVALU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(231,'UGA','UGANDA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(232,'UKR','UKRAINE','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(233,'ARE','UNITED ARAB EMIRATES','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(234,'GBR','UNITED KINGDOM','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(235,'USA','UNITED STATES OF AMERICA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(236,'UMI','US MINOR OUTLYING ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(237,'URY','URUGUAY','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(238,'UZB','UZBEKISTAN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(239,'VUT','VANUATU','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(240,'VEN','VENEZUELA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(241,'VNM','VIETNAM','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(242,'VIR','VIRGIN ISLANDS, US','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(243,'WLF','WALLIS AND FUTUNA ISLANDS','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(244,'ESH','WESTERN SAHARA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(245,'YEM','YEMEN','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(246,'ZMB','ZAMBIA','2024-11-10 05:29:15','2024-11-10 05:29:15',1),(247,'ZWE','ZIMBABWE','2024-11-10 05:29:15','2024-11-10 05:29:15',1);
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `designations`
+--
+
+DROP TABLE IF EXISTS `designations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `designations` (
+  `id` int NOT NULL DEFAULT '100',
+  `abbreviation` varchar(64) NOT NULL,
+  `label` varchar(256) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `statuscode` int DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `designations`
+--
+
+LOCK TABLES `designations` WRITE;
+/*!40000 ALTER TABLE `designations` DISABLE KEYS */;
+INSERT INTO `designations` VALUES (100,'SR','Sales Representatives','2025-06-12 11:13:03','2025-06-12 11:28:17',1);
+/*!40000 ALTER TABLE `designations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -551,6 +584,38 @@ LOCK TABLES `employee_types` WRITE;
 /*!40000 ALTER TABLE `employee_types` DISABLE KEYS */;
 INSERT INTO `employee_types` VALUES (1,'Teaching','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(2,'Non-Teaching','2024-11-10 05:31:29','2024-11-10 05:31:29',1),(3,'Sales Representative','2025-06-03 13:23:38','2025-06-04 10:44:19',1);
 /*!40000 ALTER TABLE `employee_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `employees` (
+  `id` int NOT NULL DEFAULT '1000',
+  `lastname` varchar(64) NOT NULL,
+  `firstname` varchar(64) NOT NULL,
+  `middlename` varchar(64) DEFAULT NULL,
+  `address` varchar(1024) DEFAULT NULL,
+  `contact_number` varchar(64) NOT NULL,
+  `email_address` varchar(64) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `statuscode` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employees`
+--
+
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (1000,'Doe','John','M',NULL,'123456',NULL,'2025-06-14 09:31:49',NULL,1);
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -693,6 +758,70 @@ INSERT INTO `months` VALUES (1,'January',1,7,'2024-11-10 05:31:29','2024-11-10 0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `official_receipt_library`
+--
+
+DROP TABLE IF EXISTS `official_receipt_library`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `official_receipt_library` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `or_no` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `or_no_UNIQUE` (`or_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `official_receipt_library`
+--
+
+LOCK TABLES `official_receipt_library` WRITE;
+/*!40000 ALTER TABLE `official_receipt_library` DISABLE KEYS */;
+INSERT INTO `official_receipt_library` VALUES (1,NULL),(2,NULL),(3,NULL),(4,NULL),(5,NULL),(6,NULL),(7,NULL),(8,NULL),(9,NULL),(10,NULL),(11,NULL),(12,NULL);
+/*!40000 ALTER TABLE `official_receipt_library` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `official_receipts`
+--
+
+DROP TABLE IF EXISTS `official_receipts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `official_receipts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `payment_type_id` int DEFAULT NULL,
+  `contract_detail_id` int DEFAULT NULL,
+  `or_number` varchar(8) DEFAULT NULL,
+  `amount_to_be_paid` decimal(10,2) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `is_cash` int DEFAULT NULL,
+  `is_check` int DEFAULT NULL,
+  `check_bank` varchar(512) DEFAULT NULL,
+  `check_no` varchar(256) DEFAULT NULL,
+  `is_cancelled` int DEFAULT '0',
+  `remarks` varchar(2048) DEFAULT NULL,
+  `transacted_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `cancelled_at` timestamp NULL DEFAULT NULL,
+  `statuscode` int DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `or_number_UNIQUE` (`or_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `official_receipts`
+--
+
+LOCK TABLES `official_receipts` WRITE;
+/*!40000 ALTER TABLE `official_receipts` DISABLE KEYS */;
+INSERT INTO `official_receipts` VALUES (7,1,1000,'00000006',1000.00,1000.00,1,0,NULL,NULL,0,'First Payment.',4,'2025-06-14 15:10:29',NULL,1),(8,1,1000,'00000007',1000.00,1000.00,1,0,NULL,NULL,0,'Second Payment.',4,'2025-06-14 15:10:57',NULL,1),(9,1,1000,'00000008',500.00,500.00,1,0,NULL,NULL,0,'Third Payment',4,'2025-06-14 15:14:55',NULL,1),(10,1,1001,'00000009',500.00,500.00,1,0,NULL,NULL,0,'First Payment.',4,'2025-06-14 15:26:04',NULL,1),(11,1,1001,'00000010',100.00,100.00,1,0,NULL,NULL,0,'Second partial payment',4,'2025-06-14 15:30:24',NULL,1),(12,1,1001,'00000011',200.00,200.00,1,0,NULL,NULL,0,'Third Payment',4,'2025-06-14 15:33:25',NULL,1),(13,1,1001,'00000012',1200.00,1500.00,1,0,NULL,NULL,0,'Test remarks only.',4,'2025-06-14 15:35:38',NULL,1);
+/*!40000 ALTER TABLE `official_receipts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `parishes`
 --
 
@@ -750,6 +879,33 @@ CREATE TABLE `password_reset_tokens` (
 LOCK TABLES `password_reset_tokens` WRITE;
 /*!40000 ALTER TABLE `password_reset_tokens` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_reset_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payments_types`
+--
+
+DROP TABLE IF EXISTS `payments_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `payments_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `label` varchar(256) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `statuscode` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payments_types`
+--
+
+LOCK TABLES `payments_types` WRITE;
+/*!40000 ALTER TABLE `payments_types` DISABLE KEYS */;
+INSERT INTO `payments_types` VALUES (1,'Cash','2025-06-14 13:24:00',NULL,1),(2,'Check / Online Payment','2025-06-14 13:24:00',NULL,1);
+/*!40000 ALTER TABLE `payments_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1110,6 +1266,37 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'datims'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `generate_or_number` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_or_number`(
+OUT new_or_no VARCHAR(8)
+)
+BEGIN
+	DECLARE new_id INT;
+
+    -- Insert dummy row to get auto-incremented ID
+    INSERT INTO official_receipt_library (or_no) VALUES (NULL);
+    SET new_id = LAST_INSERT_ID();
+
+    -- Format ID as 8-digit OR number (e.g. 00000001)
+    SET new_or_no = LPAD(new_id, 8, '0');
+
+    -- Update the row with the formatted OR number
+    UPDATE official_receipt_library SET or_no = new_or_no WHERE id = new_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_barangays_lst` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -2830,6 +3017,30 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_client_select_options`()
+BEGIN
+	select
+		c.id,
+        c.name as client_name
+    from clients c
+    where c.statuscode = 1
+    order by c.name;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_client_type_by_id_sel` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3698,6 +3909,247 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_detail_by_contract_type_id_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_detail_by_contract_type_id_select_options`(
+IN p_contract_type_id int
+)
+BEGIN
+	select
+		c.id,
+        c.label
+    from contract_category_type_details c
+    WHERE c.statuscode = 1
+			AND c.contract_type_id = p_contract_type_id
+    order by c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_form_payment_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_form_payment_by_id_sel`(
+IN p_contract_id int
+)
+BEGIN
+	SELECT
+		c.id as contract_id,
+        c.contract_account_no,
+        l.name as client_name,
+         cc.label as contract_category_label,
+        ct.label as contract_type_label,
+        cd.label as contract_category_type_detail_label,
+        c.amount,
+        c.balance
+    FROM contract_details c
+    LEFT JOIN clients l ON l.id = c.client_id
+    LEFT JOIN contract_categories cc ON cc.id = c.contract_category_id
+    LEFT JOIN contract_types ct ON ct.id = c.contract_type_id
+    LEFT JOIN contract_category_type_details cd ON cd.id = c.contract_category_type_detail_id
+    WHERE c.id = p_contract_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_ins`(
+IN p_contract_no VARCHAR(256),
+IN p_client_id int,
+IN p_contract_category_id int,
+IN p_contract_type_id int,
+IN p_contract_detail_id int,
+IN p_contact_person VARCHAR(256),
+IN p_contact_person_designation VARCHAR(256),
+IN p_account_representative_id int,
+IN p_contract_start VARCHAR(15),
+IN p_contract_end VARCHAR(15),
+IN p_contract_amount DECIMAL(10,2),
+IN p_remarks VARCHAR(2048),
+OUT result_contract_no varchar(256)
+)
+BEGIN
+	IF EXISTS (SELECT id FROM contract_details WHERE contract_account_no COLLATE utf8mb4_unicode_ci like CONCAT('%', p_contract_no COLLATE utf8mb4_unicode_ci, '%')) THEN
+		SET result_contract_no = p_contract_no;
+	ELSE
+		INSERT INTO contract_details(	contract_account_no,
+										client_id,
+                                        contract_category_id,
+                                        contract_type_id,
+                                        contract_category_type_detail_id,
+                                        contact_person,
+                                        contact_person_designation,
+                                        account_representative_id,
+                                        contract_duration_start_at,
+                                        contract_duration_end_at,
+                                        amount,
+                                        balance,
+                                        remarks)
+		VALUES(	p_contract_no,
+				p_client_id,
+                p_contract_category_id,
+                p_contract_type_id,
+                p_contract_detail_id,
+                p_contact_person,
+                p_contact_person_designation,
+                p_account_representative_id,
+                p_contract_start,
+                p_contract_end,
+                p_contract_amount,
+                p_contract_amount,
+                p_remarks);
+                
+		SET result_contract_no = 'added';
+        
+	END IF;
+    
+    SELECT result_contract_no AS 'result_contract_no';
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_lst`()
+BEGIN
+	SELECT
+		ROW_NUMBER() OVER (ORDER BY c.id) AS row_num,
+		c.id as contract_id,
+        c.contract_account_no,
+        l.name as client_name,
+        cc.label as contract_category_label,
+        ct.label as contract_type_label,
+        cd.label as contract_category_type_detail_label,
+        c.contact_person,
+        c.contact_person_designation,
+        case
+			when e.middlename is null or e.middlename = '' then CONCAT(e.firstname, ' ', e.lastname)
+            else CONCAT(e.firstname, ' ', left(e.middlename, 1), '. ', e.lastname)
+		end as account_representative_name,
+        c.contract_duration_start_at,
+        c.contract_duration_end_at,
+        c.contract_duration_end_at,
+        CASE 
+			WHEN c.remarks IS NULL OR c.remarks = '' THEN '-'
+            ELSE c.remarks
+		END AS remarks,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label,
+        c.balance,
+        c.excess,
+        c.is_paid
+    FROM contract_details c
+    LEFT JOIN clients l ON l.id = c.client_id
+    LEFT JOIN contract_categories cc ON cc.id = c.contract_category_id
+    LEFT JOIN contract_types ct ON ct.id = c.contract_type_id
+    LEFT JOIN contract_category_type_details cd ON cd.id = c.contract_category_type_detail_id
+    LEFT JOIN employees e ON e.id = c.account_representative_id
+    ORDER BY c.id DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_contract_lst_by_keyword`(
+IN p_keyword varchar(256)
+)
+BEGIN
+	SELECT
+		ROW_NUMBER() OVER (ORDER BY c.id) AS row_num,
+		c.id as contract_id,
+        c.contract_account_no,
+        l.name as client_name,
+        cc.label as contract_category_label,
+        ct.label as contract_type_label,
+        cd.label as contract_category_type_detail_label,
+        c.contact_person,
+        c.contact_person_designation,
+        case
+			when e.middlename is null or e.middlename = '' then CONCAT(e.firstname, ' ', e.lastname)
+            else CONCAT(e.firstname, ' ', left(e.middlename, 1), '. ', e.lastname)
+		end as account_representative_name,
+        c.contract_duration_start_at,
+        c.contract_duration_end_at,
+        c.contract_duration_end_at,
+        CASE 
+			WHEN c.remarks IS NULL OR c.remarks = '' THEN '-'
+            ELSE c.remarks
+		END AS remarks,
+        c.statuscode,
+        case
+			when c.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label,
+        c.balance,
+        c.excess,
+        c.is_paid
+    FROM contract_details c
+    LEFT JOIN clients l ON l.id = c.client_id
+    LEFT JOIN contract_categories cc ON cc.id = c.contract_category_id
+    LEFT JOIN contract_types ct ON ct.id = c.contract_type_id
+    LEFT JOIN contract_category_type_details cd ON cd.id = c.contract_category_type_detail_id
+    LEFT JOIN employees e ON e.id = c.account_representative_id
+    WHERE c.contract_account_no COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY c.id DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_contract_type_by_id_sel` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3930,6 +4382,205 @@ BEGIN
         c.label
     from countries c
     where c.statuscode = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_designation_by_id_sel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_designation_by_id_sel`(
+IN p_designation_id int
+)
+BEGIN
+	select
+		d.id as designation_id,
+        d.abbreviation,
+        d.label
+    from designations d
+    where d.id = p_designation_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_designation_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_designation_by_id_upd`(
+IN p_designation_id int,
+IN p_abbreviation varchar(64),
+IN p_label varchar(256),
+OUT result_id int
+)
+BEGIN
+	if exists (select id from designations where id = p_designation_id) then 
+		update designations
+        set abbreviation = p_abbreviation,
+            label = p_label,
+            updated_at = now()
+		where id = p_designation_id;
+        
+        set result_id = p_designation_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_designation_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_designation_ins`(
+IN p_abbreviation varchar(64),
+IN p_label varchar(256),
+IN result_id int
+)
+BEGIN
+	IF EXISTS (select id from designations where 	abbreviation COLLATE utf8mb4_unicode_ci like CONCAT('%', p_abbreviation COLLATE utf8mb4_unicode_ci, '%')
+													and label COLLATE utf8mb4_unicode_ci like CONCAT('%', p_label COLLATE utf8mb4_unicode_ci, '%')) then
+		set result_id = 1;
+    else
+		insert into designations(abbreviation, label)
+        values(p_abbreviation, p_label);
+        
+        set result_id = last_insert_id();
+    end if;
+    
+    select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_designation_lst` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_designation_lst`()
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY d.label) AS row_num,
+		d.id as designation_id,
+        d.abbreviation,
+        d.label,
+        d.statuscode,
+        case
+			when d.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from designations d
+    ORDER BY d.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_designation_lst_by_keyword` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_designation_lst_by_keyword`(
+IN p_keyword varchar(256)
+)
+BEGIN
+	select
+		ROW_NUMBER() OVER (ORDER BY d.label) AS row_num,
+		d.id as designation_id,
+        d.abbreviation,
+        d.label,
+        d.statuscode,
+        case
+			when d.statuscode = 0 then 'Inactive'
+            else 'Active'
+		end as statuscode_label
+    from designations d
+    where 	d.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
+    ORDER BY d.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_designation_status_by_id_upd` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_designation_status_by_id_upd`(
+IN p_designation_id int,
+IN p_statuscode int,
+OUT result_id int
+)
+BEGIN
+	IF EXISTS (select id from designations where id = p_designation_id) then
+		if p_statuscode = 1 then
+			update designations
+            set statuscode = 0,
+				updated_at = now()
+			where id = p_designation_id;
+        else
+			update designations
+            set statuscode = 1,
+				updated_at = now()
+			where id = p_designation_id;
+        end if;
+        
+        set result_id = p_designation_id;
+    else
+		set result_id = 0;
+    end if;
+    
+    select result_id as 'result_id';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -4235,6 +4886,32 @@ BEGIN
     end if;
     
     select result_id as 'result_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_employee_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_employee_select_options`()
+BEGIN
+	select
+		e.id,
+        case
+			when e.middlename is null or e.middlename = '' then CONCAT(e.firstname, ' ', e.lastname)
+            else CONCAT(e.firstname, ' ', left(e.middlename, 1), '. ', e.lastname)
+		end as employee_name
+    from employees e
+    where e.statuscode = 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -4878,6 +5555,30 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_official_receipt_by_id_sel_` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_official_receipt_by_id_sel_`(
+IN p_or_id int
+)
+BEGIN
+	select
+		o.id
+    from official_receipts o
+    where o.id = p_or_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_parishes_select_options` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -5229,6 +5930,95 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_cash_ins` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_cash_ins`(
+IN p_contract_id int,
+IN p_amount_to_be_paid DECIMAL(10,2),
+IN p_payment_type_id int,
+IN p_amount DECIMAL(10,2),
+IN p_receipt_remarks varchar(2048),
+IN p_user_id int,
+OUT result_or_id int
+)
+BEGIN
+	DECLARE new_id INT;
+    DECLARE new_or_no varchar(8);
+    DECLARE total_payment decimal(10,2);
+    DECLARE total_balance decimal(10,2);
+    DECLARE excess decimal(10,2);
+
+    -- Insert dummy row to get auto-incremented ID
+    INSERT INTO official_receipt_library (or_no) VALUES (NULL);
+    SET new_id = LAST_INSERT_ID();
+
+    -- Format ID as 8-digit OR number (e.g. 00000001)
+    SET new_or_no = LPAD(new_id, 8, '0');
+    
+	INSERT INTO official_receipts(	payment_type_id,
+									contract_detail_id,
+                                    or_number,
+									amount_to_be_paid,
+                                    amount,
+                                    is_cash,
+                                    is_check,
+                                    remarks,
+                                    transacted_by)
+	VALUES(	p_payment_type_id,
+			p_contract_id,
+            new_or_no,
+            p_amount_to_be_paid,
+            p_amount,
+            1,
+            0,
+            p_receipt_remarks,
+            p_user_id);
+            
+	SET total_payment = (	SELECT
+								sum(amount)
+							FROM official_receipts
+							WHERE contract_detail_id = p_contract_id AND is_cancelled = 0);
+                            
+	SET excess = (	SELECT
+								CASE
+									WHEN total_payment > amount THEN total_payment - amount
+                                    ELSE 0
+								END
+							FROM contract_details
+							WHERE id = p_contract_id);
+                            
+	SET total_balance = (	SELECT
+								CASE
+									WHEN total_payment > amount THEN 0
+                                    ELSE amount - total_payment
+								END
+							FROM contract_details
+							WHERE id = p_contract_id);
+                            
+	UPDATE contract_details
+    SET contract_details.amount_paid = total_payment,
+		contract_details.balance = total_balance,
+        contract_details.is_paid = CASE WHEN total_balance = 0 THEN 1 ELSE 0 END,
+        contract_details.excess = excess
+	WHERE contract_details.id = p_contract_id;
+            
+	SET result_or_id = last_insert_id();
+    
+    SELECT result_or_id as 'result_or_id';
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_by_id_sel` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -5374,6 +6164,29 @@ BEGIN
     from cashier_transaction_types c
     where 	c.label COLLATE utf8mb4_unicode_ci LIKE CONCAT('%', p_keyword COLLATE utf8mb4_unicode_ci, '%')
     ORDER BY c.label;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_payment_type_select_options` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_payment_type_select_options`()
+BEGIN
+	SELECT
+		p.id,
+        p.label
+    FROM payments_types p
+    WHERE p.statuscode = 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -6610,6 +7423,108 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pr_datims_report_client_profile_by_id_sel_` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pr_datims_report_client_profile_by_id_sel_`(
+IN p_client_id int
+)
+BEGIN
+	SELECT
+		c.id as client_id,
+        c.client_type_id,
+        c.code as client_code,
+        c.name as client_name,
+        DATE_FORMAT(c.birthdate, "%M %d %Y") as birthdate,
+        CONCAT(
+			IF(c.address_rm_flr_unit_bldg IS NOT NULL AND c.address_rm_flr_unit_bldg != '', CONCAT(c.address_rm_flr_unit_bldg), ' '),
+			IF(c.address_lot_block IS NOT NULL AND c.address_lot_block != '', CONCAT(c.address_lot_block), ' '),
+            IF(c.address_street IS NOT NULL AND c.address_street != '', CONCAT(c.address_street), ' '),
+            IF(c.address_subdivision IS NOT NULL AND c.address_subdivision != '', CONCAT(c.address_subdivision), '')
+		) as client_address,
+        b.label as barangay_label,
+        cm.label as city_municipality_label,
+        p.label as province_label,
+        r.abbreviation as region_label,
+        o.label as country_label,
+        case 
+			when i.label is not null or i.label != '' AND i.nationality is not null or i.nationality != '' then CONCAT(i.label, ' / ', i.nationality)
+            else '-'
+		end as citizenship_nationality_label,
+        case 
+			when e.label is not null or e.label != ''  then e.label
+            else '-'
+		end as religion_label,
+        c.email_address,
+        c.telephone_number,
+        CASE
+			WHEN s.name IS NULL OR s.name = '' THEN
+				NULL
+			ELSE
+				CONCAT(
+					s.name,
+					IF(s.primary_location IS NOT NULL AND s.primary_location != '', CONCAT(' - ', s.primary_location), ''),
+					IF(s.diocese_id IS NOT NULL AND s.diocese_id != '', CONCAT(' (', s.name, ')'), '')
+				)
+		END AS parish_name,
+        l.name as bec_name,
+        case 
+			when c.spouse_name is not null AND c.spouse_name != '' then c.spouse_name
+            else '-'
+		end as spouse_name,
+        DATE_FORMAT(c.spouse_birthdate, "%M %d %Y") as spouse_birthdate,
+        CONCAT(
+			IF(c.spouse_address_rm_flr_unit_bldg IS NOT NULL AND c.spouse_address_rm_flr_unit_bldg != '', CONCAT(c.spouse_address_rm_flr_unit_bldg), ' '),
+			IF(c.spouse_address_lot_block IS NOT NULL AND c.spouse_address_lot_block != '', CONCAT(c.spouse_address_lot_block), ' '),
+            IF(c.spouse_address_street IS NOT NULL AND c.spouse_address_street != '', CONCAT(c.spouse_address_street), ' '),
+            IF(c.spouse_address_subdivision IS NOT NULL AND c.spouse_address_subdivision != '', CONCAT(c.spouse_address_subdivision), '')
+		) as spouse_address,
+        b2.label as spouse_barangay_label,
+        cm2.label as spouse_city_municipality_label,
+        p2.label as spouse_province_label,
+        r2.abbreviation as spouse_region_label,
+        o2.label as spouse_country_label,
+        case 
+			when i2.label is not null or i2.label != '' AND i2.nationality is not null or i2.nationality != '' then CONCAT(i2.label, ' / ', i2.nationality)
+            else '-'
+		end as spouse_citizenship_nationality_label,
+        case 
+			when e2.label is not null or e2.label != ''  then e2.label
+            else '-'
+		end as spouse_religion_label,
+        DATE_FORMAT(c.wedding_date, "%M %d %Y") as wedding_date
+    FROM clients c
+    LEFT JOIN barangays b ON b.id = c.barangay_id
+    LEFT JOIN city_municipalities cm ON cm.id = c.city_municipality_id
+    LEFT JOIN provinces p ON p.id = c.province_id
+    LEFT JOIN regions r ON r.id = c.region_id
+    LEFT JOIN countries o ON o.id = c.country_id
+    LEFT JOIN barangays b2 ON b2.id = c.spouse_barangay_id
+    LEFT JOIN city_municipalities cm2 ON cm2.id = c.spouse_city_municipality_id
+    LEFT JOIN provinces p2 ON p2.id = c.spouse_province_id
+    LEFT JOIN regions r2 ON r2.id = c.spouse_region_id
+    LEFT JOIN countries o2 ON o2.id = c.spouse_country_id
+    LEFT JOIN citizenship_nationalities i ON i.id = c.citizenship_id
+    LEFT JOIN religions e ON e.id = c.religion_id
+    LEFT JOIN citizenship_nationalities i2 ON i2.id = c.spouse_citizenship_id
+    LEFT JOIN religions e2 ON e2.id = c.spouse_religion_id
+    LEFT JOIN parishes s ON s.id = c.parish_id
+    LEFT JOIN dioceses d ON d.id = s.diocese_id
+    LEFT JOIN basic_ecclecial_communities l ON l.id = c.basic_ecclecial_community_id
+    WHERE c.id = p_client_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pr_datims_role_by_id_sel` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -7047,4 +7962,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-10 18:26:29
+-- Dump completed on 2025-06-14 23:36:50

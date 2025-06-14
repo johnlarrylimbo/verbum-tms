@@ -76,6 +76,25 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/or-by-id/{id}', function ($id) {
+        // Call stored procedure (adjust the name and parameters as needed)
+        $orData = DB::select('CALL pr_datims_official_receipt_by_id_sel_(?)', [$id]);
+
+        // Optional: Handle case if no data is returned
+        if (empty($orData)) {
+            abort(404, 'Client not found');
+        }
+
+        // Convert result to object/array as needed
+        $or_detail = $orData[0]; // Assuming the stored procedure returns a single row
+
+        $pdf = Pdf::loadView('pdf.official-receipt', compact('or_detail'));
+
+        return $pdf->stream('official-receipt.pdf');
+    });
+});
+
 require __DIR__.'/app_routes/barangay_routes.php';
 
 require __DIR__.'/app_routes/priest_routes.php';
@@ -127,6 +146,12 @@ require __DIR__.'/app_routes/city_municipality_routes.php';
 require __DIR__.'/app_routes/client_management_routes.php';
 
 require __DIR__.'/app_routes/view_client_profile_by_id_routes.php';
+
+require __DIR__.'/app_routes/designation_routes.php';
+
+require __DIR__.'/app_routes/contract_routes.php';
+
+require __DIR__.'/app_routes/create_contract_routes.php';
 
 
 require __DIR__.'/auth.php';

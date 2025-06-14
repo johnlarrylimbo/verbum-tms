@@ -61,6 +61,12 @@
 
 					<x-mary-menu-separator />
 
+					<x-mary-menu-sub title="Contracts" icon="c-folder-arrow-down" open>
+						<x-mary-menu-item title="Contract Management" icon="c-folder-open" link="/contracts" />
+					</x-mary-menu-sub>
+
+					<x-mary-menu-separator />
+
 					<x-mary-menu-sub title="System Library" icon="o-cog-6-tooth">
 						<x-mary-menu-item title="Barangay" icon="s-wrench-screwdriver" link="/barangay" />
 						<x-mary-menu-item title="Basic Ecclesial Community" icon="s-wrench-screwdriver" link="/bec" />
@@ -72,6 +78,7 @@
 						<x-mary-menu-item title="Contract Category Type" icon="s-wrench-screwdriver" link="/category-type" />
 						<x-mary-menu-item title="Contract Type" icon="s-wrench-screwdriver" link="/contract-type" />
 						<x-mary-menu-item title="Congregation" icon="s-wrench-screwdriver" link="/congregation" />
+						<x-mary-menu-item title="Designation" icon="s-wrench-screwdriver" link="/designation" />
 						<x-mary-menu-item title="Diocese" icon="s-wrench-screwdriver" link="/diocese" />
 						<x-mary-menu-item title="Diocese Vicariate" icon="s-wrench-screwdriver" link="/vicariate" />
 						<x-mary-menu-item title="Employee Type" icon="s-wrench-screwdriver" link="/employee-type" />
