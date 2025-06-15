@@ -217,7 +217,19 @@
               <tr>
                 <td width="25%">Amount</td>
                 <td width="3%">:</td>
-                <td><x-mary-input wire:model="account_amount" id="account_amount" disabled="disabled"/></td>
+                <td>
+                  {{-- <x-mary-input wire:model="account_amount" id="account_amount" disabled="disabled"/> --}}
+                  <x-mary-input 
+                        prefix="PHP"
+                        {{-- label="Amount"  --}}
+                        wire:model.lazy="account_amount" 
+                        id="account_amount"
+                        type="text" 
+                        inputmode="decimal" 
+                        pattern="^\d+(\.\d{1,2})?$"
+                        disabled="disabled"
+                    />
+                </td>
               </tr>
             </table>
           </div>
@@ -230,11 +242,30 @@
             <div class="flex flex-col md:flex-row">
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px; width: 50% !important;">
-                <x-mary-input label="Balance" wire:model="balance" id="balance" disabled="disabled"/>
+                {{-- <x-mary-input label="Balance" wire:model="balance" id="balance" disabled="disabled"/> --}}
+                 <x-mary-input 
+                        prefix="PHP"
+                        label="Balance" 
+                        wire:model.lazy="balance" 
+                        id="balance"
+                        type="text" 
+                        inputmode="decimal" 
+                        pattern="^\d+(\.\d{1,2})?$"
+                        disabled="disabled"
+                    />
               </div>&nbsp;
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px; width: 50% !important;">
-                <x-mary-input label="Amount to be paid" wire:model="amount_to_be_paid" id="amount_to_be_paid" />
+                {{-- <x-mary-input label="Amount to be paid" wire:model="amount_to_be_paid" id="amount_to_be_paid" /> --}}
+                <x-mary-input 
+                        prefix="PHP"
+                        label="Amount to be paid" 
+                        wire:model.lazy="amount_to_be_paid" 
+                        id="amount_to_be_paid"
+                        type="text" 
+                        inputmode="decimal" 
+                        pattern="^\d+(\.\d{1,2})?$"
+                    />
               </div>&nbsp;
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px;">
@@ -255,7 +286,16 @@
             <div class="flex flex-col md:flex-row">
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px; width: 50% !important;">
-                <x-mary-input label="Payment Amount" wire:model="amount" id="amount" />
+                {{-- <x-mary-input label="Payment Amount" wire:model="amount" id="amount" /> --}}
+                <x-mary-input 
+                        prefix="PHP"
+                        label="Payment Amount" 
+                        wire:model.lazy="amount" 
+                        id="amount"
+                        type="text" 
+                        inputmode="decimal" 
+                        pattern="^\d+(\.\d{1,2})?$"
+                    />
               </div>&nbsp;
 
               <!-- Conditionally Show Check No. Field -->
