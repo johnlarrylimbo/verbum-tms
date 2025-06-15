@@ -128,6 +128,23 @@
 
   </x-mary-card>
 
+  <x-mary-modal wire:model="updateContractStatusModal" class="backdrop-blur" title="Please Confirm Action?" separator>
+
+    <p>Are you sure want to perform this action?</p>
+
+    <x-slot:actions>
+        <x-mary-button label="Cancel" wire:click="updateContractStatusModal = false" />
+        <x-mary-button 
+              label="Confirm" 
+              class="btn-primary" 
+              spinner="delete" 
+              wire:click="update_contract_status({{ $contract_id }}, {{ $statuscode }})" 
+              wire:target="update_contract_status" 
+              />
+    </x-slot:actions>
+
+  </x-mary-modal>
+
 
   {{-- Right --}}
   <x-mary-drawer wire:model="showDrawer2" right style="width: 39%;">
@@ -297,6 +314,6 @@
 
   <x-livewire-loader target="save_payment" message="Saving payment... please wait..." />
 
-  <x-livewire-loader target="openCreateContractWindow" message="Please wait while the system loads the contract form for you..." />
+  <x-livewire-loader target="update_contract_status" message="Saving action... please wait..." />
 
 </div>

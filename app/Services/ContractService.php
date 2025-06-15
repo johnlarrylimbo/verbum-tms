@@ -122,7 +122,7 @@ class ContractService extends Service
 								->stored_procedure_values([ $contract_id, $amount_to_be_paid, $payment_type_id, $amount, $receipt_remarks, $user_id, 0 ])
 								->execute();
 
-			Log::channel('transaction_audit_trail')->info('Added new payment:', [
+			Log::channel('transaction_audit_trail')->info('Added new contract payment:', [
                     'contract_id' => $contract_id,
 										'amount_to_be_paid' => $amount_to_be_paid,
                     'payment_type_id' => $payment_type_id,
@@ -132,40 +132,14 @@ class ContractService extends Service
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error adding payment', 500, $exception);
+				throw new Exception('Error adding contract payment', 500, $exception);
 		}
 	}
 
-	public function updateRoleById(int $param_role_id, string $param_abbreviation, string $param_label, int $param_user_id)
+	public function updateContractStatusById(int $param_contract_id, int $param_statuscode, int $param_user_id)
 	{
 		try {
-      $role_id = $param_role_id ?? 0;
-			$abbreviation = $param_abbreviation ?? '';
-      $label = $param_label ?? '';
-			$user_id = $param_user_id ?? 0;
-			
-			$result = $this->sp
-								->stored_procedure('pr_datims_role_by_id_upd')
-								->stored_procedure_params([':p_role_id, :p_abbreviation, :p_label, :result_id'])
-								->stored_procedure_values([ $role_id, $abbreviation, $label, 0 ])
-								->execute();
-
-			Log::channel('transaction_audit_trail')->info('Updated role:', [
-                    'role_id' => $role_id,
-                    'abbreviation' => $abbreviation,
-                    'label' => $label,
-										'updated_by' => $user_id]);
-
-			return $result->stored_procedure_result();
-		} catch (Exception $exception) {
-				throw new Exception('Error updating role by id', 500, $exception);
-		}
-	}
-
-	public function updateRoleStatusById(int $param_role_id, int $param_statuscode, int $param_user_id)
-	{
-		try {
-			$role_id  = $param_role_id ?? 0;
+			$contract_id  = $param_contract_id ?? 0;
 			$statuscode = $param_statuscode ?? 0;
 			$user_id = $param_user_id ?? 0;
 
@@ -176,20 +150,20 @@ class ContractService extends Service
 			}
 
 			$result = $this->sp
-								->stored_procedure('pr_datims_role_status_by_id_upd')
-								->stored_procedure_params([':p_role_id, :p_statuscode, :result_id'])
-								->stored_procedure_values([ $role_id , $statuscode, 0 ])
+								->stored_procedure('pr_datims_contract_status_by_id_upd')
+								->stored_procedure_params([':p_contract_id, :p_statuscode, :result_id'])
+								->stored_procedure_values([ $contract_id , $statuscode, 0 ])
 								->execute();
 
-			Log::channel('transaction_audit_trail')->info('Updated role status:', [
-										'role_id ' => $role_id , 
+			Log::channel('transaction_audit_trail')->info('Updated contract status:', [
+										'contract_id ' => $contract_id , 
 										'from_status' => $statuscode,
 										'to_status' => $updated_to,
 										'updated_by' => $user_id]);
 
 			return $result->stored_procedure_result();
 		} catch (Exception $exception) {
-				throw new Exception('Error updating role status by id', 500, $exception);
+				throw new Exception('Error updating contract status by id', 500, $exception);
 		}
 	}
     

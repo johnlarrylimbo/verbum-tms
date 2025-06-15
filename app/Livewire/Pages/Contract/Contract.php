@@ -41,8 +41,6 @@ class Contract extends Component
   public $edit_client_id, $edit_contract_category_id ;
 
   #modals
-  public bool $addContractModal = false;
-  public bool $editContractModal = false;
   public bool $updateContractStatusModal = false;
 	public bool $showDrawer2 = false;
 	public $show_check_no = false;
@@ -206,6 +204,52 @@ class Contract extends Component
 		} catch(e){
       // Optional: Show error to user
       $this->addMessage = 'Action Failed! An error occured while adding this new record.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
+
+	public function openUpdateContractStatusModal(int $contract_id, int $statuscode){
+    try{
+      $this->updateContractStatusModal = true;
+      $this->contract_id = $contract_id;
+      $this->statuscode = $statuscode;
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
+      $this->showMessageToast = true;
+      $this->is_success = false;
+    }
+	}
+
+  public function update_contract_status($contract_id, $statuscode){
+    try{
+      $result = $this->contract_service->updateContractStatusById($contract_id, $statuscode, auth()->user()->id);
+      
+      // // Toast
+      if ($result[0]->result_id > 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Updated contract status successfully.';
+        $this->showMessageToast = true;
+        $this->is_success = true;
+      }
+			else if ($result[0]->result_id == 1) {
+        // Optional: Show error to user
+        $this->addMessage = 'Action Failed! Could not update status. Contract with payment cannot be deactivated or removed from the system.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+			else if ($result[0]->result_id == 0){
+        // Optional: Show error to user
+        $this->addMessage = 'Failed to update record status. Record does not exists in the database.';
+        $this->showMessageToast = true;
+        $this->is_success = false;
+      }
+
+      $this->updateContractStatusModal = false;	
+    } catch(e){
+      // Optional: Show error to user
+      $this->addMessage = 'Action Failed! An error occured while performing this action.';
       $this->showMessageToast = true;
       $this->is_success = false;
     }
