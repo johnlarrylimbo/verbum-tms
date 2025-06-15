@@ -51,6 +51,7 @@
             @endif
 
 					<x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
+					<x-mary-menu-item title="Monitoring Board" icon="o-home" link="/monitoring-board" />
 					<x-mary-menu-separator />
 					
 

@@ -188,5 +188,7 @@ require __DIR__.'/app_routes/contract_routes.php';
 
 require __DIR__.'/app_routes/create_contract_routes.php';
 
+require __DIR__.'/app_routes/monitoring_board_routes.php';
+
 
 require __DIR__.'/auth.php';
