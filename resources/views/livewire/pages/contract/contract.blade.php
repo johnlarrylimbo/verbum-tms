@@ -89,26 +89,16 @@
                   @endif
                 </td>
                 <td class="text-center vertical-align-top">
-                  <x-mary-button icon="o-pencil-square" 
-                                  wire:click="openEditContractModal({{ $result->contract_id }})" 
-                                  wire:target="openEditContractModal"
-                                  spinner 
-                                  class="bg-green-600 text-white btn-sm align-center" /><br/>
-                  {{-- <x-mary-button icon="o-magnifying-glass-circle" 
-                                  wire:click="openViewClientProfileModal({{ $result->contract_id }})" 
-                                  wire:target="openViewClientProfileModal"
-                                  spinner 
-                                  class="bg-danger text-white btn-sm align-center" /><br/> --}}
                   <x-mary-button 
                       icon="o-magnifying-glass-circle"
                       onclick="window.open('{{ url('/print-payment-summary-by-id/' . $result->contract_id) }}', '_blank')"
-                      class="bg-danger text-white btn-sm align-center"
+                      class="bg-primary text-white btn-sm align-center"
                       spinner
                   /><br/>
                   <x-mary-button 
                       icon="m-printer"
                       onclick="window.open('{{ url('/print-contract-by-id/' . $result->contract_id) }}', '_blank')"
-                      class="bg-primary text-white btn-sm align-center"
+                      class="bg-green-600 text-white btn-sm align-center"
                       spinner
                   /><br/>
                   @if($result->statuscode == 1)
@@ -138,41 +128,6 @@
 
   </x-mary-card>
 
-
-  <x-mary-modal wire:model="addContractModal" class="backdrop-blur custom-modal top-modal">
-    <!-- Manual Header -->
-    <div class="px-6 pt-4 pb-2 border-b border-gray-200 custom-modal-header-div">
-        <h2 class="text-lg font-semibold text-gray-800">Add New Contract</h2>
-    </div>
-
-    <!-- Modal Form -->
-    <x-mary-form wire:submit.prevent="save_contract" no-separator>
-
-      <div>
-          <!-- Contract No Input -->
-          <x-mary-input label="Contract No." wire:model="contract_no_disabled" id="contract_no_disabled" disabled="disabled"/>
-          <x-mary-input type="hidden" wire:model="contract_no" id="contract_no" />
-
-          <!-- Generate Button -->
-          <x-mary-button wire:click="generateContractNo" label="Generate Contract No" icon="c-hashtag" class="mt-2" />
-      </div>
-
-      {{-- <x-mary-input label="Citizenship Description" wire:model="label" id="label" />
-
-      <x-mary-input label="Nationality Description" wire:model="nationality" id="nationality" /> --}}
-   
-      <x-slot:actions>
-          <x-mary-button label="Cancel" @click="$wire.addContractModal = false"/>
-          <x-mary-button 
-                  label="Save Record" 
-                  class="btn-primary" 
-                  type="submit" 
-                  spinner="save_contract"
-                  wire:target="save_contract" />
-      </x-slot:actions>
-
-    </x-mary-form>
-  </x-mary-modal>
 
   {{-- Right --}}
   <x-mary-drawer wire:model="showDrawer2" right style="width: 39%;">
@@ -242,7 +197,6 @@
             <div class="flex flex-col md:flex-row">
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px; width: 50% !important;">
-                {{-- <x-mary-input label="Balance" wire:model="balance" id="balance" disabled="disabled"/> --}}
                  <x-mary-input 
                         prefix="PHP"
                         label="Balance" 
@@ -256,7 +210,6 @@
               </div>&nbsp;
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px; width: 50% !important;">
-                {{-- <x-mary-input label="Amount to be paid" wire:model="amount_to_be_paid" id="amount_to_be_paid" /> --}}
                 <x-mary-input 
                         prefix="PHP"
                         label="Amount to be paid" 
@@ -286,7 +239,6 @@
             <div class="flex flex-col md:flex-row">
 
               <div class="w-full md:flex-1" style="margin-bottom: 4px; width: 50% !important;">
-                {{-- <x-mary-input label="Payment Amount" wire:model="amount" id="amount" /> --}}
                 <x-mary-input 
                         prefix="PHP"
                         label="Payment Amount" 
@@ -344,8 +296,6 @@
   <x-livewire-loader target="contract_lst" message="Please wait while the system loads all citizenship records for you..." />
 
   <x-livewire-loader target="save_payment" message="Saving payment... please wait..." />
-
-  <x-livewire-loader target="openEditContractModal" message="Please wait while the system retrieves the record for you..." />
 
   <x-livewire-loader target="openCreateContractWindow" message="Please wait while the system loads the contract form for you..." />
 
