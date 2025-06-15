@@ -110,7 +110,7 @@
 
       <div class="flex items-center gap-2">
         <x-mary-select
-              label="Diocese"
+              label="Contract Category"
               :options="$this->load_contract_category_options"
               option-value="id"
               option-label="label"
@@ -128,7 +128,7 @@
 
       <div class="flex items-center gap-2">
         <x-mary-select
-              label="Diocese"
+              label="Contract Type"
               :options="$this->load_contract_type_options"
               option-value="id"
               option-label="label"

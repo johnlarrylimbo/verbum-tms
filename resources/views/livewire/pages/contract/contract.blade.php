@@ -94,6 +94,23 @@
                                   wire:target="openEditContractModal"
                                   spinner 
                                   class="bg-green-600 text-white btn-sm align-center" /><br/>
+                  {{-- <x-mary-button icon="o-magnifying-glass-circle" 
+                                  wire:click="openViewClientProfileModal({{ $result->contract_id }})" 
+                                  wire:target="openViewClientProfileModal"
+                                  spinner 
+                                  class="bg-danger text-white btn-sm align-center" /><br/> --}}
+                  <x-mary-button 
+                      icon="o-magnifying-glass-circle"
+                      onclick="window.open('{{ url('/print-payment-summary-by-id/' . $result->contract_id) }}', '_blank')"
+                      class="bg-danger text-white btn-sm align-center"
+                      spinner
+                  /><br/>
+                  <x-mary-button 
+                      icon="m-printer"
+                      onclick="window.open('{{ url('/print-contract-by-id/' . $result->contract_id) }}', '_blank')"
+                      class="bg-primary text-white btn-sm align-center"
+                      spinner
+                  /><br/>
                   @if($result->statuscode == 1)
                     <x-mary-button icon="o-eye-slash"
                                     wire:click="openUpdateContractStatusModal({{ $result->contract_id }},{{ $result->statuscode }})"

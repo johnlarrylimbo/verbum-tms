@@ -77,19 +77,54 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/or-by-id/{id}', function ($id) {
+    Route::get('/print-contract-by-id/{id}', function ($id) {
         // Call stored procedure (adjust the name and parameters as needed)
-        $orData = DB::select('CALL pr_datims_official_receipt_by_id_sel_(?)', [$id]);
+        $contractData = DB::select('CALL pr_datims_contract_form_payment_by_id_sel(?)', [$id]);
 
         // Optional: Handle case if no data is returned
-        if (empty($orData)) {
+        if (empty($contractData)) {
+            abort(404, 'Contract not found');
+        }
+
+        // Convert result to object/array as needed
+        $contract = $contractData[0]; // Assuming the stored procedure returns a single row
+
+        $pdf = Pdf::loadView('pdf.contract', compact('contract'));
+
+        return $pdf->stream('contract.pdf');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/print-payment-summary-by-id/{id}', function ($id) {
+        $summary = DB::select('CALL pr_datims_contract_payment_summary_by_id_sel(?)', [$id]);
+
+            if (empty($summary)) {
+                abort(404, 'Contract not found');
+            }
+
+						$detail = $summary[0]; // Assuming the stored procedure returns a single row
+
+            $pdf = Pdf::loadView('pdf.payment-summary', compact('summary', 'detail'));
+
+            return $pdf->stream('payment-summary.pdf');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/or-by-id/{id}', function ($id) {
+        // Call stored procedure (adjust the name and parameters as needed)
+        $result = DB::select('CALL pr_datims_official_receipt_by_id_sel_(?)', [$id]);
+
+        // Optional: Handle case if no data is returned
+        if (empty($result)) {
             abort(404, 'Client not found');
         }
 
         // Convert result to object/array as needed
-        $or_detail = $orData[0]; // Assuming the stored procedure returns a single row
+        $detail = $result[0]; // Assuming the stored procedure returns a single row
 
-        $pdf = Pdf::loadView('pdf.official-receipt', compact('or_detail'));
+        $pdf = Pdf::loadView('pdf.official-receipt', compact('detail', 'result'))->setPaper('letter', 'portrait');
 
         return $pdf->stream('official-receipt.pdf');
     });
